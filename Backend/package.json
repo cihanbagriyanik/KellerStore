@@ -1,0 +1,15 @@
+{
+  "title": "Keller Store Management API",
+  "name": "kellerstoreapi",
+  "version": "1.0.0",
+  "description": "Keller Store Management System",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon",
+    "debug": "DEBUG=* nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Cihan Bagriyanik",
+  "license": "ISC Licence"
+}
