@@ -1,0 +1,12 @@
+NODE_ENV=dev
+
+PORT=8000
+
+MONGODB=mongodb://127.0.0.1:27017/kellerstore
+
+
+SECRET_KEY=a7db7ashd7ashd7ahsd7ashd7ashd7hasd7g2367f4e219er
+ACCESS_KEY=ashbd7agsd7asd7gsa7dga7sdga7sgd023r9e23e9923e9u3e932jed 
+REFRESH_KEY=nuashd8h3283ndm823d8h8232d2309hd89g3d923gd98hd238hd732d 
+
+PAGE_SIZE=25
