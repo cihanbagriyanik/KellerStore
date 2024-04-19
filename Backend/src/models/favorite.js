@@ -11,15 +11,15 @@ const { mongoose } = require("../configs/dbConnection");
 // }
 
 /* -------------------------------------------------------------------------- */
-//? Business Model:
-const BusinessSchema = new mongoose.Schema(
+//? Favorite Model:
+const FavoriteSchema = new mongoose.Schema(
   {},
 
   {
-    collection: "businesses",
+    collection: "favorites",
     timestamps: true,
   }
 );
 
 /* -------------------------------------------------------------------------- */
-module.exports = mongoose.model("Business", BusinessSchema);
+module.exports = mongoose.model("Favorite", FavoriteSchema);

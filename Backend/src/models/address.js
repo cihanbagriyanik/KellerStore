@@ -3,24 +3,23 @@
     * NODEJS EXPRESS | Keller Store
 ----------------------------------------------------------------------------- */
 //? Requaring
-const { mongoose } = require("../../configs/dbConnection");
+const { mongoose } = require("../configs/dbConnection");
 
-const passwordEncrypt = require("../../helpers/passwordEncrypt");
 /* -------------------------------------------------------------------------- */
 // {
 
 // }
+
 /* -------------------------------------------------------------------------- */
-//? Staff Model:
-const StaffSchema = new mongoose.Schema(
+//? Address Model:
+const AddressSchema = new mongoose.Schema(
+  {},
+
   {
-   
-  },
-  {
-    collection: "staffs",
+    collection: "addresses",
     timestamps: true,
   }
 );
 
 /* -------------------------------------------------------------------------- */
-module.exports = mongoose.model("Staff", StaffSchema);
+module.exports = mongoose.model("Address", AddressSchema);

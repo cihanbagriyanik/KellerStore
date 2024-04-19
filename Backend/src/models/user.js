@@ -3,9 +3,9 @@
     * NODEJS EXPRESS | Keller Store
 ----------------------------------------------------------------------------- */
 //? Requaring
-const { mongoose } = require("../../configs/dbConnection");
+const { mongoose } = require("../configs/dbConnection");
 
-const passwordEncrypt = require("../../helpers/passwordEncrypt");
+const passwordEncrypt = require("../helpers/passwordEncrypt");
 /* -------------------------------------------------------------------------- */
 // {
 //     "username": "test",

@@ -9,17 +9,17 @@ const { mongoose } = require("../configs/dbConnection");
 // {
 
 // }
-
 /* -------------------------------------------------------------------------- */
-//? Address Ad Model:
-const AddressAdSchema = new mongoose.Schema(
-  {},
-
+//? Category Model:
+const CategorySchema = new mongoose.Schema(
   {
-    collection: "addressAds",
+   
+  },
+  {
+    collection: "categories",
     timestamps: true,
   }
 );
 
 /* -------------------------------------------------------------------------- */
-module.exports = mongoose.model("AddressAd", AddressAdSchema);
+module.exports = mongoose.model("Category", CategorySchema);

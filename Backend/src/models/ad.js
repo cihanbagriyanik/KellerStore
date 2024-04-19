@@ -9,17 +9,17 @@ const { mongoose } = require("../configs/dbConnection");
 // {
 
 // }
-
 /* -------------------------------------------------------------------------- */
-//? Sell and Buy Model:
-const SellAndBuySchema = new mongoose.Schema(
-  {},
-
+//? Ad Model:
+const AdSchema = new mongoose.Schema(
   {
-    collection: "sellsAndBuys",
+   
+  },
+  {
+    collection: "ads",
     timestamps: true,
   }
 );
 
 /* -------------------------------------------------------------------------- */
-module.exports = mongoose.model("SellAndBuy", SellAndBuySchema);
+module.exports = mongoose.model("Ad", AdSchema);
