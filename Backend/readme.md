@@ -13,7 +13,14 @@
             dbConnection.js
             swagger.json
         controllers/
+            ad.js
+            address.js
             auth.js
+            category.js
+            favorite.js
+            follow.js
+            message.js
+            notification.js
             token.js
             user.js
         helpers/
@@ -29,24 +36,15 @@
             permissions.js
             upload.js
         models/
-            ad/
-                ad.js
-                addressAd.js
-            category/
-                category.js
-                subCategory.js
-            staff/
-                addressStaff.js
-                staff.js
-            user/
-                addressUser.js
-                user.js
-            business.js
+            ad.js
+            address.js
+            category.js
+            favorite.js
             follow.js
             message.js
             notification.js
-            sellAndBuy.js
             token.js
+            user.js
         routes/
             auth.js
             document.js
