@@ -14,7 +14,19 @@ const dbConnection = function() {
 }
 
 /* ------------------------------------------------------- */
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./service");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+
+
+
 module.exports = {
     mongoose,
-    dbConnection
+    dbConnection,
+    admin
 } 
