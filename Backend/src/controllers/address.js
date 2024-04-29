@@ -8,7 +8,8 @@ const Address=require("../models/address")
 //? Address Controller:
 module.exports = {
   //! GET
-  list: async (req, res) => {/*
+  list: async (req, res) => {
+    /*
   #swagger.tags = ["Address"]
   #swagger.summary = "List Address"
   #swagger.description = `
@@ -50,7 +51,8 @@ const data = await Address.create(req.body);
 },
 
   //! /:id -> GET
-  read: async (req, res) => { /*
+  read: async (req, res) => {
+     /*
   #swagger.tags = ["Addresses"]
   #swagger.summary = "Get Single Address"
 */
@@ -63,21 +65,27 @@ const data = await Address.findOne({ _id: req.params.id });
 },
 
   //! /:id -> PUT / PATCH
-  update: async (req, res) => {/*
-  #swagger.tags = ["Addresss"]
-  #swagger.summary = "Update Address"
-  #swagger.parameters['body'] = {
-      in: 'body',
-      required: true,
-      schema: {
-      }
-  }
-   res.status(200).send({
-      error: false,
-      data,
-      new: await Address.findOne({ _id: req.params.id }),
-    });
-*/},
+  update: async (req, res) => {
+   /*
+            #swagger.tags = ["Addresss"]
+            #swagger.summary = "Update Address"
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {
+                }
+            }
+        */
+            const data = await Address.updateOne({ _id: req.params.id }, req.body, {
+              runValidators: true,
+            });
+        
+            res.status(200).send({
+              error: false,
+              data,
+              new: await Address.findOne({ _id: req.params.id }),
+            });
+},
 
   //! /:id -> DELETE
   delete: async (req, res) => {/*
