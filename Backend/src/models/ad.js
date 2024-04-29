@@ -32,6 +32,13 @@ const AdSchema = new mongoose.Schema(
       trim: true,
       required: true,
       index: true,
+    },
+    
+    title:{
+      type: String,
+      trim: true,
+      required: true,
+      index: true,
     }
   },
   {
