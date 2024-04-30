@@ -7,9 +7,58 @@ const User = require("../models/user");
 const Token = require("../models/token");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
 const jwt = require("jsonwebtoken");
-
+const { admin } = require("../configs/dbConnection");
+const mongoose = require("mongoose");
+const { ObjectId } = require('mongoose').Types;
 /* -------------------------------------------------------------------------- */
 module.exports = {
+  register: async (req, res) => {
+    
+    try {
+      const userResponse = await admin.auth().createUser({
+        email: req.body.email,
+        name: req.body.name,
+        username: req.body.username,
+        password: req.body.password,
+      });
+  
+      if (userResponse) {
+        const isValidObjectId = ObjectId.isValid(userResponse.uid);
+  
+        let userId;
+        if (isValidObjectId) {
+          console.log("Verilen değer zaten bir ObjectID.");
+          userId = new ObjectId(userResponse.uid); // Zaten bir ObjectID ise doğrudan kullanabiliriz
+        } else {
+          console.log("Verilen değer bir ObjectID değil, dönüştürülüyor...");
+          userId = new ObjectId(); // Yeni bir ObjectID oluşturabiliriz
+          console.log(userId ,"gumledi")
+        }
+        console.log(userId);
+  
+        const user = new User({
+          _id: userId,
+          name: req.body.name,
+          email: req.body.email,
+          username: req.body.username,
+          password: passwordEncrypt(req.body.password),
+        });
+  
+        // Veriyi MongoDB'ye kaydediyoruz.
+        const data = await user.save();
+        res.send({
+          data,
+          success: true,
+          message: "User created successfully",
+        });
+      }
+    } catch (error) {
+      res.status(500).send({
+        success: false,
+        message: error.message,
+      });
+    }
+  },
   //! POST
   login: async (req, res) => {
     /*
