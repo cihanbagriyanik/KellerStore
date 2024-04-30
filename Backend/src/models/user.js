@@ -75,15 +75,18 @@ const UserSchema = new mongoose.Schema({
     },
     isActive: {
         type: Boolean,
-        default: true
+        default: true,
+        required: true
     },
     isBusiness: {
         type: Boolean,
-        default: false
+        default: false,
+        required: true
     },
     isPremium: {
         type: Boolean,
-        default: false
+        default: false,
+        required: true
     },
     taxNr: {
         type: Number,
@@ -92,12 +95,14 @@ const UserSchema = new mongoose.Schema({
     },
     isStaff: {
         type: Boolean,
-        default: false
+        default: false,
+        required: true
     },
 
     isAdmin: {
         type: Boolean,
-        default: false
+        default: false,
+        required: true
     },
     startDate: {
         type: Date,
