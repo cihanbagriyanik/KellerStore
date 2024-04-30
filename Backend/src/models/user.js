@@ -4,22 +4,15 @@ const { mongoose } = require("../configs/dbConnection")
 
 /* -------------------------------------------------------------------------- 
 // {
-//         "firstName": "user3",
+//  "firstName": "user3",
     "lastName": "user3",
     "userName": "user3",
     "businessName": "1234567877",
     "email": "user3@example.com",
-    "password": "Secure*1234",
-    "dateOfBirth": "1982-01-01",
-    "tel": "1234567897",
+    "password": "Secure*1234",      
     "isActive": true,
     "isAdmin": false,
-    "isBusiness": false,
-    "isPremium": false,
-    "taxNr": 12345675541,
-    "startDate": "2021-01-01",
-    "endDate": "2025-01-01",
-    "future": "Some future info3"
+    
 // }
 -------------------------------------------------------------------------- */
 
@@ -67,7 +60,7 @@ const UserSchema = new mongoose.Schema({
     },
     dateOfBirth: {
         type: Date,
-        
+       
     },
     tel: {
         type: Number,
@@ -81,22 +74,22 @@ const UserSchema = new mongoose.Schema({
     isBusiness: {
         type: Boolean,
         default: false,
-        required: true
+        
     },
     isPremium: {
         type: Boolean,
         default: false,
-        required: true
+        
     },
     taxNr: {
         type: Number,
         unique: true,
-       
+        
     },
     isStaff: {
         type: Boolean,
         default: false,
-        required: true
+        
     },
 
     isAdmin: {
@@ -106,11 +99,11 @@ const UserSchema = new mongoose.Schema({
     },
     startDate: {
         type: Date,
-        required: true
+        
     },
     endDate: {
         type: Date,
-        required: true
+        
     },
     future: {
         type: String,
@@ -120,45 +113,18 @@ const UserSchema = new mongoose.Schema({
 
 
 /* ------------------------------------------------------- */
-// Schema Configs:
 
-const passwordEncrypt = require('../helpers/passwordEncrypt')
+/* Email and Password Validation */
+
+const emailAndPassValidation = require('../helpers/emailAndPassValidation');
 
 UserSchema.pre(['save', 'updateOne'], function (next) {
+  // get data from "this" when create;
+  // if process is updateOne, data will receive in "this._update"
+  const data = this?._update || this;
 
-    // get data from "this" when create;
-    // if process is updateOne, data will receive in "this._update"
-    const data = this?._update || this
+  emailAndPassValidation(data, next);
+});
 
-    // email@domain.com
-    const isEmailValidated = data.email
-        ? /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email) // test from "data".
-        : true
-
-    if (isEmailValidated) {
-
-        if (data?.password) {
-
-            // pass == (min 1: lowerCase, upperCase, Numeric, @$!%*?& + min 8 chars)
-            const isPasswordValidated = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(data.password)
-
-            if (isPasswordValidated) {
-
-                this.password = data.password = passwordEncrypt(data.password)
-                this._update = data // updateOne will wait data from "this._update".
-
-            } else {
-
-                next(new Error('Password not validated.'))
-            }
-        }
-
-        next() // Allow to save.
-
-    } else {
-
-        next(new Error('Email not validated.'))
-    }
-})
 /* ------------------------------------------------------- */
 module.exports = mongoose.model('User', UserSchema)
