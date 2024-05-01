@@ -137,6 +137,81 @@ module.exports = {
     }
   },
 
+  gofatel:async(req,res)=>{
+    const {google,facebook,telefon} = req.body
+    //console.log(req.body)
+    
+    try {
+      if(google && !facebook && !telefon){
+           console.log(google?.email,"google")
+          const user = await  User.findOne({ email:google.email})
+
+             if(user){
+              res.send({
+             
+              error: false,
+              message: "User found",
+              data: user,
+            });
+             }
+
+
+            
+             else if(!user){
+              const isValidObjectId = ObjectId.isValid(google.uid);
+  
+              let userId;
+              if (isValidObjectId) {
+                console.log("Verilen değer zaten bir ObjectID.");
+                userId = new ObjectId(google.uid); // Zaten bir ObjectID ise doğrudan kullanabiliriz
+              } else {
+                console.log("Verilen değer bir ObjectID değil, dönüştürülüyor...");
+                userId = new ObjectId(); // Yeni bir ObjectID oluşturabiliriz
+                console.log(userId ,"gumledi")
+              }
+              console.log(userId);
+        
+              const user = new User({
+                _id: userId,
+                name: google.displayName,
+                email: google.email,
+                username:  google.displayName,
+                password: passwordEncrypt(google.displayName),
+              });
+        
+              // Veriyi MongoDB'ye kaydediyoruz.
+              const data = await user.save();
+              res.send({
+                data,
+                success: true,
+                message: "User created successfully",
+              });
+            }
+            else{
+             res.status(400).send({
+               success:false,
+               message:"user dont find"
+             })
+            }
+
+      }else{
+         res.send({
+          succes:"false"
+         })
+      }
+          
+          
+          
+          
+          
+
+
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+
   //! POST
   refresh: async (req, res) => {
     /*
