@@ -159,7 +159,49 @@ module.exports = {
     }
    
   },
+  forgot:async(req,res)=>{
+    console.log(req.body,"forgot")
+   try {
+        const {email}=req.body
+        const user = await User.findOne({email})
+        console.log(user,"forgot")
+        if(!user) {
+          res.status(401).send({
+            message :"No such user found, try again"
+          })
+        }
+        const token = await jwt.sign({ id: user._id }, process.env.REFRESH_KEY, {
+          expiresIn: "1h",
+        });
+        console.log(token,"tokenforgot")
+        
+         if(token){
+          sendMail(email,"reset password",`<h1> Şifrenizi sıfırlamak için aşağıdaki bağlantıyı kullanın: http://localhost:8001/reset/${token}</h1>`)
+          res.send({
+            message:"password reser mailil",
+             error:false
+          })
+         }
+       
 
+        
+
+
+       
+
+   } catch (error) {
+    res.send("reset false")
+   }
+
+
+
+
+      
+      
+  },
+  reset:async(req.res)=>{
+    
+  }
 
   gofatel:async(req,res)=>{
     const {google,facebook,telefon} = req.body
