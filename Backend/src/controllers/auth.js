@@ -34,7 +34,17 @@ module.exports = {
  
          
         });
-  
+        sendMail(
+          // to:
+          req.body.email,
+          // subject:
+          'Welcome',
+          // Message:
+          `
+              <h1>Welcome to system</h1>
+              <p><b>${req.body.userName}</b>The registration has been successful. Have a nice shopping.!</p>
+          `
+      )
         // Veriyi MongoDB'ye kaydediyoruz.
         const data = await user.save();
         res.send({
