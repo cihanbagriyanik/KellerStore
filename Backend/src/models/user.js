@@ -68,11 +68,16 @@ const UserSchema = new mongoose.Schema({
         trim: true
     },
     dateOfBirth: {
+<<<<<<< HEAD
         type: Date
+=======
+        type: Date,
+      
+>>>>>>> 1931046c540e7581bc800b2fa2c26c6cffaef149
     },
     tel: {
         type: Number,
-        required: true
+      
     },
     isActive: {
         type: Boolean,
@@ -91,7 +96,7 @@ const UserSchema = new mongoose.Schema({
     },
     taxNr: {
         type: Number,
-        required: true,
+      
         unique: true
     },
     isStaff: {
@@ -111,11 +116,11 @@ const UserSchema = new mongoose.Schema({
     },
     endDate: {
         type: Date,
-        required: true
+      
     },
     future: {
         type: String,
-        required: true
+      
     }
 }, { collection: 'users', timestamps: true })
 
@@ -124,7 +129,6 @@ const UserSchema = new mongoose.Schema({
 
 /* Email and Password Validation */
 
-const passwordEncrypt = require('../helpers/passwordEncrypt')
 
 UserSchema.pre(['save', 'updateOne'], function (next) {
 
@@ -139,25 +143,12 @@ UserSchema.pre(['save', 'updateOne'], function (next) {
 
     if (isEmailValidated) {
 
-        if (data?.password) {
-
-            // pass == (min 1: lowerCase, upperCase, Numeric, @$!%*?& + min 8 chars)
-            const isPasswordValidated = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(data.password)
-
-            if (isPasswordValidated) {
-
-                this.password = data.password = passwordEncrypt(data.password)
-                this._update = data // updateOne will wait data from "this._update".
-
-            } else {
-
-                next(new Error('Password not validated.'))
-            }
+          next() // Allow to save.
         }
 
-        next() // Allow to save.
+      
 
-    } else {
+    else {
 
         next(new Error('Email not validated.'))
     }
