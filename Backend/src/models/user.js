@@ -1,6 +1,7 @@
-"use strict"
-
 const { mongoose } = require("../configs/dbConnection")
+
+
+
 
 /* -------------------------------------------------------------------------- 
 // {
@@ -21,6 +22,13 @@ const { mongoose } = require("../configs/dbConnection")
 // User Model:
 
 const UserSchema = new mongoose.Schema({
+  firebaseId:{
+    type: String,
+   
+    trim: true,
+   
+  },
+
     firstName: {
         type: String,
         trim: true,
@@ -34,7 +42,6 @@ const UserSchema = new mongoose.Schema({
     userName: {
         type: String,
         trim: true,
-        required: true,
         unique: true,
         index: true
     },
@@ -52,19 +59,20 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         trim: true,
-        required: true
+        required: true,
+      
+        
     },
     avatar: {
         type: String,
         trim: true
     },
     dateOfBirth: {
-        type: Date,
-       
+        type: Date
     },
     tel: {
         type: Number,
-        
+        required: true
     },
     isActive: {
         type: Boolean,
@@ -83,8 +91,8 @@ const UserSchema = new mongoose.Schema({
     },
     taxNr: {
         type: Number,
-        unique: true,
-        
+        required: true,
+        unique: true
     },
     isStaff: {
         type: Boolean,
@@ -103,11 +111,11 @@ const UserSchema = new mongoose.Schema({
     },
     endDate: {
         type: Date,
-        
+        required: true
     },
     future: {
         type: String,
-        
+        required: true
     }
 }, { collection: 'users', timestamps: true })
 
@@ -116,15 +124,43 @@ const UserSchema = new mongoose.Schema({
 
 /* Email and Password Validation */
 
-const emailAndPassValidation = require('../helpers/emailAndPassValidation');
+const passwordEncrypt = require('../helpers/passwordEncrypt')
 
 UserSchema.pre(['save', 'updateOne'], function (next) {
-  // get data from "this" when create;
-  // if process is updateOne, data will receive in "this._update"
-  const data = this?._update || this;
 
-  emailAndPassValidation(data, next);
-});
+    // get data from "this" when create;
+    // if process is updateOne, data will receive in "this._update"
+    const data = this?._update || this
 
+    // email@domain.com
+    const isEmailValidated = data.email
+        ? /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email) // test from "data".
+        : true
+
+    if (isEmailValidated) {
+
+        if (data?.password) {
+
+            // pass == (min 1: lowerCase, upperCase, Numeric, @$!%*?& + min 8 chars)
+            const isPasswordValidated = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(data.password)
+
+            if (isPasswordValidated) {
+
+                this.password = data.password = passwordEncrypt(data.password)
+                this._update = data // updateOne will wait data from "this._update".
+
+            } else {
+
+                next(new Error('Password not validated.'))
+            }
+        }
+
+        next() // Allow to save.
+
+    } else {
+
+        next(new Error('Email not validated.'))
+    }
+})
 /* ------------------------------------------------------- */
 module.exports = mongoose.model('User', UserSchema)
