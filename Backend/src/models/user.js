@@ -1,6 +1,7 @@
-"use strict"
-
 const { mongoose } = require("../configs/dbConnection")
+
+
+
 
 /* -------------------------------------------------------------------------- 
 // {
@@ -28,6 +29,13 @@ const { mongoose } = require("../configs/dbConnection")
 // User Model:
 
 const UserSchema = new mongoose.Schema({
+  firebaseId:{
+    type: String,
+   
+    trim: true,
+   
+  },
+
     firstName: {
         type: String,
         trim: true,
@@ -41,13 +49,12 @@ const UserSchema = new mongoose.Schema({
     userName: {
         type: String,
         trim: true,
-        required: true,
         unique: true,
         index: true
     },
     businessName: {
         type: String,
-        required: true
+        
     },
     email: {
         type: String,
@@ -59,7 +66,9 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         trim: true,
-        required: true
+        required: true,
+      
+        
     },
     avatar: {
         type: String,
@@ -67,11 +76,11 @@ const UserSchema = new mongoose.Schema({
     },
     dateOfBirth: {
         type: Date,
-        required: true
+      
     },
     tel: {
         type: Number,
-        required: true
+      
     },
     isActive: {
         type: Boolean,
@@ -87,7 +96,7 @@ const UserSchema = new mongoose.Schema({
     },
     taxNr: {
         type: Number,
-        required: true,
+      
         unique: true
     },
     isStaff: {
@@ -101,15 +110,15 @@ const UserSchema = new mongoose.Schema({
     },
     startDate: {
         type: Date,
-        required: true
+        
     },
     endDate: {
         type: Date,
-        required: true
+      
     },
     future: {
         type: String,
-        required: true
+      
     }
 }, { collection: 'users', timestamps: true })
 
@@ -117,7 +126,6 @@ const UserSchema = new mongoose.Schema({
 /* ------------------------------------------------------- */
 // Schema Configs:
 
-const passwordEncrypt = require('../helpers/passwordEncrypt')
 
 UserSchema.pre(['save', 'updateOne'], function (next) {
 
@@ -132,25 +140,12 @@ UserSchema.pre(['save', 'updateOne'], function (next) {
 
     if (isEmailValidated) {
 
-        if (data?.password) {
-
-            // pass == (min 1: lowerCase, upperCase, Numeric, @$!%*?& + min 8 chars)
-            const isPasswordValidated = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(data.password)
-
-            if (isPasswordValidated) {
-
-                this.password = data.password = passwordEncrypt(data.password)
-                this._update = data // updateOne will wait data from "this._update".
-
-            } else {
-
-                next(new Error('Password not validated.'))
-            }
+          next() // Allow to save.
         }
 
-        next() // Allow to save.
+      
 
-    } else {
+    else {
 
         next(new Error('Email not validated.'))
     }
