@@ -199,9 +199,33 @@ module.exports = {
       
       
   },
-  reset:async(req.res)=>{
+  reset:async(req,res)=>{
+    try {
+       const {token ,password} = req.body
+       console.log(token,password)
+     const decod = await jwt.verify(token,process.env.REFRESH_KEY)
+     console.log(decod)
+      const userId = decod.id
+      const user = await User.findById(userId);
+
+       if(user){
+        user.password = password;
+  await user.save();
+  res.status(200).json({ message: "Password reset successful" });
+       }
+       else{
+        res.send({
+          message:"user bulunamadi"
+        })
+       }
+    } catch (error) {
+      res.send({
+        message:"reset problem"
+      })
+    }
     
-  }
+
+  },
 
   gofatel:async(req,res)=>{
     const {google,facebook,telefon} = req.body
