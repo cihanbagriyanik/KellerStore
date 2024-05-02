@@ -8,8 +8,7 @@ const Token = require("../models/token");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
 const jwt = require("jsonwebtoken");
 const { admin } = require("../configs/dbConnection");
-const mongoose = require("mongoose");
-const { ObjectId } = require('mongoose').Types;
+const bcrypt = require("bcrypt")
 /* -------------------------------------------------------------------------- */
 module.exports = {
   register: async (req, res) => {
@@ -23,25 +22,17 @@ module.exports = {
       });
   
       if (userResponse) {
-        const isValidObjectId = ObjectId.isValid(userResponse.uid);
+        console.log(userResponse,"user")
+    
   
-        let userId;
-        if (isValidObjectId) {
-          console.log("Verilen değer zaten bir ObjectID.");
-          userId = new ObjectId(userResponse.uid); // Zaten bir ObjectID ise doğrudan kullanabiliriz
-        } else {
-          console.log("Verilen değer bir ObjectID değil, dönüştürülüyor...");
-          userId = new ObjectId(); // Yeni bir ObjectID oluşturabiliriz
-          console.log(userId ,"gumledi")
-        }
-        console.log(userId);
+    
   
         const user = new User({
-          _id: userId,
-          name: req.body.name,
-          email: req.body.email,
-          username: req.body.username,
-          password: passwordEncrypt(req.body.password),
+          firebaseId: userResponse.uid,
+         ...req.body,
+         password: bcrypt.hashSync(req.body.password, 10),
+ 
+         
         });
   
         // Veriyi MongoDB'ye kaydediyoruz.
@@ -76,26 +67,39 @@ module.exports = {
             }
         }
     */
-    const { username, password } = req.body;
+  
 
-    if (username && password) {
-      const user = await User.findOne({ username });
 
-      if (user && user.password == passwordEncrypt(password)) {
-        if (user.isActive) {
+
+   try {
+       const { userName, password } = req.body;
+  
+
+    if (userName && password) {
+      const user = await User.findOne({ userName });
+       
+
+      if (user ) {
+        const isPasswordValid =bcrypt.compareSync(password,user.password)
+        console.log("icerdeyiz")
+        
+        console.log("isactive",user.isActive)
+        console.log(isPasswordValid)
+        if (isPasswordValid && user.isActive) {
+           
           //* -------------------------------------------------------------------------- */
           //* TOKEN */
-          let tokenData = await Token.findOne({ userId: user._id });
-
+          let tokenData = await Token.findOne({ _id: user._id });
+         console.log(tokenData,"tokendata")
           if (!tokenData) {
             const tokenKey = passwordEncrypt(user._id + Date.now());
-
+           console.log(tokenKey,"tokenkey")
             tokenData = await Token.create({
               userId: user._id,
               token: tokenKey,
             });
           }
-
+         console.log(tokenData,"altaki")
           //* TOKEN */
           /* -------------------------------------------------------------------------- */
           //* JWT */
@@ -135,7 +139,17 @@ module.exports = {
       res.errorStatusCode = 401;
       throw new Error("Please enter username and password.");
     }
+    } catch (error) {
+      res.send({
+        error: true,
+        message: error.message,
+        data: null,
+      });
+ 
+    }
+   
   },
+
 
   gofatel:async(req,res)=>{
     const {google,facebook,telefon} = req.body
