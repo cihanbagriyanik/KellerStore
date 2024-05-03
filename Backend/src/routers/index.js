@@ -18,6 +18,9 @@ router.use("/tokens", require("./token"));
 // user:
 router.use("/users", require("./user"));
 
+//add
+router.use("/ad",require("./ad"));
+
 // document:
 // router.use("/documents", require("./document"));
 

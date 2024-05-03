@@ -11,7 +11,9 @@ const permissions = require("../middlewares/permissions");
 
 /* -------------------------------------------------------------------------- */
 //! URL: /ad
-router.route("/").get(ad.list).post(ad.create);
+router.route("/")
+.get(ad.list)
+.post(permissions.isLogin,ad.create);
 
 router
   .route("/:id")
