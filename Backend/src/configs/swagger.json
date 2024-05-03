@@ -46,7 +46,7 @@
           "Authentication"
         ],
         "summary": "Login",
-        "description": "Login with username (or email) and password for get simpleToken and JWT",
+        "description": "Login with email and password for get simpleToken and JWT",
         "parameters": [
           {
             "name": "body",
@@ -55,13 +55,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "username": {
+                "email": {
                   "type": "string",
-                  "example": "test"
+                  "example": "test@site.com"
                 },
                 "password": {
                   "type": "string",
-                  "example": "1234"
+                  "example": "1q2w23e4R!"
                 }
               }
             }
@@ -111,30 +111,96 @@
     },
     "/auth/forgot": {
       "post": {
-        "description": "",
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Forgot Password?",
+        "description": "User will get link for reset the Password",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "test@site.com"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
     },
     "/auth/reset": {
       "post": {
-        "description": "",
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Reset",
+        "description": "Reset password with refreshToken",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "bearer": {
+                  "type": "object",
+                  "properties": {
+                    "refresh": {
+                      "type": "string",
+                      "example": "...refreshToken..."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }
     },
     "/auth/gofatel": {
       "post": {
-        "description": "",
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Register or Login with Google, Facebook or Telephone Number",
+        "description": "Register or Login with Google, Facebook or Telephone Number",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -155,7 +221,11 @@
     },
     "/users/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "summary": "List Users",
+        "description": "  You can send query with endpoint for search[], sort[], page and limit.  <ul> Examples:  <li>URL/?<b>filter[field1]=value1&filter[field2]=value2</b></li>  <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>  <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>  <li>URL/?<b>page=2&limit=1</b></li>  </ul>  ",
         "responses": {
           "200": {
             "description": "OK"
@@ -163,22 +233,42 @@
         }
       },
       "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create User",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "isActive": {
-                  "example": "any"
+                "firstName": {
+                  "type": "string",
+                  "example": "test-1"
                 },
-                "isBusiness": {
-                  "example": "any"
+                "lastName": {
+                  "type": "string",
+                  "example": "test-1"
                 },
-                "isPremium": {
-                  "example": "any"
+                "userName": {
+                  "type": "string",
+                  "example": "test-1"
+                },
+                "businessName": {
+                  "type": "string",
+                  "example": "1234567877"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "test1@example.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "Secure*1234"
                 }
               }
             }
@@ -193,6 +283,10 @@
     },
     "/users/{id}": {
       "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get Single User",
         "description": "",
         "parameters": [
           {
@@ -209,6 +303,10 @@
         }
       },
       "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update User",
         "description": "",
         "parameters": [
           {
@@ -220,11 +318,33 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "isAdmin": {
-                  "example": "any"
+                "firstName": {
+                  "type": "string",
+                  "example": "test-1"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "test-1"
+                },
+                "userName": {
+                  "type": "string",
+                  "example": "test-1"
+                },
+                "businessName": {
+                  "type": "string",
+                  "example": "1234567877"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "test1@example.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "Secure*1234"
                 }
               }
             }
@@ -237,6 +357,10 @@
         }
       },
       "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Delete User",
         "description": "",
         "parameters": [
           {
@@ -369,10 +493,14 @@
     },
     "/address/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "List Addresses",
+        "description": "  You can send query with endpoint for search[], sort[], page and limit.  <ul> Examples:  <li>URL/?<b>filter[field1]=value1&filter[field2]=value2</b></li>  <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>  <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>  <li>URL/?<b>page=2&limit=1</b></li>  </ul>  ",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       },
@@ -389,7 +517,12 @@
             "required": true,
             "schema": {
               "type": "object",
-              "properties": {}
+              "properties": {
+                "zipCode": {
+                  "type": "string",
+                  "example": "test00000"
+                }
+              }
             }
           }
         ],
@@ -402,6 +535,10 @@
     },
     "/address/{id}": {
       "get": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Get Single Address",
         "description": "",
         "parameters": [
           {
@@ -412,12 +549,16 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       },
       "put": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Update Address",
         "description": "",
         "parameters": [
           {
@@ -425,11 +566,25 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "zipCode": {
+                  "type": "string",
+                  "example": "test00000"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "202": {
+            "description": "Accepted"
           }
         }
       },
@@ -457,6 +612,10 @@
         }
       },
       "patch": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Update Address",
         "description": "",
         "parameters": [
           {
@@ -464,11 +623,25 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "zipCode": {
+                  "type": "string",
+                  "example": "test00000"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "202": {
+            "description": "Accepted"
           }
         }
       }
@@ -587,7 +760,7 @@
     "/favorite/": {
       "get": {
         "tags": [
-          "Favorite"
+          "Favorites"
         ],
         "summary": "List Favorite",
         "description": "  You can send query with endpoint for search[], sort[], page and limit.  <ul> Examples:  <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>  <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>  <li>URL/?<b>page=2&limit=1</b></li>  </ul>  ",
@@ -838,7 +1011,7 @@
     "/message/": {
       "get": {
         "tags": [
-          "Message"
+          "Messages"
         ],
         "summary": "List Message",
         "description": "  You can send query with endpoint for search[], sort[], page and limit.  <ul> Examples:  <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>  <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>  <li>URL/?<b>page=2&limit=1</b></li>  </ul>  ",

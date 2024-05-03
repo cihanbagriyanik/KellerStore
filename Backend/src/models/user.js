@@ -1,155 +1,130 @@
-const { mongoose } = require("../configs/dbConnection")
+"use strict";
+/* --------------------------------------------------------------------------
+    * NODEJS EXPRESS | Keller Store
+----------------------------------------------------------------------------- */
+//? Requaring
+const { mongoose } = require("../configs/dbConnection");
 
-
-
-
-/* -------------------------------------------------------------------------- 
+/* -------------------------------------------------------------------------- */
 // {
-//  "firstName": "user3",
-    "lastName": "user3",
-    "userName": "user3",
-    "businessName": "1234567877",
-    "email": "user3@example.com",
-    "password": "Secure*1234",      
-    "isActive": true,
-    "isAdmin": false,
-    
+//     "firstName": "test-1",
+//     "lastName": "test-1",
+//     "userName": "test-1",
+//     "businessName": "1234567877",
+//     "email": "test1@example.com",
+//     "password": "Secure*1234",
+//     "isActive": true,
+//     "isAdmin": false,
 // }
--------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+//? User Model:
+const UserSchema = new mongoose.Schema(
+  {
+    firebaseId: {
+      type: String,
 
-
-// User Model:
-
-const UserSchema = new mongoose.Schema({
-  firebaseId:{
-    type: String,
-   
-    trim: true,
-   
-  },
+      trim: true,
+    },
 
     firstName: {
-        type: String,
-        trim: true,
-        
+      type: String,
+      trim: true,
     },
+
     lastName: {
-        type: String,
-        trim: true,
-        
+      type: String,
+      trim: true,
     },
+
     userName: {
-        type: String,
-        trim: true,
-        unique: true,
-        index: true
+      type: String,
+      trim: true,
+      unique: true,
+      index: true,
     },
+
     businessName: {
-        type: String,
-        
+      type: String,
     },
+
     email: {
-        type: String,
-        trim: true,
-        required: true,
-        unique: true,
-        index: true
+      type: String,
+      trim: true,
+      required: true,
+      unique: true,
+      index: true,
     },
+
     password: {
-        type: String,
-        trim: true,
-        required: true,
-      
-        
+      type: String,
+      trim: true,
+      required: true,
     },
+
     avatar: {
-        type: String,
-        trim: true
+      type: String,
+      trim: true,
     },
+
     dateOfBirth: {
-
-        type: Date
-        
-
+      type: Date,
     },
+
     tel: {
-        type: Number,
-      
+      type: Number,
     },
+
     isActive: {
-        type: Boolean,
-        default: true,
-        required: true
+      type: Boolean,
+      default: true,
+      required: true,
     },
+
     isBusiness: {
-        type: Boolean,
-        default: false,
-        
+      type: Boolean,
+      default: false,
     },
+
     isPremium: {
-        type: Boolean,
-        default: false,
-        
+      type: Boolean,
+      default: false,
     },
+
     taxNr: {
-        type: Number,
-      
-        unique: true
+      type: Number,
+
+      unique: true,
     },
+
     isStaff: {
-        type: Boolean,
-        default: false,
-        
+      type: Boolean,
+      default: false,
     },
 
     isAdmin: {
-        type: Boolean,
-        default: false,
-        required: true
+      type: Boolean,
+      default: false,
+      required: true,
     },
+
     startDate: {
-        type: Date,
-        
+      type: Date,
     },
+
     endDate: {
-        type: Date,
-      
+      type: Date,
     },
+
     future: {
-        type: String,
-      
-    }
-}, { collection: 'users', timestamps: true })
+      type: String,
+    },
+  },
+  {
+    collection: "users",
+    timestamps: true,
+  }
+);
 
-
-/* ------------------------------------------------------- */
-
-/* Email and Password Validation */
-
-
-UserSchema.pre(['save', 'updateOne'], function (next) {
-
-    // get data from "this" when create;
-    // if process is updateOne, data will receive in "this._update"
-    const data = this?._update || this
-
-    // email@domain.com
-    const isEmailValidated = data.email
-        ? /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email) // test from "data".
-        : true
-
-    if (isEmailValidated) {
-
-          next() // Allow to save.
-        }
-
-      
-
-    else {
-
-        next(new Error('Email not validated.'))
-    }
-})
-/* ------------------------------------------------------- */
-module.exports = mongoose.model('User', UserSchema)
+/* -------------------------------------------------------------------------- */
+module.exports = mongoose.model("User", UserSchema);
