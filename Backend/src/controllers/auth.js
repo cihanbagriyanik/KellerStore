@@ -34,7 +34,17 @@ module.exports = {
  
          
         });
-  
+        sendMail(
+          // to:
+          req.body.email,
+          // subject:
+          'Welcome',
+          // Message:
+          `
+              <h1>Welcome to system</h1>
+              <p><b>${req.body.userName}</b>The registration has been successful. Have a nice shopping.!</p>
+          `
+      )
         // Veriyi MongoDB'ye kaydediyoruz.
         const data = await user.save();
         res.send({
@@ -149,7 +159,73 @@ module.exports = {
     }
    
   },
+  forgot:async(req,res)=>{
+    console.log(req.body,"forgot")
+   try {
+        const {email}=req.body
+        const user = await User.findOne({email})
+        console.log(user,"forgot")
+        if(!user) {
+          res.status(401).send({
+            message :"No such user found, try again"
+          })
+        }
+        const token = await jwt.sign({ id: user._id }, process.env.REFRESH_KEY, {
+          expiresIn: "1h",
+        });
+        console.log(token,"tokenforgot")
+        
+         if(token){
+          sendMail(email,"reset password",`<h1> Şifrenizi sıfırlamak için aşağıdaki bağlantıyı kullanın: http://localhost:8001/reset/${token}</h1>`)
+          res.send({
+            message:"password reser mailil",
+             error:false
+          })
+         }
+       
 
+        
+
+
+       
+
+   } catch (error) {
+    res.send("reset false")
+   }
+
+
+
+
+      
+      
+  },
+  reset:async(req,res)=>{
+    try {
+       const {token ,password} = req.body
+       console.log(token,password)
+     const decod = await jwt.verify(token,process.env.REFRESH_KEY)
+     console.log(decod)
+      const userId = decod.id
+      const user = await User.findById(userId);
+
+       if(user){
+        user.password = password;
+  await user.save();
+  res.status(200).json({ message: "Password reset successful" });
+       }
+       else{
+        res.send({
+          message:"user bulunamadi"
+        })
+       }
+    } catch (error) {
+      res.send({
+        message:"reset problem"
+      })
+    }
+    
+
+  },
 
   gofatel:async(req,res)=>{
     const {google,facebook,telefon} = req.body

@@ -68,12 +68,10 @@ const UserSchema = new mongoose.Schema({
         trim: true
     },
     dateOfBirth: {
-<<<<<<< HEAD
+
         type: Date
-=======
-        type: Date,
-      
->>>>>>> 1931046c540e7581bc800b2fa2c26c6cffaef149
+        
+
     },
     tel: {
         type: Number,
