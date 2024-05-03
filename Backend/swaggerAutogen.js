@@ -45,10 +45,13 @@ const document = {
   definitions: {
     // Models:
     User: require("./src/models/user").schema.obj,
-    //
-    //
-    //
-    //
+    ad: require("./src/models/ad").schema.obj,
+    address: require("./src/models/address").schema.obj,
+    category: require("./src/models/category").schema.obj,
+    favorite: require("./src/models/favorite").schema.obj,
+    follow: require("./src/models/follow").schema.obj,
+    message: require("./src/models/message").schema.obj,
+    notification: require("./src/models/notification").schema.obj,
   },
 };
 
