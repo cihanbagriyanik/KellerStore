@@ -4,7 +4,7 @@ const LoginButton = () => {
   return (
     <div>
       <button className="btn bg-button-blue border border-0.5 border-button-blue hover:border-button-orange">
-        EinLoggen
+        Einloggen
       </button>
     </div>
   );
