@@ -4,6 +4,7 @@ import NewAdButton from "./buttons/NewAdButton";
 import RegisterButton from "./buttons/RegisterButton";
 import LoginButton from "./buttons/LoginButton";
 import MessageIcon from "./icons/MessageIcon";
+import FavoriteIcon from "./icons/favoriteIcon";
 
 const Navbar = () => {
   return (
@@ -11,7 +12,7 @@ const Navbar = () => {
       <div className="flex items-center space-x-8 py-3 px-4 max-w-screen-xl mx-auto md:px-8">
         <div className="flex-none lg:flex-initial">
           <a href="/">
-            <img src={Logo} width={120} height={50} alt="Logos" />
+            <img src={Logo} width={120} height={50} alt="Logo" />
           </a>
         </div>
 
@@ -46,6 +47,10 @@ const Navbar = () => {
 
         <div>
           <MessageIcon count={5} />
+        </div>
+
+        <div>
+          <FavoriteIcon count={3} />
         </div>
 
         <div>

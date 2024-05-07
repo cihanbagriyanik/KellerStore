@@ -14,6 +14,7 @@ import Footer from "../components/Footer";
 import AllAds from "../pages/AllAds";
 import NewAd from "../pages/NewAd";
 import Profile from "../pages/Profile";
+import Message from "../pages/Message";
 
 const AppRouter = () => {
   return (
@@ -27,10 +28,10 @@ const AppRouter = () => {
             <Route path="register" element={<Register />} />
 
             <Route path="" element={<PrivateRouter />}>
-
-                <Route path="allad" element={<AllAds />} />
-                <Route path="newAd" element={<NewAd />} />
-                <Route path="profile" element={<Profile />} />
+              <Route path="allad" element={<AllAds />} />
+              <Route path="newAd" element={<NewAd />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="message" element={<Message />} />
             </Route>
           </Routes>
         </div>
