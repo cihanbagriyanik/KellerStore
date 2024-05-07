@@ -41,7 +41,7 @@
 /*! Button CSS */
 .btn {
   color: var(--white);
-  padding: 0.4rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
   cursor: pointer;
   text-align: center;
