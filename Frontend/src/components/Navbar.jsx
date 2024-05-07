@@ -4,7 +4,7 @@ import NewAdButton from "./buttons/NewAdButton";
 import RegisterButton from "./buttons/RegisterButton";
 import LoginButton from "./buttons/LoginButton";
 import MessageIcon from "./icons/MessageIcon";
-import FavoriteIcon from "./icons/favoriteIcon";
+import FavoriteIcon from "./icons/FavoriteIcon";
 
 const Navbar = () => {
   return (
