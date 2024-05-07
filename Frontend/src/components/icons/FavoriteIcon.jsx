@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const MessageIcon = ({ count }) => {
+const FavoriteIcon = ({ count }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -25,9 +25,10 @@ const MessageIcon = ({ count }) => {
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
         />
       </svg>
+
       {count > 0 && (
         <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-button-blue rounded-full">
           {count}
@@ -37,4 +38,4 @@ const MessageIcon = ({ count }) => {
   );
 };
 
-export default MessageIcon;
+export default FavoriteIcon;

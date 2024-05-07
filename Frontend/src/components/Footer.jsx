@@ -4,15 +4,15 @@ export default () => {
       label: "Kontaktiere uns",
       items: [
         {
-          href: "javascript:void()",
+          // href: "#",
           name: "13597 Berlin",
         },
         {
-          href: "javascript:void()",
+          // href: "#",
           name: "kellerstore@gmail.com",
         },
         {
-          href: "javascript:void()",
+          // href: "#",
           name: "+4917655544422",
         },
       ],
@@ -21,15 +21,15 @@ export default () => {
       label: "Quicklinks",
       items: [
         {
-          href: "javascript:void()",
+          // href: "#",
           name: "Geschäftsort",
         },
         {
-          href: "javascript:void()",
+          // href: "#",
           name: "LAuftragsverfolgung",
         },
         {
-          href: "javascript:void()",
+          // href: "#",
           name: "Mein Konto",
         },
       ],
@@ -38,15 +38,15 @@ export default () => {
       label: "Informationen",
       items: [
         {
-          href: "javascript:void()",
+          // href: "#",
           name: "Über uns",
         },
         {
-          href: "javascript:void()",
+          // href: "#",
           name: "Sichere Bezahlung",
         },
         {
-          href: "javascript:void()",
+          // href: "#",
           name: "Kontaktiere uns",
         },
       ],
@@ -121,7 +121,7 @@ export default () => {
             All Copyrights Reserved © 2024 - Developed by DA71
           </p>
           <div className="flex items-center gap-x-6 text-gray-400 mt-6">
-            <a href="javascript:void()">
+            <a href="#">
               <svg
                 className="w-6 h-6 hover:text-gray-500 duration-150"
                 fill="none"
@@ -140,7 +140,7 @@ export default () => {
                 </defs>
               </svg>
             </a>
-            <a href="javascript:void()">
+            <a href="#">
               <svg
                 className="w-6 h-6 hover:text-gray-500 duration-150"
                 fill="none"
@@ -159,7 +159,7 @@ export default () => {
                 </defs>
               </svg>
             </a>
-            <a href="javascript:void()">
+            <a href="#">
               <svg
                 className="w-6 h-6 hover:text-gray-500 duration-150"
                 fill="none"
@@ -183,7 +183,7 @@ export default () => {
                 </defs>
               </svg>
             </a>
-            <a href="javascript:void()">
+            <a href="#">
               <svg
                 className="w-6 h-6 hover:text-gray-500 duration-150"
                 fill="currentColor"
