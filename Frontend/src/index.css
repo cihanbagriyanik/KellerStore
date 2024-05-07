@@ -41,13 +41,25 @@
 /*! Button CSS */
 .btn {
   color: var(--white);
-  padding: 0.4rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s, border-color 0.3s, opacity 0.3s;
 }
-
 .btn:active {
+  transform: translateY(1px);
+}
+
+.btnAllAd {
+  color: var(--button-blue);
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s, border-color 0.3s, opacity 0.3s;
+  padding: 0.6rem;
+}
+.btnAllAd:active {
   transform: translateY(1px);
 }
