@@ -13,7 +13,8 @@ const { mongoose } = require("../configs/dbConnection");
 /* -------------------------------------------------------------------------- */
 //? Favorite Model:
 const FavoriteSchema = new mongoose.Schema(
-  { UserId: {
+  { 
+    UserId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,

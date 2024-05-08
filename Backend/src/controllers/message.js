@@ -4,26 +4,28 @@
 ----------------------------------------------------------------------------- */
 //? Requaring
 const Message = require("../models/message");
+
 /* -------------------------------------------------------------------------- */
 //? Message Controller:
 module.exports = {
   //! GET
   list: async (req, res) => {
     /*
-  #swagger.tags = ["Message"]
-  #swagger.summary = "List Message"
-  #swagger.description = `
-      You can send query with endpoint for search[], sort[], page and limit.
-      <ul> Examples:
-          <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
-          <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
-          <li>URL/?<b>page=2&limit=1</b></li>
-      </ul>
-  `
-*/
-    //* CRUD Processes:
+
+      #swagger.tags = ["Messages"]
+      #swagger.summary = "List Message"
+      #swagger.description = `
+        You can send query with endpoint for search[], sort[], page and limit.
+          <ul> Examples:
+            <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
+            <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
+            <li>URL/?<b>page=2&limit=1</b></li>
+        </ul>
+      `
+    */
 
     const data = await res.getModelList(Message, filters);
+
 
     res.status(200).send({
       error: false,
@@ -31,6 +33,7 @@ module.exports = {
       data,
     });
   },
+
 
   //! POST
 
@@ -123,14 +126,17 @@ module.exports = {
     } catch (error) {
       console.error("Error:", error);
     }
+
   },
 
   //! /:id -> GET
   read: async (req, res) => {
     /*
-  #swagger.tags = ["Messages"]
-  #swagger.summary = "Get Single Message"
-*/
+
+      #swagger.tags = ["Messages"]
+      #swagger.summary = "Get Single Message"
+    */
+
     const data = await Message.findOne({ _id: req.params.id });
 
     res.status(200).send({
@@ -142,15 +148,17 @@ module.exports = {
   //! /:id -> PUT / PATCH
   update: async (req, res) => {
     /*
-            #swagger.tags = ["Messages"]
-            #swagger.summary = "Update Message"
-            #swagger.parameters['body'] = {
-                in: 'body',
-                required: true,
-                schema: {
-                }
-            }
-        */
+
+      #swagger.tags = ["Messages"]
+      #swagger.summary = "Update Message"
+      #swagger.parameters['body'] = {
+          in: 'body',
+          required: true,
+          schema: {}
+      }
+    */
+
+
     const data = await Message.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
     });
@@ -165,9 +173,11 @@ module.exports = {
   //! /:id -> DELETE
   delete: async (req, res) => {
     /*
-  #swagger.tags = ["Messages"]
-  #swagger.summary = "Delete Message"
-*/
+
+      #swagger.tags = ["Messages"]
+      #swagger.summary = "Delete Message"
+    */
+
 
     const data = await Message.deleteOne({ _id: req.params.id });
 

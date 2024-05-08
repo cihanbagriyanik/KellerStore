@@ -15,6 +15,9 @@ router.route("/")
 .get(ad.list)
 .post(permissions.isLogin,upload.array("ad",5)  ,ad.create);
 
+router.route("/favorite/:id")
+.post(ad.favorite)
+
 router
   .route("/:id")
   .get(ad.read)
