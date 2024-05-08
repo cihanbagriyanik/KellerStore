@@ -17,7 +17,7 @@ const RegisterForm = () => {
                 />
                 <label
                   htmlFor="privat"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-400"
                 >
                   Privat
                 </label>
@@ -31,7 +31,7 @@ const RegisterForm = () => {
                 />
                 <label
                   htmlFor="gewerblich"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-400"
                 >
                   Gewerblich
                 </label>
@@ -39,34 +39,32 @@ const RegisterForm = () => {
             </div>
             <label
               htmlFor="profileName"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Profil Name
-            </label>
-            <div className="mt-2">
+              className="block text-sm font-medium leading-6 text-gray-400"
+            ></label>
+            <div className="mt-5">
               <input
                 id="profileName"
                 name="profileName"
                 type="profileName"
                 autoComplete="profileName"
-                className="block w-2/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="Profil Name"
+                className=" p-3 block w-2/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Email
-            </label>
-            <div className="mt-2">
+              className=" block text-sm font-medium leading-6 text-gray-900"
+            ></label>
+            <div className="mt-5">
               <input
                 id="email"
                 name="email"
                 type="email"
                 autoComplete="email"
-                className="block w-2/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="email"
+                className=" p-3 block w-2/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -74,20 +72,19 @@ const RegisterForm = () => {
             <label
               htmlFor="email"
               className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Passwort
-            </label>
-            <div className="mt-2">
+            ></label>
+            <div className="mt-5">
               <input
                 id="password"
                 name="password"
                 type="password"
                 autoComplete="password"
-                className="block w-2/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="Password"
+                className=" p-3 block w-2/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
-          <div>
+          <div className="mt-5">
             <SubmitButton />
           </div>
         </div>
