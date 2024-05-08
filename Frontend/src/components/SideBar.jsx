@@ -105,11 +105,11 @@ const SideBar = () => {
                   class="w-full pl-5 pr-3 py-2 text-sm bg-white text-button-blue shadow-sm rounded-lg duration-200"
                   id="grid-state"
                 >
-                  <option>+ 10 Km</option>
-                  <option>+ 20 Km</option>
-                  <option>+ 30 Km</option>
-                  <option>+ 40 Km</option>
-                  <option>50 + Km</option>
+                  <option>+10 Km</option>
+                  <option>+20 Km</option>
+                  <option>+30 Km</option>
+                  <option>+40 Km</option>
+                  <option>50+ Km</option>
                 </select>
               </div>
             </div>
@@ -118,7 +118,7 @@ const SideBar = () => {
 
         <>
           <div className="  w-4/5 bg-background-filter-light-blue">
-            <div className="h-14 bg-background-filter-light-blue text-white flex items-center ">
+            <div className="h-14 mt-5 bg-background-filter-light-blue text-white flex items-center ">
               <p>Nach Preis filtern</p>
             </div>
             <div className="flex w-6/7">
@@ -133,8 +133,8 @@ const SideBar = () => {
         </>
 
         <>
-          <div className="  w-4/5 bg-background-filter-light-blue">
-            <div className="h-14 bg-background-filter-light-blue text-white flex items-center ">
+          <div className=" w-4/5 bg-background-filter-light-blue">
+            <div className="h-14 mt-5 bg-background-filter-light-blue text-white flex items-center ">
               <p>Nach Beliebtheit filtern</p>
             </div>
             <fieldset>
