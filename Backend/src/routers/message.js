@@ -19,7 +19,9 @@ router.route("/").get(Message.list).post(isAdmin, Message.create);
 
 router
   .route("/:id")
+  .post(Message.recer)
   .get(Message.read)
+
   .put(isAdmin, Message.update)
   .patch(isAdmin, Message.update)
   .delete(isAdmin, Message.delete);
