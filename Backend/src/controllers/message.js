@@ -11,6 +11,7 @@ module.exports = {
   //! GET
   list: async (req, res) => {
     /*
+
       #swagger.tags = ["Messages"]
       #swagger.summary = "List Message"
       #swagger.description = `
@@ -25,6 +26,7 @@ module.exports = {
 
     const data = await res.getModelList(Message, filters);
 
+
     res.status(200).send({
       error: false,
       details: await res.getModelListDetails(Message, filters),
@@ -32,30 +34,105 @@ module.exports = {
     });
   },
 
-  //* CRUD Processes:
+
   //! POST
+
   create: async (req, res) => {
     /*
-      #swagger.tags = ["Messages"]
-      #swagger.summary = "Create Message"
-      #swagger.parameters['body'] = {
-        in: 'body',
-        required: true,
-        schema: {}
+  #swagger.tags = ["Messages"]
+  #swagger.summary = "Create Message"
+  #swagger.parameters['body'] = {
+      in: 'body',
+      required: true,
+      schema: {
+        adId:"00000000000000",
+        message:"word"
       }
-    */
+  }
+*/
+    const { adId, message } = req.body;
+    console.log(adId, message);
+    try {
+      const ad = await Ad.findById(adId);
+      console.log(ad);
+      if (!ad) return res.status(404).json({ message: "Ad not found" });
+      console.log(ad.userId);
 
-    const data = await Message.create(req.body);
+      const receiverUserId = ad.userId;
+      console.log(receiverUserId);
+      const senderUserId = req.user._id;
+      console.log(senderUserId, "alici");
 
-    res.status(201).send({
-      error: false,
-      data,
-    });
+      const existingMessage = await Message.findOne({ senderUserId });
+      const reccontrol = await Message.findOne({ receiverUserId });
+      console.log(reccontrol, "kontrol");
+      console.log(existingMessage, "alocii");
+      if (!existingMessage) {
+        console.log("icerde");
+        const newMessage = new Message({
+          adId,
+          senderUserId,
+          receiverUserId,
+          message: {
+            senderUserId,
+            content: message, // Mesaj içeriğini content olarak adlandıralım
+          },
+        });
+        await newMessage.save();
+        res.status(201).json({ message: "Message sent" });
+      } else if (existingMessage && reccontrol) {
+        const son = await Message.findOne({ adId });
+        if (son) {
+          son.message.push({
+            senderUserId,
+            content: message, // Mesaj içeriğini content olarak adlandıralım
+          });
+          await son.save();
+          res.status(201).json({ message: "Message updated and sent." });
+        } else {
+          // Eğer 'son' bulunamazsa, hata mesajı gönder
+          res.status(404).json({ message: "No relevant message found." });
+        }
+      } else {
+        await existingMessage.message.push(message);
+        await existingMessage.save();
+        res.status(201).json({ message: "Message sent update" });
+      }
+    } catch {
+      res.status(500).json({ message: "Error sending message" });
+    }
+  },
+  recer: async (req, res) => {
+    try {
+      const { message } = req.body;
+      const { id } = req.params;
+      console.log(id);
+
+      const veri = await Message.findOne({ senderUserId: id });
+
+      if (!veri) {
+        console.log("Belirtilen senderUserId'ye sahip kayıt bulunamadı.");
+      } else {
+        console.log(veri, "veriii");
+        const rece = req.user._id;
+        console.log(req.body.message);
+        console.log(rece);
+        await veri.message.push({ rece, content: message });
+        await veri.save();
+        res.send({
+          message: "OKEY",
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
   },
 
   //! /:id -> GET
   read: async (req, res) => {
     /*
+
       #swagger.tags = ["Messages"]
       #swagger.summary = "Get Single Message"
     */
@@ -71,6 +148,7 @@ module.exports = {
   //! /:id -> PUT / PATCH
   update: async (req, res) => {
     /*
+
       #swagger.tags = ["Messages"]
       #swagger.summary = "Update Message"
       #swagger.parameters['body'] = {
@@ -79,6 +157,7 @@ module.exports = {
           schema: {}
       }
     */
+
 
     const data = await Message.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
@@ -94,9 +173,11 @@ module.exports = {
   //! /:id -> DELETE
   delete: async (req, res) => {
     /*
+
       #swagger.tags = ["Messages"]
       #swagger.summary = "Delete Message"
     */
+
 
     const data = await Message.deleteOne({ _id: req.params.id });
 
