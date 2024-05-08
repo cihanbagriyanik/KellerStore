@@ -100,9 +100,9 @@ const SideBar = () => {
               <div className=" mt-5">
                 <PostZip placeholder="Postleitzahl" />
               </div>
-              <div class="relative mt-3">
+              <div className="relative mt-3">
                 <select
-                  class="w-full pl-5 pr-3 py-2 text-sm bg-white text-button-blue shadow-sm rounded-lg duration-200"
+                  className="w-full pl-5 pr-3 py-2 text-sm bg-white text-button-blue shadow-sm rounded-lg duration-200"
                   id="grid-state"
                 >
                   <option>+10 Km</option>
