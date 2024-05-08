@@ -6,8 +6,10 @@ const RegisterForm = () => {
     <div className="sm:col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-3">
       <form>
         <div>
+        <h4 className=" text-black text-lg font-semibold text-center m-3">Wie möchtest du Kleinanzeigen nutzen?</h4>
           <div>
             <div className="flex items-center gap-x-3 ">
+            
               <div className="flex items-center gap-x-3 border-2 border-gray-300 rounded-md p-1 px-7">
                 <input
                   id="privat"
@@ -48,7 +50,7 @@ const RegisterForm = () => {
                 type="profileName"
                 autoComplete="profileName"
                 placeholder="Profil Name"
-                className=" p-3 block w-2/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className=" p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -64,7 +66,7 @@ const RegisterForm = () => {
                 type="email"
                 autoComplete="email"
                 placeholder="email"
-                className=" p-3 block w-2/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className=" p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -80,11 +82,11 @@ const RegisterForm = () => {
                 type="password"
                 autoComplete="password"
                 placeholder="Password"
-                className=" p-3 block w-2/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className=" p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
-          <div className="mt-5">
+          <div className="mt-5 flex justify-center">
             <SubmitButton />
           </div>
         </div>

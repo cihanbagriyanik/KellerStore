@@ -10,11 +10,14 @@ import Register from "../pages/Register";
 
 import Home from "../pages/Home";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+
 import AllAds from "../pages/AllAds";
 import NewAd from "../pages/NewAd";
 import Profile from "../pages/Profile";
 import Message from "../pages/Message";
+import NotFound from "../pages/NotFound";
+import Footer from "../components/Footer";
+
 
 const AppRouter = () => {
   return (
@@ -32,10 +35,11 @@ const AppRouter = () => {
               <Route path="newAd" element={<NewAd />} />
               <Route path="profile" element={<Profile />} />
               <Route path="message" element={<Message />} />
+              <Route path="*" element={<NotFound/>} />
             </Route>
           </Routes>
         </div>
-        <Footer />
+        <Footer/>
       </div>
     </Router>
   );
