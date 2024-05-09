@@ -4,25 +4,25 @@
 ------------------------------------------------------- */
 const router = require("express").Router();
 /* ------------------------------------------------------- */
-// routes/Address:
+// routes/Favorite:
 
-const Address = require("../controllers/address");
+const Favorite = require("../controllers/favorite.controller");
 
-// URL: /Addresss
+// URL: /Favorites
 
 const { isAdmin } = require("../middlewares/permissions");
 
 // all request isAdmin
 // router.use(isAdmin);
 
-router.route("/").get(Address.list).post(isAdmin, Address.create);
+router.route("/").get(Favorite.list).post(isAdmin, Favorite.create);
 
 router
   .route("/:id")
-  .get(Address.read)
-  .put(isAdmin, Address.update)
-  .patch(isAdmin, Address.update)
-  .delete(isAdmin, Address.delete);
+  .get(Favorite.read)
+  .put(isAdmin, Favorite.update)
+  .patch(isAdmin, Favorite.update)
+  .delete(isAdmin, Favorite.delete);
 
 /* ------------------------------------------------------- */
 module.exports = router;

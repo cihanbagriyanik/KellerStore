@@ -5,16 +5,20 @@
 //? Requaring
 const router = require("express").Router();
 
-const auth = require("../controllers/auth");
+const category = require("../controllers/category.controller");
+
+const permissions = require("../middlewares/permissions");
 
 /* -------------------------------------------------------------------------- */
-//! URL: /auth
-router.post("/login", auth.login);
-router.post("/refresh", auth.refresh);
-router.post("/forgot",auth.forgot);
-router.post("/reset",auth.reset);
-router.post("/gofatel", auth.gofatel);
-router.get("/logout", auth.logout);
+//! URL: /category
+router.route("/").get(category.list).post(category.create);
+
+router
+  .route("/:id")
+  .get(category.read)
+  .put(category.update)
+  .patch(category.update)
+  .delete(category.delete);
 
 /* -------------------------------------------------------------------------- */
 module.exports = router;

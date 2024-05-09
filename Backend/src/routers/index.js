@@ -10,16 +10,20 @@ const router = require("express").Router();
 //! URL: /
 
 // auth:
-router.use("/auth", require("./auth"));
+router.use("/auth", require("./auth.route"));
 
 // token:
-router.use("/tokens", require("./token"));
+router.use("/tokens", require("./token.route"));
 
 // user:
-router.use("/users", require("./user"));
+router.use("/users", require("./user.route"));
 
 //add
-router.use("/ad",require("./ad"));
+router.use("/ad",require("./ad.route"));
+
+//mesaj
+
+router.use('/messages', require('./message.route'));
 
 // document:
 // router.use("/documents", require("./document"));

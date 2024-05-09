@@ -5,20 +5,22 @@
 //? Requaring
 const router = require("express").Router();
 
-const category = require("../controllers/category");
+const ad = require("../controllers/ad.controlller");
 
 const permissions = require("../middlewares/permissions");
-
+const upload = require("../middlewares/upload")
 /* -------------------------------------------------------------------------- */
-//! URL: /category
-router.route("/").get(category.list).post(category.create);
+//! URL: /ad
+router.route("/")
+.get(ad.list)
+.post(permissions.isLogin,upload.array("ad",5)  ,ad.create);
 
 router
   .route("/:id")
-  .get(category.read)
-  .put(category.update)
-  .patch(category.update)
-  .delete(category.delete);
+  .get(ad.read)
+  .put(ad.update)
+  .patch(ad.update)
+  .delete(ad.delete);
 
 /* -------------------------------------------------------------------------- */
 module.exports = router;

@@ -5,22 +5,16 @@
 //? Requaring
 const router = require("express").Router();
 
-const ad = require("../controllers/ad");
+const auth = require("../controllers/auth.controller");
 
-const permissions = require("../middlewares/permissions");
-const upload = require("../middlewares/upload")
 /* -------------------------------------------------------------------------- */
-//! URL: /ad
-router.route("/")
-.get(ad.list)
-.post(permissions.isLogin,upload.array("ad",5)  ,ad.create);
-
-router
-  .route("/:id")
-  .get(ad.read)
-  .put(ad.update)
-  .patch(ad.update)
-  .delete(ad.delete);
+//! URL: /auth
+router.post("/login", auth.login);
+router.post("/refresh", auth.refresh);
+router.post("/forgot",auth.forgot);
+router.post("/reset",auth.reset);
+router.post("/gofatel", auth.gofatel);
+router.get("/logout", auth.logout);
 
 /* -------------------------------------------------------------------------- */
 module.exports = router;
