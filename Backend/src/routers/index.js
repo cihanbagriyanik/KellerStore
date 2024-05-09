@@ -38,8 +38,7 @@ router.use("/favorite",require("./favorite.route"));
 // follow:
 router.use("/follow",require("./follow.route"));
 
-// message:
-router.use("/message",require("./message"));
+
 
 // notification:
 router.use("/notification",require("./notification.route"));
