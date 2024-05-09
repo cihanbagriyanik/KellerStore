@@ -12,23 +12,6 @@ const bcrypt = require("bcrypt");
 /* -------------------------------------------------------------------------- */
 module.exports = {
   register: async (req, res) => {
-    /*
-        #swagger.tags = ["Authentication"]
-        #swagger.summary = "Register"
-        #swagger.description = 'Register with required information'
-        _swagger.deprecated = true
-        _swagger.ignore = true
-        #swagger.parameters["body"] = {
-            in: "body",
-            required: true,
-            schema: {
-                "userName": "test",
-                "email": "test@site.com",
-                "password": "1q2w23e4R!",
-            }
-        }
-    */
-
     try {
       const userResponse = await admin.auth().createUser({
         email: req.body.email,
@@ -71,21 +54,20 @@ module.exports = {
       });
     }
   },
-
   //! POST
   login: async (req, res) => {
     /*
         #swagger.tags = ["Authentication"]
         #swagger.summary = "Login"
-        #swagger.description = 'Login with email and password for get simpleToken and JWT'
+        #swagger.description = 'Login with username (or email) and password for get simpleToken and JWT'
         _swagger.deprecated = true
         _swagger.ignore = true
         #swagger.parameters["body"] = {
             in: "body",
             required: true,
             schema: {
-                "email": "test@site.com",
-                "password": "1q2w23e4R!",
+                "username": "test",
+                "password": "1234",
             }
         }
     */
@@ -167,21 +149,7 @@ module.exports = {
       });
     }
   },
-
   forgot: async (req, res) => {
-    /*
-        #swagger.tags = ['Authentication']
-        #swagger.summary = 'Forgot Password?'
-        #swagger.description = 'User will get link for reset the Password'
-        #swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: {
-                "email": "test@site.com",
-            }
-        }
-    */
-
     console.log(req.body, "forgot");
     try {
       const { email } = req.body;
@@ -212,23 +180,7 @@ module.exports = {
       res.send("reset false");
     }
   },
-
   reset: async (req, res) => {
-    /*
-        #swagger.tags = ['Authentication']
-        #swagger.summary = 'Reset'
-        #swagger.description = 'Reset password with refreshToken'
-        #swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: {
-                bearer: {
-                    refresh: '...refreshToken...'
-                }
-            }
-        }
-    */
-
     try {
       const { token, password } = req.body;
       console.log(token, password);
@@ -254,17 +206,6 @@ module.exports = {
   },
 
   gofatel: async (req, res) => {
-    /*
-        #swagger.tags = ['Authentication']
-        #swagger.summary = 'Register or Login with Google, Facebook or Telephone Number'
-        #swagger.description = 'Register or Login with Google, Facebook or Telephone Number'
-        #swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: {}
-        }
-    */
-
     const { google, facebook, telefon } = req.body;
     //console.log(req.body)
 

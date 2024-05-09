@@ -10,37 +10,42 @@ const router = require("express").Router();
 //! URL: /
 
 // auth:
-router.use("/auth", require("./auth"));
+router.use("/auth", require("./auth.route"));
 
 // token:
-router.use("/tokens", require("./token"));
+router.use("/tokens", require("./token.route"));
 
 // user:
-router.use("/users", require("./user"));
+router.use("/users", require("./user.route"));
 
-// ad:
-router.use("/ad",require("./ad"));
+
+//add
+router.use("/ad",require("./ad.route"));
+
+//mesaj
+
+router.use('/messages', require('./message.route'));
 
 // address:
-router.use("/address",require("./address"));
+router.use("/address",require("./address.route"));
 
 // category:
-router.use("/category",require("./category"));
+router.use("/category",require("./category.route"));
 
 // favorite:
-router.use("/favorite",require("./favorite"));
+router.use("/favorite",require("./favorite.route"));
 
 // follow:
-router.use("/follow",require("./follow"));
+router.use("/follow",require("./follow.route"));
 
 // message:
 router.use("/message",require("./message"));
 
 // notification:
-router.use("/notification",require("./notification"));
+router.use("/notification",require("./notification.route"));
 
 // document:
-router.use("/documents", require("./document"));
+router.use("/documents", require("./document.route"));
 
 /* -------------------------------------------------------------------------- */
 module.exports = router;

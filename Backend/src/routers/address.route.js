@@ -4,27 +4,25 @@
 ------------------------------------------------------- */
 const router = require("express").Router();
 /* ------------------------------------------------------- */
-// routes/Message:
+// routes/Address:
 
-const Message = require("../controllers/message");
+const Address = require("../controllers/adress.controller");
 
-// URL: /Messages
+// URL: /Addresss
 
 const { isAdmin } = require("../middlewares/permissions");
 
 // all request isAdmin
 // router.use(isAdmin);
 
-router.route("/").get(Message.list).post(isAdmin, Message.create);
+router.route("/").get(Address.list).post(isAdmin, Address.create);
 
 router
   .route("/:id")
-  .post(Message.recer)
-  .get(Message.read)
-
-  .put(isAdmin, Message.update)
-  .patch(isAdmin, Message.update)
-  .delete(isAdmin, Message.delete);
+  .get(Address.read)
+  .put(isAdmin, Address.update)
+  .patch(isAdmin, Address.update)
+  .delete(isAdmin, Address.delete);
 
 /* ------------------------------------------------------- */
 module.exports = router;
