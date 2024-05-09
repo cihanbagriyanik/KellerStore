@@ -5,7 +5,7 @@
 //? Requaring
 const router = require("express").Router();
 
-const notification = require("../controllers/notification");
+const notification = require("../controllers/notification.controller");
 
 const permissions = require("../middlewares/permissions");
 
