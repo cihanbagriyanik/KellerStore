@@ -45,12 +45,28 @@ module.exports = {
       }
     */
 
-    const data = await Favorite.create(req.body);
+      console.log(req.body, "favori");
 
-    res.status(201).send({
-      error: false,
-      data,
-    });
+      try {
+          const data = await Favorite.findOneAndUpdate(
+              { adId: req.user.adId },
+              {
+                  $addToSet: { favorite: req.body.userId },
+                  $pull: { favorite: req.body.userId }
+              },
+              { upsert: true, new: true } // new: true ile güncellenmiş belgeyi döndür
+          );
+  
+          res.status(200).send({
+              message: "Favori işlemi başarılı.",
+              data: data
+          });
+  
+      } catch (error) {
+          res.status(500).send({
+              message: "Favori işlemi başarısız."
+          });
+      }
   },
 
   //! /:id -> GET

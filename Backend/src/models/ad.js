@@ -1,112 +1,179 @@
-"use strict";
-/* --------------------------------------------------------------------------
-    * NODEJS EXPRESS | Keller Store
------------------------------------------------------------------------------ */
-//? Requaring
-const { mongoose } = require("../configs/dbConnection");
+"use strict"
+const { mongoose } = require('../configs/dbConnection')
+const Favorite = require("../models/favorite");
+const User = require("../models/user");
+const sendMail = require('../helpers/sendMail')
+const Follow = require("../models/follow"); 
 
-/* -------------------------------------------------------------------------- */
-// {
-//     "userId": "000000000"
-//     "categoryId": "000000000"
-//     "title": "title",
-//     "addressId": "000000000",
-//     "price": "0.00",
-//     "offerType": true
-// }
-/* -------------------------------------------------------------------------- */
-//? Ad Model:
-const AdSchema = new mongoose.Schema(
-  {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-      index: true,
+
+// Ad Model:
+const AdSchema = new mongoose.Schema({
+    ownerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
-
     categoryId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-      index: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        
     },
-
+    subcategoryId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Subcategory',
+        
+    },
     title: {
-      type: String,
-      trim: true,
-      required: true,
+        type: String,
+        trim: true,
+        required: true
     },
-
     content: {
-      type: String,
-      trim: true,
+        type: String,
+        trim: true
     },
-
     addressId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Address",
-      required: true,
-      index: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Address',
+        required: true
     },
-
     price: {
-      type: Number,
-      trim: true,
-      required: true,
+        type: Number,
+        required: true
     },
-
-    image: {
-      type: [],
+    priceChanged: {
+        type: Boolean,
+        default: false
+    },    
+    images: {
+        type: [String]
     },
-
     offerType: {
-      type: Boolean,
-      required: true,
+        type: Boolean,
+        required: true
     },
-
     isPublish: {
-      type: Boolean,
-      default: true,
+        type: Boolean,
+        default: true
     },
-
-    countOfVisitor: {
-      type: Number,
-      trim: true,
-      default: 0,
+    countOfVisitors: {
+        type: Number
+        
     },
-
     expireDate: {
-      type: Date,
-      trim: true,
+        type: Date
     },
-
+    isSold: {
+        type: Boolean,
+        default: false
+    },
     soldUserId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
-
     soldDate: {
-      type: Date,
-      trim: true,
+        type: Date
     },
-
-    isResereved: {
-      type: Boolean,
-      default: false,
+    isReserved: {
+        type: Boolean,
+        default: false
     },
-
-    visitedUser: {
-      type: [],
+    reservedUserId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
+    reservedDate: {
+        type: Date
+    },
+  
+    future: {
+        type: String
+    }
+}, { collection: 'ads', timestamps: true });
 
-    future: {},
-  },
-  {
-    collection: "ads",
-    timestamps: true,
-  }
-);
+// Pre-save hooks to set dates automatically and clear userId fields
+AdSchema.pre('save', function(next) {
 
-/* -------------------------------------------------------------------------- */
-module.exports = mongoose.model("Ad", AdSchema);
+     // Check if both isSold and isReserved are true
+     if (this.isSold && this.isReserved) {
+        return next(new Error('An ad cannot be both sold and reserved at the same time.'));
+    }
+
+
+    if (this.isModified('isSold') && !this.isSold) {
+        this.soldUserId = undefined;
+        this.soldDate = undefined;
+    }
+
+    if (this.isModified('isReserved') && !this.isReserved) {
+        this.reservedUserId = undefined;
+        this.reservedDate = undefined;
+    }
+
+    next();
+});
+
+
+AdSchema.pre('findOneAndUpdate', async function(next) {
+    const originalDoc = await this.model.findOne(this.getQuery()).exec();
+    
+    if (originalDoc) {
+        // İlk önce favorilere eklenmiş mi kontrol et
+        const isFavorited = await Favorite.findOne({ adId: originalDoc._id });
+        
+        // Eğer ilan favorilere eklenmişse ve fiyat değişikliği varsa işlem yap
+        if (isFavorited && 'price' in this._update && this._update.price !== originalDoc.price) {
+            this._update.$set = this._update.$set || {};
+            this._update.$set.priceChanged = true;
+        }
+    }
+    
+    next();
+});
+
+
+AdSchema.post('findOneAndUpdate', async function(doc) {
+    if (doc && this._update.$set && this._update.$set.priceChanged) {
+        const adId = doc._id;
+        // Favorilere eklenmiş kullanıcıları bul
+        const favorites = await Favorite.find({ adId: adId });
+        for (const favorite of favorites) {
+            // Her kullanıcı için e-posta gönder
+            const user = await User.findById(favorite.userId);
+            if (user && user.email) {
+                sendMail(user.email, 'Fiyat Düstü!', 'The price of an ad you favorited has dropped!');
+            }
+        }
+    }
+});
+
+AdSchema.post('save', async function(doc) {
+    if (doc) {
+      const creationTime = new Date(doc.createdAt).getTime();
+      const updateTime = new Date(doc.updatedAt).getTime();
+  
+      // İlanın oluşturulma ve güncellenme zamanı 1 dakikadan az bir farkla ise, yeni ilan olarak kabul edilir. bu yüzden ilanın süresi 1 dakikadan az olmalıdır. az olmazsa yukardaki kodlar devreye giriyor ve bu ilanda yapilan fiyat güncellemesi takipciye eni ürün eklendi email inini gönderiyor ki bu cok sacma olur
+      if (updateTime - creationTime < 60 * 1000) {
+        const ownerId = doc.ownerId;
+  
+        // Find all followers of the ad owner
+        const followers = await Follow.find({ followedUserId: ownerId });
+  
+        for (const follower of followers) {
+          const user = await User.findById(follower.userId);
+  
+          if (user && user.email) {
+            sendMail(user.email, 'Yeni ürün eklendi!', `A user you follow has posted a new ad: ${doc.title}`);
+          }
+        }
+      }
+    }
+  });
+  
+
+
+
+
+
+
+module.exports = mongoose.model('Ad', AdSchema)

@@ -52,7 +52,18 @@ module.exports = {
                 }
             }
     */
+   console.log(req.body,"adddddddddddd")
+
+   console.log(req.files,"ad resim")
+   //console.log(req.user,"userAD")
+   if(req.files){
+      req.body.images = req.files.map(file => file.originalname); 
+   }else{
+    req.body.images = "resimyok.jpeg" 
+   }
+
     const data = await Ad.create(req.body);
+
 
     sendMail(
       // to:
