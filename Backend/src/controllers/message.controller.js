@@ -63,6 +63,7 @@ module.exports = {
 try {
   const { adId, message } = req.body;
   const ad = await Ad.findById(adId);
+  console.log(ad,"aaaaaaaaaaaaaaaa")
   if (!ad) {
     return res.status(404).send({
       error: true,
@@ -77,7 +78,7 @@ try {
     adId: adId,
     participants: { $all: [senderId, ad.ownerId] }
   });
-  console.log(thread,"thraaaa")
+ 
     console.log(ad.ownerId,"ad ownert")
   // Check if the thread already exists and if the sender is the ad owner
   if (!thread && senderId.toString() === ad.ownerId.toString()) {
@@ -87,7 +88,7 @@ try {
       message: "You cannot send a message to your own ad."
     });
   }
-
+ console.log(thread,"thraaaa conrrol")
   // Create a new thread if it does not exist
   if (!thread) {
     thread = await Message.create({
@@ -120,6 +121,7 @@ try {
   });
 } catch (err) {
   res.send({
+    err:err.message,
     mesage:"messaj hata"
   })
 }
