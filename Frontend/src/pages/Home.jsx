@@ -1,10 +1,15 @@
 import React from "react";
 import Banner from "../components/Banner";
 import SideBar from "../components/SideBar";
+import CategoryIconCard from "../components/cards/CategoryIconCard";
+
+
 import Stats from "../components/Stats";
 import Team from "../components/Team";
 import NewAdForm from "../components/forms/NewAdForm";
 import NewAd from "./NewAd";
+
+
 
 const Home = () => {
   const title = `Von hier aus konnen Sie alles #Kaufen, #mieten, #buchen.`;
@@ -14,6 +19,9 @@ const Home = () => {
     <div className=" ">
       <div className=" ">
         <Banner title={title} desc={desc} />
+        <div>
+          <CategoryIconCard />
+        </div>
       </div>
       <div className="flex ">
         <div className=" ">
