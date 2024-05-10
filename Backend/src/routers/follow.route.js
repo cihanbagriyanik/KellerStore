@@ -5,7 +5,7 @@
 //? Requaring
 const router = require("express").Router();
 
-const follow = require("../controllers/follow");
+const follow = require("../controllers/follow.controller");
 
 const permissions = require("../middlewares/permissions");
 

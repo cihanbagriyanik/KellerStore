@@ -5,19 +5,25 @@
 //? Requaring
 const router = require("express").Router();
 
-const token = require("../controllers/token");
+const ad = require("../controllers/ad.controlller");
 
-const { isAdmin } = require("../middlewares/permissions");
-
+const permissions = require("../middlewares/permissions");
+const upload = require("../middlewares/upload")
 /* -------------------------------------------------------------------------- */
-//! URL: /tokens
-router.use(isAdmin);
+//! URL: /ad
+router.route("/")
+.get(ad.list)
+.post(permissions.isLogin,upload.array("ad",5)  ,ad.create);
 
-router.route("/").get(token.list).post(token.create);
+router.route("/favorite/:id")
+.post(ad.favorite)
 
 router
   .route("/:id")
-  .get(token.read)
-  .delete(token.delete);
+  .get(ad.read)
+  .put(ad.update)
+  .patch(ad.update)
+  .delete(ad.delete);
+
 /* -------------------------------------------------------------------------- */
 module.exports = router;

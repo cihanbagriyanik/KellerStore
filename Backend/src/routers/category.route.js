@@ -5,20 +5,20 @@
 //? Requaring
 const router = require("express").Router();
 
-const notification = require("../controllers/notification");
+const category = require("../controllers/category.controller");
 
 const permissions = require("../middlewares/permissions");
 
 /* -------------------------------------------------------------------------- */
-//! URL: /notification
-router.route("/").get(notification.list).post(notification.create);
+//! URL: /category
+router.route("/").get(category.list).post(category.create);
 
 router
   .route("/:id")
-  .get(notification.read)
-  .put(notification.update)
-  .patch(notification.update)
-  .delete(notification.delete);
+  .get(category.read)
+  .put(category.update)
+  .patch(category.update)
+  .delete(category.delete);
 
 /* -------------------------------------------------------------------------- */
 module.exports = router;

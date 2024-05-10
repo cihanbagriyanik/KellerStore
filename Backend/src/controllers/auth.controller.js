@@ -7,63 +7,56 @@ const User = require("../models/user");
 const Token = require("../models/token");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
 const jwt = require("jsonwebtoken");
-const { admin } = require("../configs/dbConnection");
+const sendMail = require("../helpers/sendMail")
 const bcrypt = require("bcrypt");
 /* -------------------------------------------------------------------------- */
 module.exports = {
-  register: async (req, res) => {
+ 
+  register: async (req, res) => { 
     /*
         #swagger.tags = ["Authentication"]
         #swagger.summary = "Register"
-        #swagger.description = 'Register with required information'
+        #swagger.description = 'Register with username (or email) '
         _swagger.deprecated = true
         _swagger.ignore = true
         #swagger.parameters["body"] = {
             in: "body",
             required: true,
-            schema: {
-                "userName": "test",
-                "email": "test@site.com",
-                "password": "1q2w23e4R!",
-            }
-        }
+            {
+    "firstName": "test10",
+    "lastName": "test10",
+    "userName": "test10",
+    "businessName": "12311416787710932",
+    "email": "test10@gmail.com",
+    "password": "123456789",
+    "tel": "123456789741",
+    "taxNr": 123456752582113111192,
+      }
+      }
     */
-
     try {
-      const userResponse = await admin.auth().createUser({
-        email: req.body.email,
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.password,
+      const user = new User({
+        ...req.body,
+        password: bcrypt.hashSync(req.body.password, 10),
       });
-
-      if (userResponse) {
-        console.log(userResponse, "user");
-
-        const user = new User({
-          firebaseId: userResponse.uid,
-          ...req.body,
-          password: bcrypt.hashSync(req.body.password, 10),
-        });
-        sendMail(
-          // to:
-          req.body.email,
-          // subject:
-          "Welcome",
-          // Message:
-          `
+      sendMail(
+        // to:
+        req.body.email,
+        // subject:
+        "Welcome",
+        // Message:
+        `
               <h1>Welcome to system</h1>
               <p><b>${req.body.userName}</b>The registration has been successful. Have a nice shopping.!</p>
           `
-        );
-        // Veriyi MongoDB'ye kaydediyoruz.
-        const data = await user.save();
-        res.send({
-          data,
-          success: true,
-          message: "User created successfully",
-        });
-      }
+      );
+      // Veriyi MongoDB'ye kaydediyoruz.
+      const data = await user.save();
+      res.send({
+        data,
+        success: true,
+        message: "User created successfully",
+      });
     } catch (error) {
       res.status(500).send({
         success: false,
@@ -71,21 +64,20 @@ module.exports = {
       });
     }
   },
-
   //! POST
   login: async (req, res) => {
     /*
         #swagger.tags = ["Authentication"]
         #swagger.summary = "Login"
-        #swagger.description = 'Login with email and password for get simpleToken and JWT'
+        #swagger.description = 'Login with username (or email) and password for get simpleToken and JWT'
         _swagger.deprecated = true
         _swagger.ignore = true
         #swagger.parameters["body"] = {
             in: "body",
             required: true,
             schema: {
-                "email": "test@site.com",
-                "password": "1q2w23e4R!",
+                "username": "test",
+                "password": "1234",
             }
         }
     */
@@ -167,21 +159,7 @@ module.exports = {
       });
     }
   },
-
   forgot: async (req, res) => {
-    /*
-        #swagger.tags = ['Authentication']
-        #swagger.summary = 'Forgot Password?'
-        #swagger.description = 'User will get link for reset the Password'
-        #swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: {
-                "email": "test@site.com",
-            }
-        }
-    */
-
     console.log(req.body, "forgot");
     try {
       const { email } = req.body;
@@ -212,23 +190,7 @@ module.exports = {
       res.send("reset false");
     }
   },
-
   reset: async (req, res) => {
-    /*
-        #swagger.tags = ['Authentication']
-        #swagger.summary = 'Reset'
-        #swagger.description = 'Reset password with refreshToken'
-        #swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: {
-                bearer: {
-                    refresh: '...refreshToken...'
-                }
-            }
-        }
-    */
-
     try {
       const { token, password } = req.body;
       console.log(token, password);
@@ -254,17 +216,6 @@ module.exports = {
   },
 
   gofatel: async (req, res) => {
-    /*
-        #swagger.tags = ['Authentication']
-        #swagger.summary = 'Register or Login with Google, Facebook or Telephone Number'
-        #swagger.description = 'Register or Login with Google, Facebook or Telephone Number'
-        #swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: {}
-        }
-    */
-
     const { google, facebook, telefon } = req.body;
     //console.log(req.body)
 

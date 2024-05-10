@@ -14,7 +14,7 @@ const { mongoose } = require("../configs/dbConnection");
 //? Favorite Model:
 const FavoriteSchema = new mongoose.Schema(
   { 
-    UserId: {
+    userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
