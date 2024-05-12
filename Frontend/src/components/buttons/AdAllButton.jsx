@@ -1,9 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdAllButton = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/allad");
+  };
+
   return (
     <div>
-      <button className="btnAllAd bg-white  border border-0.5 border-button-blue hover:bg-button-blue hover:text-white flex items-center ">
+      <button
+        onClick={handleClick}
+        className="btnAllAd bg-white border border-0.5 border-button-blue hover:bg-button-blue hover:text-white flex items-center w-"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

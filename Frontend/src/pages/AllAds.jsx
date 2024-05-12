@@ -1,9 +1,30 @@
-import React from 'react'
+import React from "react";
+import Banner from "../components/Banner";
+import CategoryIconCard from "../components/cards/CategoryIconCard";
+import SideBar from "../components/SideBar";
+import AdCard from "../components/cards/AdCard";
 
 const AllAds = () => {
-  return (
-    <div>AllAds</div>
-  )
-}
+  const title = `Alle Anzeigen`;
 
-export default AllAds
+  return (
+    <div>
+      <div className=" ">
+        <Banner title={title} />
+        <div>
+          <CategoryIconCard />
+        </div>
+      </div>
+      <div className="flex ">
+        <div className=" ">
+          <SideBar />
+        </div>
+        <div className="flex-grow">
+          <AdCard />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AllAds;
