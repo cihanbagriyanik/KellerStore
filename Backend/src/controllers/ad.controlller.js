@@ -52,18 +52,17 @@ module.exports = {
                 }
             }
     */
-   console.log(req.body,"adddddddddddd")
+    console.log(req.body, "adddddddddddd");
 
-   console.log(req.files,"ad resim")
-   //console.log(req.user,"userAD")
-   if(req.files){
-      req.body.images = req.files.map(file => file.originalname); 
-   }else{
-    req.body.images = "resimyok.jpeg" 
-   }
+    console.log(req.files, "ad resim");
+    //console.log(req.user,"userAD")
+    if (req.files) {
+      req.body.images = req.files.map((file) => file.originalname);
+    } else {
+      req.body.images = "resimyok.jpeg";
+    }
 
     const data = await Ad.create(req.body);
-
 
     sendMail(
       // to:
@@ -98,7 +97,6 @@ module.exports = {
     });
   },
   favorite: async (req, res) => {
-
     /*
         #swagger.tags = ["Ads"]
         #swagger.summary = "Update Ad"
@@ -115,39 +113,41 @@ module.exports = {
     console.log(req.body, "favorite");
     console.log(req.params.id);
     try {
-        const ad = await Ad.findOne({ _id: req.params.id });
-        console.log(ad);
-        if (!ad) {
-            return res.status(404).send({ message: "Ad not found" });
-        }
+      const ad = await Ad.findOne({ _id: req.params.id });
+      console.log(ad);
+      if (!ad) {
+        return res.status(404).send({ message: "Ad not found" });
+      }
 
-        // Kullanıcı favori listesinde mi kontrol et
-        const isFavorite = ad.favorite.includes(req.body.userId);
+      // Kullanıcı favori listesinde mi kontrol et
+      const isFavorite = ad.favorite.includes(req.body.userId);
 
-        // $addToSet ve $pull operatörlerini kullanarak favori listesini güncelle
-        const updateQuery = isFavorite ? 
-            { $pull: { favorite: req.body.userId } } : 
-            { $addToSet: { favorite: req.body.userId } };
+      // $addToSet ve $pull operatörlerini kullanarak favori listesini güncelle
+      const updateQuery = isFavorite
+        ? { $pull: { favorite: req.body.userId } }
+        : { $addToSet: { favorite: req.body.userId } };
 
-        // Favori listesini güncelle
-        const updatedAd = await Ad.findOneAndUpdate(
-            { _id: req.params.id },
-            updateQuery,
-            { new: true }
-        );
+      // Favori listesini güncelle
+      const updatedAd = await Ad.findOneAndUpdate(
+        { _id: req.params.id },
+        updateQuery,
+        { new: true }
+      );
 
-        if (!updatedAd) {
-            return res.status(500).send({ message: "Failed to update favorite" });
-        }
+      if (!updatedAd) {
+        return res.status(500).send({ message: "Failed to update favorite" });
+      }
 
-        return res.send({ message: isFavorite ? "Moved to favorites" : "Added to favorites", data: updatedAd });
+      return res.send({
+        message: isFavorite ? "Moved to favorites" : "Added to favorites",
+        data: updatedAd,
+      });
     } catch (error) {
-        console.error("An error occurred during the favorite operation", error);
-        return res.status(500).send({ message: "Internal server error" });
+      console.error("An error occurred during the favorite operation", error);
+      return res.status(500).send({ message: "Internal server error" });
     }
-}
+  },
 
- ,
   //! /:id -> PUT / PATCH
   update: async (req, res) => {
     /*
