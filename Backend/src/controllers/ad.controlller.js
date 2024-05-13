@@ -61,6 +61,7 @@ module.exports = {
    }else{
     req.body.images = "resimyok.jpeg" 
    }
+   
 
     const data = await Ad.create(req.body);
 

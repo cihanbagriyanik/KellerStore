@@ -8,7 +8,7 @@ const Follow = require("../models/follow");
 
 // Ad Model:
 const AdSchema = new mongoose.Schema({
-    ownerId: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true

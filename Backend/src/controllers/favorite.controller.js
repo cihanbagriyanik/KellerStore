@@ -45,27 +45,38 @@ module.exports = {
       }
     */
 
-      console.log(req.body, "favori");
-
+      console.log(req.body.adId, "favori");
+      const fr = await Favorite.findOne({ adId: req.body.adId });
+      console.log(fr, "fr");
+      console.log(req.user._id);
       try {
+        if (!fr) {
+          const data = await Favorite.create({
+            adId: req.body.adId,
+            favorites: [req.user._id],
+          });
+  
+          return res.status(200).send({
+            data: data,
+            message: "Favori Eklendi",
+          });
+        } else {
           const data = await Favorite.findOneAndUpdate(
-              { adId: req.user.adId },
-              {
-                  $addToSet: { favorite: req.body.userId },
-                  $pull: { favorite: req.body.userId }
-              },
-              { upsert: true, new: true } // new: true ile güncellenmiş belgeyi döndür
+            { adId: req.body.adId },
+            fr.favorites.includes(req.user._id)
+              ? { $pull: { favorites: req.user._id } }
+              : { $addToSet: { favorites: req.user._id } },
+            { new: true, runValidators: true },
+            { new: true, runValidators: true }
           );
-  
-          res.status(200).send({
-              message: "Favori işlemi başarılı.",
-              data: data
+          return res.status(200).send({
+            data: data,
+            message: "Favori Güncellendi",
           });
-  
+        }
       } catch (error) {
-          res.status(500).send({
-              message: "Favori işlemi başarısız."
-          });
+        console.error(error);
+        return res.status(500).json({ error: "Sunucu hatası." });
       }
   },
 
