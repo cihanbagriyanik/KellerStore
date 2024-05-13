@@ -17,6 +17,7 @@ router.use("/tokens", require("./token.route"));
 
 // user:
 router.use("/users", require("./user.route"));
+router.use("/admin",require("./admin.route"))
 
 
 //add

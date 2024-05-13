@@ -4,25 +4,20 @@
 ------------------------------------------------------- */
 const router = require("express").Router();
 /* ------------------------------------------------------- */
-// routes/Favorite:
+// routes/Address:
 
-const Favorite = require("../controllers/favorite.controller");
+const Address = require("../controllers/adress.controller");
 
-// URL: /Favorites
+// URL: /Addresss
 
-const { isAdmin, isLogin } = require("../middlewares/permissions");
+const { isAdmin } = require("../middlewares/permissions");
+const user = require('../controllers/user.controller');
 
 // all request isAdmin
 // router.use(isAdmin);
 
-router.route("/").get(isAdmin,Favorite.list).post(isLogin, Favorite.create);
+router.route("/").get(isAdmin,user.list).post(isAdmin, user.create);
 
-router
-  .route("/:id")
-  .get(Favorite.read)
-  .put(isAdmin, Favorite.update)
-  .patch(isAdmin, Favorite.update)
-  .delete(isAdmin, Favorite.delete);
 
 /* ------------------------------------------------------- */
 module.exports = router;

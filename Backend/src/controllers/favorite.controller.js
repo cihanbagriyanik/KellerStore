@@ -23,11 +23,11 @@ module.exports = {
       `
     */
 
-    const data = await res.getModelList(Favorite, filters);
+    const data = await res.getModelList(Favorite);
 
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(Favorite, filters),
+      details: await res.getModelListDetails(Favorite),
       data,
     });
   },
@@ -41,7 +41,9 @@ module.exports = {
       #swagger.parameters['body'] = {
           in: 'body',
           required: true,
-          schema: {}
+          schema: {
+            "adId": "6641d3ad8910df94c338255a"
+          }
       }
     */
 
