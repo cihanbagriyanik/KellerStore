@@ -10,7 +10,7 @@ const Address = require("../controllers/adress.controller");
 
 // URL: /Addresss
 
-const { isAdmin } = require("../middlewares/permissions");
+const { isAdmin ,isLogin} = require("../middlewares/permissions");
 
 // all request isAdmin
 // router.use(isAdmin);
