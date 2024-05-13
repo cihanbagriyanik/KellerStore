@@ -3,8 +3,7 @@ import Banner from "../components/Banner";
 import CategoryIconCard from "../components/cards/CategoryIconCard";
 import Stats from "../components/Stats";
 import Team from "../components/Team";
-import AdCard from "../components/cards/AdCard";
-import AdAllButton from "../components/buttons/AdAllButton";
+import AdContainer from "../components/container/AdContainer";
 
 const Home = () => {
   const title = `Von hier aus konnen Sie alles #Kaufen, #mieten, #buchen.`;
@@ -22,47 +21,12 @@ const Home = () => {
         {/* /* -------------------------------------------------------------------------- */}
         <div className="flex-grow ">
           {/* /* -------------------------------------------------------------------------- */}
-          <div className="border w-5/6 m-auto bg-light-grey pb-7 mb-20">
-            <div className="flex justify-between items-center pt-3 pb-3">
-              <h1 className="text-3xl ps-5">
-                Neueste <span className="text-button-blue">Anzeigen</span>
-              </h1>
-              <div className="me-24">
-                <AdAllButton />
-              </div>
-            </div>
-            <div>
-              <AdCard />
-            </div>
-          </div>
 
-          <div className="border w-5/6 m-auto bg-background-grey pb-7 mb-20">
-            <div className="flex justify-between items-center pt-3 pb-3">
-              <h1 className="text-3xl ps-5">
-                Beliebte <span className="text-button-blue">Anzeigen</span>
-              </h1>
-              <div className="me-24">
-                <AdAllButton />
-              </div>
-            </div>
-            <div>
-              <AdCard />
-            </div>
-          </div>
+          <AdContainer title={"Neueste"} target={"/allad"} />
 
-          <div className="border w-5/6 m-auto bg-background-grey pb-7 mb-20">
-            <div className="flex justify-between items-center pt-3 pb-3">
-              <h1 className="text-3xl ps-5">
-                Most View <span className="text-button-blue">Anzeigen</span>
-              </h1>
-              <div className="me-24">
-                <AdAllButton />
-              </div>
-            </div>
-            <div>
-              <AdCard />
-            </div>
-          </div>
+          <AdContainer title={"Beliebte"} target={"/allad?category=belibte"} />
+
+          <AdContainer title={"Most View"} target={"/allad"} />
 
           {/* /! -------------------------------------------------------------------------- */}
           <div className="mt-8 py-6 border-t items-center justify-between sm:flex">

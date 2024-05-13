@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const AdAllButton = () => {
+const AdAllButton = ({ target }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/allad");
+    navigate(target);
   };
 
   return (
