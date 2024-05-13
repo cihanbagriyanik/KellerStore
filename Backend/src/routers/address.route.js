@@ -15,7 +15,7 @@ const { isAdmin } = require("../middlewares/permissions");
 // all request isAdmin
 // router.use(isAdmin);
 
-router.route("/").get(Address.list).post(isAdmin, Address.create);
+router.route("/").get(Address.list).post(isLogin, Address.create);
 
 router
   .route("/:id")

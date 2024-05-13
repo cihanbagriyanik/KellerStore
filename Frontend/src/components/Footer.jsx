@@ -26,10 +26,10 @@ export default () => {
         },
         {
           // href: "#",
-          name: "LAuftragsverfolgung",
+          name: "Lauftragsverfolgung",
         },
         {
-          // href: "#",
+          href: "/profile",
           name: "Mein Konto",
         },
       ],
@@ -54,7 +54,7 @@ export default () => {
   ];
 
   return (
-    <footer className="pt-10 bg-gray-800 ">
+    <footer className="pt-10 bg-background-footer-dark-blue ">
 
       <div className="max-w-screen-xl mx-auto px-4 md:px-8">
         <div className="justify-between items-center gap-12 md:flex">
@@ -68,7 +68,7 @@ export default () => {
               onSubmit={(e) => e.preventDefault()}
               className="flex items-center gap-x-3 md:justify-end"
             >
-              <div className="relative">
+              <div className="relative w-96">
                 <svg
                   className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto"
                   xmlns="http://www.kellerstore.com"
@@ -117,8 +117,8 @@ export default () => {
           ))}
         </div>
         <div className="mt-10 py-10 border-t border-gray-700 items-center justify-between sm:flex">
-          <p className="text-gray-300">
-            All Copyrights Reserved © 2024 - Developed by DA71
+          <p className="text-gray-300 ">
+            All Copyrights Reserved © 2024 - Developed by DA07
           </p>
           <div className="flex items-center gap-x-6 text-gray-400 mt-6">
             <a href="#">
