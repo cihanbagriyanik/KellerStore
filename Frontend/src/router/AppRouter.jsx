@@ -30,14 +30,13 @@ const AppRouter = () => {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
 
-            {/* <Route path="" element={<PrivateRouter />}> */}
-            <Route path="allad" element={<AllAds />} />
-            <Route path="newad" element={<NewAd />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="message" element={<Message />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="about" element={<About />} />
-            {/* </Route> */}
+            <Route path="" element={<PrivateRouter />}>
+              <Route path="allad" element={<AllAds />} />
+              <Route path="newAd" element={<NewAd />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="message" element={<Message />} />
+              <Route path="*" element={<NotFound/>} />
+            </Route>
           </Routes>
         </div>
         <Footer />
