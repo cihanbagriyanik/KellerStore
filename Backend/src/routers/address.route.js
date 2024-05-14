@@ -10,10 +10,11 @@ const Address = require("../controllers/adress.controller");
 
 // URL: /Addresss
 
+
 const { isAdmin,isLogin } = require("../middlewares/permissions");
 
-// all request isAdmin
-// router.use(isAdmin);
+
+
 
 router.route("/").get(isAdmin,Address.list).post(isLogin, Address.create);
 
