@@ -1,9 +1,19 @@
-import React from 'react'
+import React from "react";
+import ProfileSidebar from "../components/ProfileSidebar";
+import SettingsContainer from "../components/container/SettingsContainer";
 
 const Profile = () => {
   return (
-    <div>Profile</div>
-  )
-}
+    <div className="flex">
+      <div>
+        <ProfileSidebar />
+      </div>
 
-export default Profile
+      <div className="flex-grow">
+        <SettingsContainer />
+      </div>
+    </div>
+  );
+};
+
+export default Profile;
