@@ -41,16 +41,21 @@ module.exports = {
       #swagger.parameters['body'] = {
         in: 'body',
         required: true,
-          schema: {
-            zipCode:"test00000"
-          }
+          schema:{
+                   "street": "example Stert",
+                   "zipCode": "135",
+                   "city": "Example City",
+                   "country": "Example Country",
+                   "doorBellName": "Apt. 1"
+                  }
       }
     */
 
-    const data = await Address.create(req.body);
-
-    res.status(201).send({
-      error: false,
+    const userId = req.user._id;
+    console.log(userId);
+    const data = await Address.create({ ...req.body, userId: req.user._id });
+    res.send({
+      mesage: "okey",
       data,
     });
   },
@@ -84,14 +89,15 @@ module.exports = {
             }
     */
 
-    const data = await Address.updateOne({ _id: req.params.id }, req.body, {
-      runValidators: true,
-    });
-
-    res.status(202).send({
-      error: false,
+    const { id } = req.params;
+    const data = await Address.findByIdAndUpdate(
+      id,
+      { ...req.body, userId: req.user._id },
+      { new: true }
+    );
+    res.status(200).send({
+      message: "okey",
       data,
-      new: await Address.findOne({ _id: req.params.id }),
     });
   },
 
