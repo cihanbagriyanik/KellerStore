@@ -1,0 +1,16 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  heroicon:
+    specifier: ^0.0.2
+    version: 0.0.2
+
+packages:
+
+  /heroicon@0.0.2:
+    resolution: {integrity: sha512-7H2MZcHTZNlGTQywcPZNMnMy+RddnQVD0jGxC48jJvGEcujMRudlQDLpDAy/Ej+1bZ+wFvjY7H3aAe5M3TfaaA==}
+    dev: false

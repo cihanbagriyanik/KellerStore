@@ -17,7 +17,7 @@ import Profile from "../pages/Profile";
 import Message from "../pages/Message";
 import NotFound from "../pages/NotFound";
 import Footer from "../components/Footer";
-
+import About from "../pages/About";
 
 const AppRouter = () => {
   return (
@@ -31,15 +31,16 @@ const AppRouter = () => {
             <Route path="register" element={<Register />} />
 
             {/* <Route path="" element={<PrivateRouter />}> */}
-              <Route path="allad" element={<AllAds />} />
-              <Route path="newad" element={<NewAd />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="message" element={<Message />} />
-              {/* <Route path="*" element={<NotFound/>} /> */}
+            <Route path="allad" element={<AllAds />} />
+            <Route path="newad" element={<NewAd />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="message" element={<Message />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="about" element={<About />} />
             {/* </Route> */}
           </Routes>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </Router>
   );
