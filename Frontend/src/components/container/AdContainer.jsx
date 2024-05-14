@@ -9,10 +9,12 @@ const AdContainer = ({ title, target }) => {
         <h1 className="text-3xl ps-5">
           {title} <span className="text-button-blue">Anzeigen</span>
         </h1>
+
         <div className="me-24">
           <AdAllButton target={target} />
         </div>
       </div>
+
       <div>
         <AdCard />
       </div>
