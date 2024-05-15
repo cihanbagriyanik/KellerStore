@@ -51,14 +51,41 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "password": {
-                  "example": "any"
+                "firstName": {
+                  "type": "string",
+                  "example": "test10"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "test10"
+                },
+                "userName": {
+                  "type": "string",
+                  "example": "test10"
+                },
+                "businessName": {
+                  "type": "string",
+                  "example": "12311416787710932"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "test10@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "123456789"
+                },
+                "tel": {
+                  "type": "string",
+                  "example": "123456789741"
+                },
+                "taxNr": {
+                  "type": "number",
+                  "example": 123456752582113120000
                 }
               }
             }
@@ -795,33 +822,17 @@
             "schema": {
               "type": "object",
               "properties": {
-                "street": {
-                  "type": "string",
-                  "example": "example Stert"
-                },
                 "zipCode": {
                   "type": "string",
-                  "example": "135"
-                },
-                "city": {
-                  "type": "string",
-                  "example": "Example City"
-                },
-                "country": {
-                  "type": "string",
-                  "example": "Example Country"
-                },
-                "doorBellName": {
-                  "type": "string",
-                  "example": "Apt. 1"
+                  "example": "test00000"
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           }
         }
       }
@@ -876,8 +887,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "202": {
+            "description": "Accepted"
           }
         }
       },
@@ -933,8 +944,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "202": {
+            "description": "Accepted"
           }
         }
       }
