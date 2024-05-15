@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 // Buttons Infos
 const ProfileButtons = [
-  { name: "Einstellungen", path: "/settings" },
+  { name: "Profile", path: "/profile" },
   { name: "Meine Anzeigen", path: "/myads" },
   { name: "Nachricht", path: "/message" },
   { name: "Merkliste", path: "/wishlist" },
