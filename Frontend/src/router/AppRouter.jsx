@@ -17,6 +17,10 @@ import Profile from "../pages/Profile";
 import Message from "../pages/Message";
 import NotFound from "../pages/NotFound";
 import Footer from "../components/Footer";
+import MyAds from "../pages/MyAds";
+import Setting from "../pages/Setting";
+import WishList from "../pages/WishList";
+import Following from "../pages/Following";
 import About from "../pages/About";
 
 const AppRouter = () => {
@@ -30,14 +34,18 @@ const AppRouter = () => {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
 
-            <Route path="" element={<PrivateRouter />}>
-              <Route path="allad" element={<AllAds />} />
-              <Route path="newAd" element={<NewAd />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="message" element={<Message />} />
-              <Route path="*" element={<NotFound/>} />
-              <Route path="about" element={<About/>} />
-            </Route>
+            {/* <Route path="" element={<PrivateRouter />}> */}
+            <Route path="allad" element={<AllAds />} />
+            <Route path="newad" element={<NewAd />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="message" element={<Message />} />
+            <Route path="myads" element={<MyAds />} />
+            <Route path="settings" element={<Profile />} />
+            <Route path="wishlist" element={<WishList />} />
+            <Route path="following" element={<Following />} />
+            <Route path="about" element={<About />} />
+            {/* <Route path="*" element={<NotFound/>} /> */}
+            {/* </Route> */}
           </Routes>
         </div>
         <Footer />

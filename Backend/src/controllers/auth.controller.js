@@ -22,16 +22,17 @@ module.exports = {
         #swagger.parameters["body"] = {
             in: "body",
             required: true,
-            {
-    "firstName": "test10",
-    "lastName": "test10",
-    "userName": "test10",
-    "businessName": "12311416787710932",
-    "email": "test10@gmail.com",
-    "password": "123456789",
-    "tel": "123456789741",
-    "taxNr": 123456752582113111192,
-      }
+
+             schema: {
+              "firstName": "test10",
+              "lastName": "test10",
+              "userName": "test10",
+              "businessName": "12311416787710932",
+             "email": "test10@gmail.com",
+             "password": "123456789",
+             "tel": "123456789741",
+             "taxNr": 123456752582113111192,
+               }
       }
     */
     try {

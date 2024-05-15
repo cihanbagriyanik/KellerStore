@@ -8,11 +8,12 @@ const Follow = require("../models/follow");
 
 // Ad Model:
 const AdSchema = new mongoose.Schema({
-    ownerId: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
+    //userId dikkat
     categoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
@@ -154,10 +155,10 @@ AdSchema.post('save', async function(doc) {
   
       // İlanın oluşturulma ve güncellenme zamanı 1 dakikadan az bir farkla ise, yeni ilan olarak kabul edilir. bu yüzden ilanın süresi 1 dakikadan az olmalıdır. az olmazsa yukardaki kodlar devreye giriyor ve bu ilanda yapilan fiyat güncellemesi takipciye eni ürün eklendi email inini gönderiyor ki bu cok sacma olur
       if (updateTime - creationTime < 60 * 1000) {
-        const ownerId = doc.ownerId;
+        const userId = doc.userId;
   
         // Find all followers of the ad owner
-        const followers = await Follow.find({ followedUserId: ownerId });
+        const followers = await Follow.find({ followedUserId: userId });
   
         for (const follower of followers) {
           const user = await User.findById(follower.userId);

@@ -34,6 +34,7 @@ export default () => {
             linkedin: "https://www.linkedin.com/in/omer-faruk-basalioglu/",
             twitter: "#",
         },
+        
         {
             avatar: "",
             name: "hasan Koc ",

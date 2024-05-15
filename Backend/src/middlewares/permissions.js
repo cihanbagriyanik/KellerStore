@@ -6,7 +6,7 @@
 /* -------------------------------------------------------------------------- */
 module.exports = {
   isLogin: (req, res, next) => {
-    if (process.env.NODE_ENV == "dev") return next();
+   // if (process.env.NODE_ENV == "dev") return next();
 
     if (req.user && req.user.isActive) {
       next();

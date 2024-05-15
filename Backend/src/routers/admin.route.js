@@ -10,20 +10,14 @@ const Address = require("../controllers/adress.controller");
 
 // URL: /Addresss
 
+const { isAdmin } = require("../middlewares/permissions");
+const user = require('../controllers/user.controller');
 
-const { isAdmin,isLogin } = require("../middlewares/permissions");
+// all request isAdmin
+// router.use(isAdmin);
 
+router.route("/").get(isAdmin,user.list).post(isAdmin, user.create);
 
-
-
-router.route("/").get(isAdmin,Address.list).post(isLogin, Address.create);
-
-router
-  .route("/:id")
-  .get(isLogin,Address.read)
-  .put(isLogin, Address.update)
-  .patch(isLogin, Address.update)
-  .delete(isAdmin, Address.delete);
 
 /* ------------------------------------------------------- */
 module.exports = router;

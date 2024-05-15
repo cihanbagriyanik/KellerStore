@@ -1,11 +1,7 @@
 import React from "react";
 import Banner from "../components/Banner";
-import SideBar from "../components/SideBar";
-
-import NewAdForm from "../components/forms/NewAdForm";
-import NewAd from "./NewAd";
-
-
+import CategoryIconCard from "../components/cards/CategoryIconCard";
+import AdContainer from "../components/container/AdContainer";
 
 const Home = () => {
   const title = `Von hier aus konnen Sie alles #Kaufen, #mieten, #buchen.`;
@@ -15,28 +11,25 @@ const Home = () => {
     <div className=" ">
       <div className=" ">
         <Banner title={title} desc={desc} />
+        <div>
+          <CategoryIconCard />
+        </div>
       </div>
       <div className="flex ">
-        <div className=" ">
-          <SideBar />
+        {/* /* -------------------------------------------------------------------------- */}
+        <div className="flex-grow ">
+          {/* /* -------------------------------------------------------------------------- */}
+
+          <AdContainer title={"Neueste"} target={"/allad"} />
+
+          <AdContainer title={"Beliebte"} target={"/allad?category=belibte"} />
+
+          <AdContainer title={"Most View"} target={"/allad"} />
+
+          {/* /! -------------------------------------------------------------------------- */}
         </div>
-        <div className=" m-5 flex-grow">
-          <h1>Home</h1>
-
-       
-
-          {/* Burada içerik alanı, sidebar'ın yanında başlar ve footer'a kadar devam eder. */}
-         
-        </div>
-
-
-          {/* Burada içerik alanı, sidebar'ın yanında başlar ve footer'a kadar devam eder. */}
-         
-        </div>
-
-       
       </div>
-   
+    </div>
   );
 };
 

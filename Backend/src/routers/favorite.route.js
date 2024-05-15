@@ -10,12 +10,12 @@ const Favorite = require("../controllers/favorite.controller");
 
 // URL: /Favorites
 
-const { isAdmin } = require("../middlewares/permissions");
+const { isAdmin, isLogin } = require("../middlewares/permissions");
 
 // all request isAdmin
 // router.use(isAdmin);
 
-router.route("/").get(Favorite.list).post(isAdmin, Favorite.create);
+router.route("/").get(isAdmin,Favorite.list).post(isLogin, Favorite.create);
 
 router
   .route("/:id")

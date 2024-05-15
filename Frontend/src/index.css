@@ -48,6 +48,7 @@
   text-align: center;
   transition: background-color 0.3s, border-color 0.3s, opacity 0.3s;
 }
+
 .btn:active {
   transform: translateY(1px);
 }
@@ -61,8 +62,43 @@
   transition: background-color 0.3s, border-color 0.3s, opacity 0.3s;
   padding: 0.6rem;
 }
+
 .btnAllAd:active {
   transform: translateY(1px);
+}
+
+/*! Profile Button CSS */
+.btnProfile {
+  color: #0022aa;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-align: center;
+  background-color: white;
+  position: relative;
+  text-decoration: none;
+}
+
+.btnProfile::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 20%;
+  left: 50%;
+  background-color: var(--button-orange);
+  transition: width 0.3s ease, transform 0.3s ease;
+  transform-origin: center;
+  transform: scaleX(0);
+}
+
+.btnProfile:hover::after {
+  width: 80%;
+  transform: translateX(-50%) scaleX(1);
+}
+
+.btnProfile:active {
+  transform: translateY(2px);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -70,7 +106,7 @@
 .mainDivBanner {
   position: relative;
   width: 100%;
-  height: 17rem;
+  height: 30rem;
 }
 
 .bannerCloak {
@@ -108,7 +144,7 @@
 .textTop {
   z-index: 3; /*! DONT CHANGE THIS VALUE */
   position: absolute;
-  top: 50%;
+  top: 37%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
