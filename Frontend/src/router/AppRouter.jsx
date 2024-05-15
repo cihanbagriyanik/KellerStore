@@ -21,6 +21,7 @@ import MyAds from "../pages/MyAds";
 import Setting from "../pages/Setting";
 import WishList from "../pages/WishList";
 import Following from "../pages/Following";
+import About from "../pages/About";
 
 const AppRouter = () => {
   return (
@@ -42,6 +43,7 @@ const AppRouter = () => {
             <Route path="settings" element={<Profile />} />
             <Route path="wishlist" element={<WishList />} />
             <Route path="following" element={<Following />} />
+            <Route path="about" element={<About />} />
             {/* <Route path="*" element={<NotFound/>} /> */}
             {/* </Route> */}
           </Routes>

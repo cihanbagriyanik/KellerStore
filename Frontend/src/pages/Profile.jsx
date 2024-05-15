@@ -1,3 +1,4 @@
+
 import React from "react";
 import ProfileSidebar from "../components/ProfileSidebar";
 import SettingsContainer from "../components/container/SettingsContainer";
@@ -17,3 +18,4 @@ const Profile = () => {
 };
 
 export default Profile;
+

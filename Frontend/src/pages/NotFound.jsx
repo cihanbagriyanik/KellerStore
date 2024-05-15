@@ -8,7 +8,7 @@ export default () => {
                 </svg>,
             title: "Home",
             desc: "Lorem Ipsum is simply dummy text of the printing",
-            href: "http://www.kellerstore/Home"
+            href: "http://www.kellerstore.com"
         },
         {
             icon:

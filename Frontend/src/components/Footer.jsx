@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export default () => {
+ 
   const footerNavs = [
     {
       label: "Kontaktiere uns",
@@ -29,7 +32,7 @@ export default () => {
           name: "Lauftragsverfolgung",
         },
         {
-          href: "/profile",
+          href: "#",
           name: "Mein Konto",
         },
       ],
@@ -38,7 +41,7 @@ export default () => {
       label: "Informationen",
       items: [
         {
-          // href: "#",
+          href: "/about",
           name: "Über uns",
         },
         {
@@ -52,6 +55,14 @@ export default () => {
       ],
     },
   ];
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (footerNavs.items.name=="Über uns") {
+      navigate("about");
+    }
+    
+  };
 
   return (
     <footer className="pt-10 bg-background-footer-dark-blue ">
@@ -108,6 +119,7 @@ export default () => {
                   <a
                     href={el.href}
                     className="duration-150 hover:text-gray-400"
+                    onClick={handleClick}
                   >
                     {el.name}
                   </a>

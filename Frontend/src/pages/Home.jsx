@@ -1,8 +1,6 @@
 import React from "react";
 import Banner from "../components/Banner";
 import CategoryIconCard from "../components/cards/CategoryIconCard";
-import Stats from "../components/Stats";
-import Team from "../components/Team";
 import AdContainer from "../components/container/AdContainer";
 
 const Home = () => {
@@ -29,12 +27,6 @@ const Home = () => {
           <AdContainer title={"Most View"} target={"/allad"} />
 
           {/* /! -------------------------------------------------------------------------- */}
-          <div className="mt-8 py-6 border-t items-center justify-between sm:flex">
-            <Team />
-          </div>
-          <div className="mt-8 py-6 border-t items-center justify-between sm:flex">
-            <Stats />
-          </div>
         </div>
       </div>
     </div>
