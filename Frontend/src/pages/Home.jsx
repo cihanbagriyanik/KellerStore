@@ -1,8 +1,7 @@
 import React from "react";
 import Banner from "../components/Banner";
 import SideBar from "../components/SideBar";
-import Stats from "../components/Stats";
-import Team from "../components/Team";
+
 import NewAdForm from "../components/forms/NewAdForm";
 import NewAd from "./NewAd";
 
@@ -32,12 +31,7 @@ const Home = () => {
 
 
           {/* Burada içerik alanı, sidebar'ın yanında başlar ve footer'a kadar devam eder. */}
-         <div  className="mt-8 py-6 border-t items-center justify-between sm:flex">
-          <Team/>
-         </div>
-         <div className="mt-8 py-6 border-t items-center justify-between sm:flex">
-          <Stats/>
-        </div>
+         
         </div>
 
        
