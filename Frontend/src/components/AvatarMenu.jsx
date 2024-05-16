@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import useAuthCall from "../hooks/useAuthCall";
 
 const AvatarMenu = () => {
+  const { logout } = useAuthCall();
+
   const [state, setState] = useState(false);
   const profileRef = useRef();
 
   const navigation = [
     { title: "Profile", path: "/profile" },
-    { title: "Logout", path: "/logout" },
+    { title: "Logout" },
   ];
 
   useEffect(() => {
@@ -40,6 +43,7 @@ const AvatarMenu = () => {
             <a
               className="block text-gray-600 hover:bg-button-blue hover:text-white px-4 py-2"
               href={item.path}
+              onClick={logout}
             >
               {item.title}
             </a>
