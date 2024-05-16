@@ -36,6 +36,11 @@ module.exports = {
       }
     */
     try {
+      const { email } = req.body;
+      const emailControl = await User.findOne({ email });
+      if (emailControl) return res.status(404).send({
+        message:"email control"
+      })
       const user = new User({
         userName:req.body.userName,
         email:req.body.email,
