@@ -84,9 +84,11 @@ module.exports = {
 
     try {
       const { email, password } = req.body;
+      console.log(email,password)
 
-      if (userName && password) {
-        const user = await User.findOne({ email });
+      if (email && password) {
+        const user = await User.findOne({email});
+        console.log(user)
 
         if (user) {
           const isPasswordValid = bcrypt.compareSync(password, user.password);
