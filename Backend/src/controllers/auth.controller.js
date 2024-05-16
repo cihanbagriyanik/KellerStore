@@ -77,17 +77,17 @@ module.exports = {
             in: "body",
             required: true,
             schema: {
-                "username": "test",
-                "password": "1234",
+                "email": "test@gmail.com",
+                "password": "123456789",
             }
         }
     */
 
     try {
-      const { userName, password } = req.body;
+      const { email, password } = req.body;
 
       if (userName && password) {
-        const user = await User.findOne({ userName });
+        const user = await User.findOne({ email });
 
         if (user) {
           const isPasswordValid = bcrypt.compareSync(password, user.password);
@@ -161,6 +161,18 @@ module.exports = {
     }
   },
   forgot: async (req, res) => {
+       /*
+        #swagger.tags = ['Forgot']
+        #swagger.summary = 'email'
+        #swagger.description = 'acces'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            required: true,
+            schema: {
+               "email":"..........@gmail.com"
+            }
+        }
+    */
     console.log(req.body, "forgot");
     try {
       const { email } = req.body;
@@ -192,6 +204,20 @@ module.exports = {
     }
   },
   reset: async (req, res) => {
+       /*
+        #swagger.tags = ['Reset']
+        #swagger.summary = ''
+        #swagger.description = 'Email with AcceshToken'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            required: true,
+            schema: {
+                bearer: {
+                    refresh: '...AccessToken...'
+                }
+            }
+        }
+    */
     try {
       const { token, password } = req.body;
       console.log(token, password);

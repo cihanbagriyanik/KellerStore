@@ -5,9 +5,9 @@
 //? Requaring
 const User = require("../models/user");
 const Token = require("../models/token");
-const Ad = require("../models/ad")
-const Adress = require("../models/address")
-const Follow = require("../models/follow")
+const Ad = require("../models/ad");
+const Adress = require("../models/address");
+const Follow = require("../models/follow");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
 
 /* -------------------------------------------------------------------------- */
@@ -127,22 +127,22 @@ module.exports = {
         #swagger.tags = ["Users"]
         #swagger.summary = "Delete User"
     */
-console.log(req.params,"delete")
-console.log(req.user)
+    //console.log(req.params, "delete");
+    //console.log(req.user);
     const filters = req.user?.isAdmin
       ? { _id: req.params.id }
       : { _id: req.user._id };
-console.log(filters,"filters")
+    //console.log(filters, "filters");
 
-    await Ad.deleteOne({userId:filters})
-    await Adress.deleteOne({userId:filters})
-    await Follow.deleteOne({userId:filters})
+    await Ad.deleteOne({ userId: filters });
+    await Adress.deleteOne({ userId: filters });
+    await Follow.deleteOne({ userId: filters });
     const data = await User.deleteOne(filters);
 
     res.status(data.deletedCount ? 204 : 404).send({
       error: !data.deletedCount,
       data,
-      message:"AD,ADRESS,FOLLOW DELETE"
+      message: "AD,ADRESS,FOLLOW DELETE",
     });
   },
 };
