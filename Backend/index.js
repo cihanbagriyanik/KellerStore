@@ -24,14 +24,14 @@ const PORT = process.env?.PORT || 8000;
 
 // asyncErrors to errorHandler:
 require("express-async-errors");
-
+const cors = require("cors")
 /* -------------------------------------------------------------------------- */
 //? Configrations:
 
 // Connect to DB:
 const { dbConnection } = require("./src/configs/dbConnection");
 dbConnection();
-
+app.use(cors())
 /* -------------------------------------------------------------------------- */
 //? Middlewares:
 
