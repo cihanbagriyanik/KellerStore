@@ -22,11 +22,11 @@ const RegisterForm = () => {
     });
   };
 
+  console.log(formValues);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
-    console.log(formValues);
 
     try {
       await register(formValues);
