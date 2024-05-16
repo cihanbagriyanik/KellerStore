@@ -46,7 +46,7 @@ module.exports = {
           });
         }
       });
-    } else {
+    } 
       const fr = await Favorite.findOne({ adId: req.body.adId });
       console.log(fr, "fr");
       console.log(req.user._id);
@@ -55,7 +55,7 @@ module.exports = {
           const data = await Favorite.create({
             adId: req.body.adId,
             favorites: [req.user._id],
-          }).populete("userId");
+          }).populete("adId");
 
           return res.status(200).send({
             data: data.favorites,
@@ -69,7 +69,7 @@ module.exports = {
               : { $addToSet: { favorites: req.user._id } },
             { new: true, runValidators: true },
             { new: true, runValidators: true }
-          );
+          ).populate("adId");
           return res.status(200).send({
             data: data,
             message: "Favori Güncellendi",
@@ -79,7 +79,7 @@ module.exports = {
         console.error(error);
         return res.status(500).json({ error: "Sunucu hatası." });
       }
-    }
+    
   },
 
   //! /:id -> GET
