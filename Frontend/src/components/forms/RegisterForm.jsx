@@ -8,8 +8,7 @@ const RegisterForm = () => {
 
   const [error, setError] = useState(null);
   const [formValues, setFormValues] = useState({
-    // userType: "",
-    taxID: "123456532998635454",
+    userType: "",
     userName: "",
     email: "",
     password: "",
