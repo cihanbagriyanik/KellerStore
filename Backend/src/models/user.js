@@ -80,11 +80,7 @@ const UserSchema = new mongoose.Schema(
       default: false,
     },
 
-    taxNr: {
-      type: Number,
-
-     
-    },
+   
 
     isStaff: {
       type: Boolean,
