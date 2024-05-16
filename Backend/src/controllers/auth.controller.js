@@ -35,6 +35,11 @@ module.exports = {
       }
     */
     try {
+      const { email } = req.body;
+      const emailControl = await User.findOne({ email });
+      if (emailControl) return res.status(404).send({
+        message:"email control"
+      })
       const user = new User({
         ...req.body,
         password: bcrypt.hashSync(req.body.password, 10),
