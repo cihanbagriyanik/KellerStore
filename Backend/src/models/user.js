@@ -21,12 +21,6 @@ const { mongoose } = require("../configs/dbConnection");
 //? User Model:
 const UserSchema = new mongoose.Schema(
   {
-    firebaseId: {
-      type: String,
-
-      trim: true,
-    },
-
     firstName: {
       type: String,
       trim: true,
@@ -39,9 +33,6 @@ const UserSchema = new mongoose.Schema(
 
     userName: {
       type: String,
-      trim: true,
-      unique: true,
-      index: true,
     },
 
     businessName: {
@@ -50,10 +41,8 @@ const UserSchema = new mongoose.Schema(
 
     email: {
       type: String,
-      trim: true,
       required: true,
       unique: true,
-      index: true,
     },
 
     password: {
