@@ -41,7 +41,7 @@ const AvatarMenu = () => {
         {navigation.map((item, idx) => (
           <li key={idx}>
             <a
-              className="block text-gray-600 hover:bg-button-blue hover:text-white px-4 py-2"
+              className="block text-gray-600 hover:bg-button-blue hover:text-white px-4 py-2 rounded-md cursor-pointer"
               href={item.path}
               onClick={logout}
             >
