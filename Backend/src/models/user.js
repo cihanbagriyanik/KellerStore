@@ -82,7 +82,7 @@ const UserSchema = new mongoose.Schema(
 
     taxNr: {
       type: Number,
-      unique: true,
+    
     },
 
     isStaff: {
