@@ -35,19 +35,18 @@ module.exports = {
   //* CRUD Processes:
   //! POST
   create: async (req, res) => {
-    /*
-      #swagger.tags = ["Favorites"]
-      #swagger.summary = "Create Favorite"
-      #swagger.parameters['body'] = {
-          in: 'body',
-          required: true,
-          schema: {
-            "adId": "6641d3ad8910df94c338255a"
-          }
-      }
-    */
-
-      console.log(req.body.adId, "favori");
+    console.log(req.body.adId, "favori");
+    const userControl = await Ad.find({ userId: req.user._id });
+    console.log(userControl, "favori");
+    if (userControl.length > 0) {
+      userControl?.map((item) => {
+        if (item._id == req.body.adId) {
+          return res.send({
+            message: "Kullanici sen sin uyanik",
+          });
+        }
+      });
+    } else {
       const fr = await Favorite.findOne({ adId: req.body.adId });
       console.log(fr, "fr");
       console.log(req.user._id);
@@ -56,10 +55,10 @@ module.exports = {
           const data = await Favorite.create({
             adId: req.body.adId,
             favorites: [req.user._id],
-          });
-  
+          }).populete("userId");
+
           return res.status(200).send({
-            data: data,
+            data: data.favorites,
             message: "Favori Eklendi",
           });
         } else {
@@ -80,6 +79,7 @@ module.exports = {
         console.error(error);
         return res.status(500).json({ error: "Sunucu hatası." });
       }
+    }
   },
 
   //! /:id -> GET
