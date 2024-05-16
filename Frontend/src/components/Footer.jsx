@@ -32,7 +32,7 @@ export default () => {
           name: "Lauftragsverfolgung",
         },
         {
-          href: "#",
+          href: "/profile",
           name: "Mein Konto",
         },
       ],
@@ -49,7 +49,7 @@ export default () => {
           name: "Sichere Bezahlung",
         },
         {
-          // href: "#",
+          href: "mailto:kellerstore@gmail.com",
           name: "Kontaktiere uns",
         },
       ],
@@ -116,7 +116,7 @@ export default () => {
               </h4>
               {item.items.map((el, idx) => (
                 <li key={idx}>
-                  <a
+                  <a target="_blank"
                     href={el.href}
                     className="duration-150 hover:text-gray-400"
                     onClick={handleClick}
