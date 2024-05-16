@@ -8,8 +8,9 @@ const RegisterForm = () => {
 
   const [error, setError] = useState(null);
   const [formValues, setFormValues] = useState({
-    userType: "",
-    profileName: "",
+    // userType: "",
+    taxID: "123456532998635454",
+    userName: "",
     email: "",
     password: "",
   });
@@ -23,14 +24,16 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+
+    console.log(formValues);
+
     try {
-      await register(formValues); // Send Form informations to register function
+      await register(formValues);
     } catch (err) {
-      setError("Registration failed. Please try again."); // Hata mesajı
+      setError("Registration failed. Please try again.");
     }
   };
-
-  console.log(formValues);
 
   return (
     <div className="sm:col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-3">
@@ -75,17 +78,17 @@ const RegisterForm = () => {
               </div>
             </div>
             <label
-              htmlFor="profileName"
+              htmlFor="userName"
               className="block text-sm font-medium leading-6 text-gray-400"
             ></label>
             <div className="mt-5">
               <input
-                id="profileName"
-                name="profileName"
+                id="userName"
+                name="userName"
                 type="text"
-                autoComplete="profileName"
+                autoComplete="userName"
                 placeholder="Profil Name"
-                value={formValues.profileName}
+                value={formValues.userName}
                 onChange={handleChange}
                 className=" p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />

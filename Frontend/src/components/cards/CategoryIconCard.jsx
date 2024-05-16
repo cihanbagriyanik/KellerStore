@@ -45,11 +45,8 @@ const CategoryIconCard = () => {
       <div className="overflow-hidden flex justify-center ">
         <ul className="flex flex-wrap m-5 gap-10">
           {integrations.map((item) => (
-            <a className=" " href="#">
-              <li
-                className="border rounded-xl w-44 h-44 bg-background-category-icon-blue p-5 flex justify-center items-center"
-                key={item.id}
-              >
+            <a className=" " href="#" key={item.id}>
+              <li className="border rounded-xl w-44 h-44 bg-background-category-icon-blue p-5 flex justify-center items-center">
                 <div className="text-center ">
                   <div className=" ">
                     <img

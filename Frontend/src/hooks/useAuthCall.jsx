@@ -22,12 +22,15 @@ const useAuthCall = () => {
   const { token } = useSelector((store) => store.auth);
 
   const register = async (userInfo) => {
+    console.log(userInfo);
     dispatch(fetchStart());
     try {
-      const { data } = await axios.post(`${BASE_URL}users/`, userInfo);
+      const { data } = await axios.post(`${BASE_URL}auth/register`, userInfo);
+
       console.log("register", data);
+
       dispatch(registerSuccess(data));
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       dispatch(fetchFail());
     }
@@ -39,7 +42,7 @@ const useAuthCall = () => {
       const { data } = await axios.post(`${BASE_URL}auth/login/`, userInfo);
       dispatch(loginSuccess(data));
       toastSuccessNotify("Login performed");
-      navigate("/home");
+      navigate("/");
       console.log(data);
     } catch (error) {
       dispatch(fetchFail());
@@ -58,7 +61,7 @@ const useAuthCall = () => {
       });
       dispatch(logoutSuccess());
       toastSuccessNotify("Logout performed");
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       dispatch(fetchFail());
       console.log(error);
