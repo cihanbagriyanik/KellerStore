@@ -37,7 +37,8 @@ module.exports = {
     */
     try {
       const user = new User({
-        ...req.body,
+        userName:req.body.userName,
+        email:req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
       });
       sendMail(
