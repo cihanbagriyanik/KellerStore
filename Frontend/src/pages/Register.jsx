@@ -1,13 +1,16 @@
-import React from "react";
-import Logo from "../assets/logo.png";
 import TwitterButton from "../components/buttons/TwitterButton";
 import FacebookButton from "../components/buttons/FacebookButton";
 import GoogleButton from "../components/buttons/GoogleButton";
+import React from "react";
+
+import Logo from "../assets/logo.png";
 import RegisterForm from "../components/forms/RegisterForm";
 import Banner from "../components/Banner";
+
 const Register = () => {
   const title = `Registrieren`;
   const desc = `Richten Sie in einer Minute ein neues Konto ein.`;
+
   return (
     <div>
       <div>
