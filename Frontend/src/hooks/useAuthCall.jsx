@@ -8,7 +8,7 @@ import {
   logoutSuccess,
 } from "../features/authSlice";
 
-import axios from "axios";
+import axios from  "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
