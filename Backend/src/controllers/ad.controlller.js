@@ -164,28 +164,53 @@ module.exports = {
                     "addressId": "000000000",
                     "price": "0.00",
                     "offerType": true
-                }
+                        }
             }
     */
-   
+    const { id } = req.params;
+    const userControl = await Ad.find({ userId: req.user._id });
+    console.log(userControl, "usercontollllll");
+    // Eğer dizide en az bir öğe koşulu sağlarsa, some metodu true döner, aksi takdirde false döner.
+    const isUserAd = userControl.some((ad) => ad._id.toString() === id);
+    if (!isUserAd) {
+      return res.status(403).send({
+        error: true,
+        message: "ne ayaksin adamim .",
+      });
+    }
 
-   
-    const { price } = req.body;
-    console.log(req.files, "ad resim");
-    //console.log(req.user,"userAD")
     if (req.files) {
       req.body.images = req.files.map((file) => file.originalname);
     } else {
       req.body.images = "resimyok.jpeg";
     }
+    const priceControl = await Ad.findById({ _id: req.params.id });
+
+    console.log(priceControl, "pricecontrol");
+    const { price } = req.body;
+    console.log(price);
+
     const data = await Ad.findByIdAndUpdate({ _id: req.params.id }, req.body, {
       runValidators: true,
     });
+    if (priceControl.price > price) {
+      sendMail(
+        // to:
+        req.user.email,
+        // subject:
+        "Welcome",
+        // Message:
+        `
+              <h1>Welcome to Keller Store</h1>
+              <p>Dear <b>${data.priceControl.price}</b>, Mal dustuuuuuuuuuuuu!</p>
+          `
+      );
+    }
 
     res.status(202).send({
       error: false,
       data,
-      new: await Ad.findOne({ _id: req.params.id }), //buna gerek yok new true yapilirsa
+      new: await Ad.findOne({ _id: req.params.id }), //buna gerek yok new true yapildigindan
     });
   },
 
