@@ -9,7 +9,7 @@ const NewAd = () => {
   return (
     <div>
      <div>
-      <Banner title={title} desc={desc}/>
+      <Banner title={title} desc={desc} target={"/allad"}/>
     </div>
    <NewAdForm/>
     </div>

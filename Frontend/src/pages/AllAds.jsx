@@ -10,7 +10,7 @@ const AllAds = () => {
   return (
     <div>
       <div className=" ">
-        <Banner title={title} />
+        <Banner title={title} target={"/allad"} />
         <div>
           <CategoryIconCard />
         </div>

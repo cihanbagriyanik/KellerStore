@@ -12,7 +12,7 @@ const Login = () => {
   return (
     <div>
       <div>
-        <Banner title={title} desc={desc} />
+        <Banner title={title} desc={desc} target={"/allad"} />
       </div>
       <section className="py-14">
         <div className="max-w-screen-xl mx-auto md:px-8">

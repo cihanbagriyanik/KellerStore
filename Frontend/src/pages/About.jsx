@@ -7,7 +7,7 @@ const About = () => {
   const title = `Über uns`;
   return (
     <div>
-      <Banner title={title} />
+      <Banner title={title} target={"/allad"}/>
       <div className=" ">
         <div className="flex justify-center items-center  sm:flex">
           <Team />
