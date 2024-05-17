@@ -1,4 +1,5 @@
 import React from 'react'
+import UnderConstruction from "../../assets/underConstruction.jpeg"
 
 const FollowingContainer = () => {
   return (
@@ -9,7 +10,7 @@ const FollowingContainer = () => {
     <div className="bg-white mx-7 my-2 rounded-lg border-2 mb-10">
       <div className="">
         <div className="mt-3 mb-7 ">
-        FollowingContainer
+        <img src={UnderConstruction} alt="img" />
         </div>
       </div>
     </div>

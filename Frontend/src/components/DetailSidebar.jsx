@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const DetailButtons = [
   { name: "Nachricht", path: "/message" },
   { name: "Merkliste", path: "/wishlist" },
-  { name: "Folgen", path: "/following" },
+  { name: "Folgen", path: "#" },
 ];
 
 const DetailSidebar = () => {
