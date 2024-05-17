@@ -1,9 +1,28 @@
-import React from 'react'
+import React from "react";
+
+import ProfileSidebar from "../components/ProfileSidebar";
+import FollowingContainer from "../components/container/FollowingContainer";
+import Banner from "../components/Banner";
 
 const Following = () => {
-  return (
-    <div>Following</div>
-  )
-}
+  const title = `FOLGEN`;
 
-export default Following
+  return (
+    <>
+      <div>
+        <Banner title={title} target={"/allad"} />
+      </div>
+      <div className="flex">
+        <div>
+          <ProfileSidebar />
+        </div>
+
+        <div className="flex-grow">
+          <FollowingContainer />
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Following;

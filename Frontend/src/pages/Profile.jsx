@@ -1,21 +1,27 @@
-
 import React from "react";
 import ProfileSidebar from "../components/ProfileSidebar";
 import SettingsContainer from "../components/container/SettingsContainer";
+import Banner from "../components/Banner";
 
 const Profile = () => {
-  return (
-    <div className="flex">
-      <div>
-        <ProfileSidebar />
-      </div>
+  const title = `PROFILE`;
 
-      <div className="flex-grow">
-        <SettingsContainer />
+  return (
+    <>
+      <div>
+        <Banner title={title} target={"/allad"} />
       </div>
-    </div>
+      <div className="flex">
+        <div>
+          <ProfileSidebar />
+        </div>
+
+        <div className="flex-grow">
+          <SettingsContainer />
+        </div>
+      </div>
+    </>
   );
 };
 
 export default Profile;
-
