@@ -53,17 +53,15 @@ module.exports = {
             }
     */
 
-   console.log(req.body,"adddddddddddd")
+    console.log(req.body, "adddddddddddd");
 
-   console.log(req.files,"ad resim")
-   //console.log(req.user,"userAD")
-   if(req.files){
-      req.body.images = req.files.map(file => file.originalname); 
-   }else{
-    req.body.images = "resimyok.jpeg" 
-   }
-   
-
+    console.log(req.files, "ad resim");
+    //console.log(req.user,"userAD")
+    if (req.files) {
+      req.body.images = req.files.map((file) => file.originalname);
+    } else {
+      req.body.images = "resimyok.jpeg";
+    }
 
     const data = await Ad.create(req.body);
 
@@ -169,15 +167,25 @@ module.exports = {
                 }
             }
     */
+   
 
-    const data = await Ad.updateOne({ _id: req.params.id }, req.body, {
+   
+    const { price } = req.body;
+    console.log(req.files, "ad resim");
+    //console.log(req.user,"userAD")
+    if (req.files) {
+      req.body.images = req.files.map((file) => file.originalname);
+    } else {
+      req.body.images = "resimyok.jpeg";
+    }
+    const data = await Ad.findByIdAndUpdate({ _id: req.params.id }, req.body, {
       runValidators: true,
     });
 
     res.status(202).send({
       error: false,
       data,
-      new: await Ad.findOne({ _id: req.params.id }),
+      new: await Ad.findOne({ _id: req.params.id }), //buna gerek yok new true yapilirsa
     });
   },
 
