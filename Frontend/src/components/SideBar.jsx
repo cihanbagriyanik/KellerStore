@@ -72,7 +72,7 @@ const SideBar = () => {
           <div className=" ">
             <fieldset>
               {categoryInputFilter.map((category, index) => (
-                <div className="mt-2 space-y-6 ">
+                <div className="mt-2 space-y-6 " key={index}>
                   <div className="relative flex gap-x-3">
                     <div className="flex h-6 items-center">
                       <input
@@ -139,7 +139,7 @@ const SideBar = () => {
             </div>
             <fieldset>
               {favCategory.map((category, index) => (
-                <div className="mt-2 space-y-6 ">
+                <div className="mt-2 space-y-6 " key={index}>
                   <div className="relative flex gap-x-3">
                     <div className="flex h-6 items-center">
                       <input

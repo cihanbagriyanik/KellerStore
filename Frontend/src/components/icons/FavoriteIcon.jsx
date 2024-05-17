@@ -5,7 +5,7 @@ const FavoriteIcon = ({ count }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/message");
+    navigate("/wishlist");
   };
 
   return (

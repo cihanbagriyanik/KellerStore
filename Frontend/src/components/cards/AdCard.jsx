@@ -6,15 +6,19 @@ import { MdFavorite } from "react-icons/md";
 const posts = [
   {
     img: "https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    href: "/detail",
   },
   {
     img: "https://images.unsplash.com/photo-1620287341056-49a2f1ab2fdc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    href: "/detail",
   },
   {
     img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    href: "/detail",
   },
   {
     img: "https://images.unsplash.com/photo-1617529497471-9218633199c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    href: "/detail",
   },
 ];
 
@@ -22,10 +26,10 @@ const AdCard = () => {
   return (
     <section className=" mx-auto px-4 max-w-screen-xl md:px-8">
       <div className=" grid gap-7 sm:grid-cols-2 lg:grid-cols-4 xxl:grid-cols-6">
-        {posts.map((items, key) => (
+        {posts.map((items, index) => (
           <article
             className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey"
-            key={key}
+            key={index}
           >
             <a href={items.href}>
               <img
