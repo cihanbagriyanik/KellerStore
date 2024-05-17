@@ -63,7 +63,7 @@ const Navbar = () => {
         </div>
 
         <div>
-          <AvatarMenu /> {/* AvatarMenu'yu burada ekledik */}
+          <AvatarMenu />
         </div>
       </div>
     </nav>

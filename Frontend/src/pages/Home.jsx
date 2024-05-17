@@ -6,11 +6,12 @@ import AdContainer from "../components/container/AdContainer";
 const Home = () => {
   const title = `Von hier aus konnen Sie alles #Kaufen, #mieten, #buchen.`;
   const desc = ` Kaufen und verkaufen Sie alles, von Gebrauchtwagen bis hin zu Mobiltelefonen und Computern, oder suchen Sie weltweit nach Immobilien, Jobs und mehr`;
+ 
 
   return (
     <div className=" ">
       <div className=" ">
-        <Banner title={title} desc={desc} />
+        <Banner title={title} desc={desc} target={"/allad"} />
         <div>
           <CategoryIconCard />
         </div>

@@ -35,19 +35,19 @@ const AppRouter = () => {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
 
-            {/* <Route path="" element={<PrivateRouter />}> */}
-            <Route path="allad" element={<AllAds />} />
-            <Route path="newad" element={<NewAd />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="message" element={<Message />} />
-            <Route path="myads" element={<MyAds />} />
-            <Route path="settings" element={<Profile />} />
-            <Route path="wishlist" element={<WishList />} />
-            <Route path="following" element={<Following />} />
-            <Route path="about" element={<About />} />
-            <Route path="detail" element={<Detail />} />
-            {/* <Route path="*" element={<NotFound/>} /> */}
-            {/* </Route> */}
+            <Route path="" element={<PrivateRouter />}>
+              <Route path="allad" element={<AllAds />} />
+              <Route path="newad" element={<NewAd />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="message" element={<Message />} />
+              <Route path="myads" element={<MyAds />} />
+              <Route path="settings" element={<Profile />} />
+              <Route path="wishlist" element={<WishList />} />
+              <Route path="following" element={<Following />} />
+              <Route path="about" element={<About />} />
+              <Route path="detail" element={<Detail />} />
+              {/* <Route path="*" element={<NotFound/>} /> */}
+            </Route>
           </Routes>
         </div>
         <Footer />
