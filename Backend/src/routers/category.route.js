@@ -11,7 +11,8 @@ const permissions = require("../middlewares/permissions");
 
 /* -------------------------------------------------------------------------- */
 //! URL: /category
-router.route("/").get(category.list).post(category.create);
+router.post("/", category.create)
+router.get("/", category.list)
 
 router
   .route("/:id")

@@ -80,6 +80,7 @@ const UserSchema = new mongoose.Schema(
       default: false,
     },
 
+
     isStaff: {
       type: Boolean,
       default: false,

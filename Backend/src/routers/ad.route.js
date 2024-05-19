@@ -7,13 +7,13 @@ const router = require("express").Router();
 
 const ad = require("../controllers/ad.controlller");
 
-const permissions = require("../middlewares/permissions");
+const { isAdmin, isLogin } = require("../middlewares/permissions");
 const upload = require("../middlewares/upload")
 /* -------------------------------------------------------------------------- */
 //! URL: /ad
 router.route("/")
 .get(ad.list)
-.post(permissions.isLogin,upload.array("ad",5)  ,ad.create);
+.post(isLogin,upload.array("ad",5) ,ad.create);
 
 router.route("/favorite/:id")
 .post(ad.favorite)
@@ -21,8 +21,8 @@ router.route("/favorite/:id")
 router
   .route("/:id")
   .get(ad.read)
-  .put(ad.update)
-  .patch(ad.update)
+  .put(isLogin,upload.array("ad",5),ad.update)
+  .patch(isLogin,upload.array("ad",5),ad.update)
   .delete(ad.delete);
 
 /* -------------------------------------------------------------------------- */

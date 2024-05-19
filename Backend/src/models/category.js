@@ -7,33 +7,31 @@ const { mongoose } = require("../configs/dbConnection");
 
 /* -------------------------------------------------------------------------- */
 // {
-//     "topCategoryId": "000000000"
-//     "categoryId": "000000000"
-//     "name": "category-1",
+
 // }
 /* -------------------------------------------------------------------------- */
 //? Category Model:
 const CategorySchema = new mongoose.Schema(
   {
-    topCategoryId: {
-      type: Number,
-      required: true,
-      trim: true,
-    },
-    categoryId: {
-      type: Number,
-      required: true,
-      trim: true,
-    },
-    name: {
-      type: String,
-      unique: true,
-      required: true,
-      trim: true,
-    },
+   name:{
+    type:String,
+    required:true,
+    trim:true
+   },
+   slug:{
+    type:String,
+    required:true,
+    trim:true
+   },
+   //burdaki mantik ana baslik bu bunu altaki cocouklari olacak 
+   //elektronik bu olacalk bunda sonrakiler cep telefonu ayrioladak
+   //firavun faresi deniyor ama tam bilmiyorrum
+   parentId:{
+    type:String,
+   }
   },
   {
-    collection: "categories",
+    
     timestamps: true,
   }
 );
