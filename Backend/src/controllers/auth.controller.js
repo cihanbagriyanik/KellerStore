@@ -22,16 +22,17 @@ module.exports = {
         #swagger.parameters["body"] = {
             in: "body",
             required: true,
-            {
-    "firstName": "test10",
-    "lastName": "test10",
-    "userName": "test10",
-    "businessName": "12311416787710932",
-    "email": "test10@gmail.com",
-    "password": "123456789",
-    "tel": "123456789741",
-    "taxNr": 123456752582113111192,
-      }
+
+             schema: {
+              "firstName": "test10",
+              "lastName": "test10",
+              "userName": "test10",
+              "businessName": "12311416787710932",
+             "email": "test10@gmail.com",
+             "password": "123456789",
+             "tel": "123456789741",
+             "taxNr": 123456752582113111192,
+               }
       }
     */
     try {
@@ -41,7 +42,8 @@ module.exports = {
         message:"email control"
       })
       const user = new User({
-        ...req.body,
+        userName:req.body.userName,
+        email:req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
       });
       sendMail(
@@ -66,6 +68,7 @@ module.exports = {
       res.status(500).send({
         success: false,
         message: error.message,
+        der:"taxidsilindi"
       });
     }
   },

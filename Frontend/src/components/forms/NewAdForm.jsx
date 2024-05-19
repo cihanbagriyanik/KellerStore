@@ -1,13 +1,13 @@
 import React from "react";
 import NewAdButton from "../buttons/NewAdButton";
-
+// import { PhotoIcon } from '@heroicons/react/24/solid'
 const NewAdForm = () => {
   return (
-    <div className="sm:col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-3 m-10 ">
-      <div className="flex justify-center w-full">
+    <div className="border w-1/1 m-10 bg-light-grey pb-7 rounded-lg flex justify-center items-center ">
+      <div className=" w-2/4 m-5 bg-white rounded-lg flex justify-center items-center pt-3 pb-3">
         <form>
           <div>
-            <h4 className="  border-b w-full border-gray-700 text-black text-lg font-semibold mb-3">
+            <h4 className=" text-xl mb-5 border-b-2 border-button-blue text-button-blue ">
               Anzeige aufgeben
             </h4>
             <div>
@@ -133,7 +133,7 @@ const NewAdForm = () => {
               </div>
               </div>
               <div>
-              <div><h4 className=" w-full border-b border-gray-700 text-black text-lg font-semibold mb-3">
+              <div><h4 className=" text-xl mb-5 border-b-2 border-button-blue text-button-blue ">
                 Ort
               </h4>
               <label
@@ -166,7 +166,7 @@ const NewAdForm = () => {
                   className=" p-3 block w-full  rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-              <h4 className=" w-full border-b border-gray-700 text-black text-lg font-semibold mb-3">
+              <h4 className=" text-xl mb-5 border-b-2 border-button-blue text-button-blue ">
                 Deine Angabe
               </h4>
               <label

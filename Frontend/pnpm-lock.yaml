@@ -14,6 +14,9 @@ dependencies:
   axios:
     specifier: ^1.6.8
     version: 1.6.8
+  heroicons:
+    specifier: ^2.1.3
+    version: 2.1.3
   react:
     specifier: ^18.2.0
     version: 18.3.1
@@ -1943,6 +1946,10 @@ packages:
     dependencies:
       function-bind: 1.1.2
     dev: true
+
+  /heroicons@2.1.3:
+    resolution: {integrity: sha512-Fom8AaUho83oeGPCne9oo1F6A+2r4BPmY59qOkML4LIu+xQNS/yv8OmcrxCuiVs7X42oTRAnFbOJHGDwIlI8HA==}
+    dev: false
 
   /ignore@5.3.1:
     resolution: {integrity: sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==}

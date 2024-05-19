@@ -1,11 +1,12 @@
 import React from "react";
 
 import ProfileSidebar from "../components/ProfileSidebar";
-import MessageContainer from "../components/container/MessageContainer";
+import FollowingContainer from "../components/container/FollowingContainer";
 import Banner from "../components/Banner";
 
-const Message = () => {
-  const title = `NACHRICHT`;
+const Following = () => {
+  const title = `FOLGEN`;
+
   return (
     <>
       <div>
@@ -17,11 +18,11 @@ const Message = () => {
         </div>
 
         <div className="flex-grow">
-          <MessageContainer />
+          <FollowingContainer />
         </div>
       </div>
     </>
   );
 };
 
-export default Message;
+export default Following;

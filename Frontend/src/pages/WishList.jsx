@@ -1,11 +1,11 @@
 import React from "react";
 
 import ProfileSidebar from "../components/ProfileSidebar";
-import MessageContainer from "../components/container/MessageContainer";
+import WishListContainer from "../components/container/WishListContainer";
 import Banner from "../components/Banner";
 
-const Message = () => {
-  const title = `NACHRICHT`;
+const WishList = () => {
+  const title = `MERKLISTE`;
   return (
     <>
       <div>
@@ -17,11 +17,11 @@ const Message = () => {
         </div>
 
         <div className="flex-grow">
-          <MessageContainer />
+          <WishListContainer />
         </div>
       </div>
     </>
   );
 };
 
-export default Message;
+export default WishList;

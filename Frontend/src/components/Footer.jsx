@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export default () => {
+ 
   const footerNavs = [
     {
       label: "Kontaktiere uns",
@@ -38,7 +41,7 @@ export default () => {
       label: "Informationen",
       items: [
         {
-          // href: "#",
+          href: "/about",
           name: "Über uns",
         },
         {
@@ -46,12 +49,20 @@ export default () => {
           name: "Sichere Bezahlung",
         },
         {
-          // href: "#",
+          href: "mailto:kellerstore@gmail.com",
           name: "Kontaktiere uns",
         },
       ],
     },
   ];
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (footerNavs.items.name=="Über uns") {
+      navigate("about");
+    }
+    
+  };
 
   return (
     <footer className="pt-10 bg-background-footer-dark-blue ">
@@ -105,9 +116,10 @@ export default () => {
               </h4>
               {item.items.map((el, idx) => (
                 <li key={idx}>
-                  <a
+                  <a target="_blank"
                     href={el.href}
                     className="duration-150 hover:text-gray-400"
+                    onClick={handleClick}
                   >
                     {el.name}
                   </a>

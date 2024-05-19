@@ -6,7 +6,7 @@ export default () => {
             name: "MUhammet Solmaz",
             title: "Full stack engineer",
             desc: "Lorem Ipsum is simply dummy text of the printing and typesettin industry.",
-            linkedin: "#",
+            linkedin: "https://www.linkedin.com/in/muhammetsolmaz/",
             twitter: "#",
         },
         
@@ -15,7 +15,7 @@ export default () => {
             name: "Cihan Bagriyanik",
             title: "Full stack engineer",
             desc: "Lorem Ipsum is simply dummy text of the printing and typesettin industry.",
-            linkedin: "#",
+            linkedin: "https://www.linkedin.com/in/bagriyanik/",
             twitter: "#",
         },
         {
@@ -27,15 +27,16 @@ export default () => {
             twitter: "#",
         },
         {
-            avatar: "https://avatars.githubusercontent.com/u/77440899?v=4",
-            name: "Ömer Faruk Capur",
+            avatar: "https://media.licdn.com/dms/image/D4D03AQEn8wKt1JczMw/profile-displayphoto-shrink_400_400/0/1693914481424?e=1721260800&v=beta&t=AZvfPVwffB_iOFvHwTsdFYgR9nu1-ZlgXsmHkNbLYq4",
+            name: "Ömer Faruk Basalioglu",
             title: "Full stack engineer",
             desc: "Lorem Ipsum is simply dummy text of the printing and typesettin industry.",
-            linkedin: "#",
+            linkedin: "https://www.linkedin.com/in/omer-faruk-basalioglu/",
             twitter: "#",
         },
+        
         {
-            avatar: "https://randomuser.me/api/portraits/men/86.jpg",
+            avatar: "",
             name: "hasan Koc ",
             title: "Full stack engineer",
             desc: "Lorem Ipsum is simply dummy text of the printing and typesettin industry.",
@@ -47,7 +48,7 @@ export default () => {
             name: "Esra",
             title: "Full stack engineer",
             desc: "Lorem Ipsum is simply dummy text of the printing and typesettin industry.",
-            linkedin: "#",
+            linkedin: "https://www.linkedin.com/in/esra--yalcin/",
             twitter: "#",
         },
     ]
