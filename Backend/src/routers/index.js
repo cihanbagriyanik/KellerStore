@@ -46,6 +46,8 @@ router.use("/notification",require("./notification.route"));
 
 // document:
 router.use("/documents", require("./document.route"));
+//category
+router.use("/category",require("./category.route"))
 
 /* -------------------------------------------------------------------------- */
 module.exports = router;
