@@ -43,13 +43,43 @@ const Detail = () => {
                   <p>34</p>
                 </div>
               </div>
-              <div className="flex justify-center">
-                <img
-                  src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                  width={600}
-                  alt="img"
-                  className="ms-1 mt-5"
-                />
+
+              {/****** FOTOS ******/}
+              <div className="">
+                <div className="flex justify-center ">
+                  <img
+                    src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                    width={600}
+                    alt="img"
+                    className="ms-1 mt-5 rounded-lg"
+                  />
+                </div>
+                <div className="flex justify-between mx-2">
+                  <img
+                    src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                    width={175}
+                    alt="img"
+                    className="ms-1 mt-5 rounded-lg"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                    width={175}
+                    alt="img"
+                    className="ms-1 mt-5 rounded-lg"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                    width={175}
+                    alt="img"
+                    className="ms-1 mt-5 rounded-lg"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                    width={175}
+                    alt="img"
+                    className="ms-1 mt-5 rounded-lg"
+                  />
+                </div>
               </div>
 
               <div className="flex justify-evenly items-center mb-8 mt-8">
