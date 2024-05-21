@@ -53,7 +53,7 @@ module.exports = {
         `
     */
 
-    const data = await res.getModelList(Category);
+    const data = await res.find(Category);
 
     if (data) {
       const categoryList = createCategories(data);
@@ -104,7 +104,7 @@ module.exports = {
       if(data){
          res.send({
         message:"okey",
-        data
+        
       })
       }else{
         res.send({message:"data yojk"})
