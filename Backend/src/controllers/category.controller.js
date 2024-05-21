@@ -95,7 +95,28 @@ module.exports = {
   },
 
   //! /:id -> GET
-  read: async (req, res) => {},
+  read: async (req, res) => {
+    console.log("category")
+    const {id} = req.params
+    console.log(id)
+    try {
+      const data = await Category.findById(id)
+      if(data){
+         res.send({
+        message:"okey",
+        data
+      })
+      }else{
+        res.send({message:"data yojk"})
+      }
+     
+      
+       
+    } catch (error) {
+      res.send(error)
+    }
+  
+  },
 
   //! /:id -> PUT / PATCH
   update: async (req, res) => {},
