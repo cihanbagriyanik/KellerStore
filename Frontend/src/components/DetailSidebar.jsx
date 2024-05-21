@@ -75,12 +75,12 @@ const DetailSidebar = () => {
               </h3>
               <button
                 type="button"
-                className="text-white bg-transparent  hover:text-2xl rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center "
+                className="text-white bg-transparent hover:text-button-orange rounded-lg w-8 h-8 ms-auto inline-flex justify-center items-center "
                 data-modal-toggle="crud-modal"
                 onClick={() => setIsModalOpen(false)}
               >
                 <svg
-                  className="w-3 h-3"
+                  className="w-4 h-4"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -112,7 +112,8 @@ const DetailSidebar = () => {
                     name="name"
                     id="name"
                     className="bg-white border border-gray-300 text-button-blue text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Lukas Müller"
+                    // placeholder="Lukas Müller"
+                    defaultValue="Lukas Müller"
                     required=""
                   />
                 </div>
@@ -126,41 +127,43 @@ const DetailSidebar = () => {
                   </label>
                   <textarea
                     id="description"
-                    rows="4"
+                    rows="12"
                     className="block p-2.5 w-full text-sm text-button-blue bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Schreibe eine freudliche Nachricht..."
                   ></textarea>
                 </div>
               </div>
-              <button
-                type="submit"
-                className="text-white inline-flex items-center bg-button-orange hover:text-button-blue focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center gap-3"
-              >
-                <svg
-                  width="20px"
-                  height="20px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className="text-white inline-flex items-center bg-button-orange hover:text-button-blue focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center gap-3"
                 >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0" />
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <g id="SVGRepo_iconCarrier">
-                    <path
-                      d="M20 4L3 11L10 14M20 4L13 21L10 14M20 4L10 14"
-                      stroke="#ffffff"
-                      stroke-width="1.5"
+                  <svg
+                    width="20px"
+                    height="20px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
+                    <g
+                      id="SVGRepo_tracerCarrier"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
-                  </g>
-                </svg>
-                Nachricht senden
-              </button>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        d="M20 4L3 11L10 14M20 4L13 21L10 14M20 4L10 14"
+                        stroke="#ffffff"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                  </svg>
+                  Nachricht senden
+                </button>
+              </div>
             </form>
           </div>
         </div>
