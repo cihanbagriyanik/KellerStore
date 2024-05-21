@@ -65,7 +65,7 @@ module.exports = (req, res, next) => {
       search,
       sort,
       skip,
-      limit,
+      limit: data.length,
       page,
       pages: {
         previous: page > 0 ? page : false,
