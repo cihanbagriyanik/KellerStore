@@ -53,7 +53,7 @@ module.exports = {
         `
     */
 
-    const data = await res.find(Category);
+    const data = await res.find({Category});
 
     if (data) {
       const categoryList = createCategories(data);
