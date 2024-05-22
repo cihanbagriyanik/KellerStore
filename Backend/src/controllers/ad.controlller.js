@@ -54,8 +54,6 @@ module.exports = {
             }
     */
 
-   
-
     //console.log(req.files, "ad resim");
     //console.log(req.user,"userAD")
     if (req.files) {
@@ -91,7 +89,10 @@ module.exports = {
         #swagger.summary = "Get Single Ad"
     */
 
-    const data = await Ad.findOne({ _id: req.params.id }).populate("userId");
+    const data = await Ad.findOne({ _id: req.params.id }).populate({
+      path: "userId",
+      select: "userName",
+    });
 
     res.status(200).send({
       error: false,
@@ -172,7 +173,9 @@ module.exports = {
     const userControl = await Ad.find({ userId: req.user._id });
     console.log(userControl, "usercontollllll");
     // Eğer dizide en az bir öğe koşulu sağlarsa, some metodu true döner, aksi takdirde false döner.
-    const isUserAd = await userControl.some((item) => item._id.toString() == id);
+    const isUserAd = await userControl.some(
+      (item) => item._id.toString() == id
+    );
     if (!isUserAd) {
       return res.status(403).send({
         error: true,
