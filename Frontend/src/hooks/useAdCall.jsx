@@ -5,17 +5,18 @@ import {
   fetchFail,
   fetchStart,
   adSuccess,
-//   messageSuccess,
-//   categoriesSuccess,
+  //   messageSuccess,
+  //   categoriesSuccess,
 } from "../features/adSlice";
 import useAxios from "./useAxios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
 const useAdCall = () => {
-  // const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   // const { token } = useSelector((state) => state.auth);
   const { axiosWithToken } = useAxios();
   const dispatch = useDispatch();
+
   const getAd = async () => {
     dispatch(fetchStart());
     try {
@@ -41,7 +42,7 @@ const useAdCall = () => {
       // });
       await axiosWithToken.delete(`${url}/${id}`);
       toastSuccessNotify("Operation succes");
-      getAdData(url);
+      getAd(url);
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(
@@ -54,10 +55,10 @@ const useAdCall = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.post(`${url}/`, body);
-      getAdData(url);
+      getAd(url);
+      toastSuccessNotify("Operation succes");
     } catch (error) {
       dispatch(fetchFail());
-      toastSuccessNotify("Operation succes");
       toastErrorNotify(
         error?.response?.data?.message || "Operation not success"
       );
@@ -68,7 +69,7 @@ const useAdCall = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.put(`${url}/${body._id}`, body);
-      getAdData(url);
+      getAd(url);
       toastSuccessNotify("Operation succes");
     } catch (error) {
       dispatch(fetchFail());

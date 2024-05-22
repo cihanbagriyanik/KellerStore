@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const adSlice = createSlice({
-  name: "stock",
+  name: "ad",
 
   initialState: {
     loading: false,
