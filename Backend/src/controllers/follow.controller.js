@@ -24,13 +24,25 @@ module.exports = {
         `
     */
 
-    const data = await res.getModelList(Follow);
-
-    res.status(200).send({
-      error: false,
-      details: await res.getModelListDetails(Follow),
-      data,
-    });
+    try {
+      const filters = req.user?.isAdmin ? {} : { userId: req.user._id };
+      const data = await res.getModelList(
+        Follow,
+        filters,
+        "userId followedUserId"
+      );
+      const details = await res.getModelListDetails(Follow, filters);
+      res.status(200).send({
+        error: false,
+        details,
+        data,
+      });
+    } catch (err) {
+      res.send({
+        error: true,
+        messa: err.message,
+      });
+    }
   },
 
   //* CRUD Processes:
@@ -49,12 +61,19 @@ module.exports = {
                 }
             }
     */
-    const data = await Follow.create(req.body);
-
-    res.status(201).send({
-      error: false,
-      data,
-    });
+    try {
+      req.body.userId = req.user._id;
+      const data = await Follow.create(req.body);
+      res.status(201).send({
+        error: false,
+        data,
+      });
+    } catch (err) {
+      res.send({
+        error: true,
+        messa: err.message,
+      });
+    }
   },
 
   //! /:id -> GET
@@ -63,7 +82,29 @@ module.exports = {
         #swagger.tags = ["Follows"]
         #swagger.summary = "Get Single Follow"
     */
-
+    try {
+      const filters = req.user?.isAdmin
+        ? { _id: req.params.id }
+        : { _id: req.params.id, userId: req.user._id };
+      const data = await Follow.findOne(filters).populate(
+        "userId followedUserId"
+      );
+      if (!data) {
+        return res.status(404).send({
+          error: true,
+          message: "Follow record not found",
+        });
+      }
+      res.status(200).send({
+        error: false,
+        data,
+      });
+    } catch (err) {
+      res.send({
+        error: true,
+        messa: err.message,
+      });
+    }
     const data = await Follow.findOne({ _id: req.params.id });
 
     res.status(200).send({
@@ -88,15 +129,32 @@ module.exports = {
             }
     */
 
-    const data = await Follow.updateOne({ _id: req.params.id }, req.body, {
-      runValidators: true,
-    });
-
-    res.status(202).send({
-      error: false,
-      data,
-      new: await Follow.findOne({ _id: req.params.id }),
-    });
+    try {
+      const filters = req.user?.isAdmin
+        ? { _id: req.params.id }
+        : { _id: req.params.id, userId: req.user._id };
+      const updateResult = await Follow.updateOne(filters, req.body, {
+        runValidators: true,
+      });
+      if (updateResult.matchedCount === 0) {
+        return res.status(404).send({
+          error: true,
+          message: "Follow record not found",
+        });
+      }
+      const newData = await Follow.findOne(filters).populate(
+        "userId followedUserId"
+      );
+      res.status(202).send({
+        error: false,
+        data: newData,
+      });
+    } catch (err) {
+      res.send({
+        error: true,
+        messa: err.message,
+      });
+    }
   },
 
   //! /:id -> DELETE
@@ -105,12 +163,25 @@ module.exports = {
         #swagger.tags = ["Follows"]
         #swagger.summary = "Delete Follow"
     */
+        try {
+          const filters = req.user?.isAdmin
+            ? { _id: req.params.id }
+            : { _id: req.params.id, userId: req.user._id };
+          const data = await Follow.deleteOne(filters);
+          if (data.deletedCount === 0) {
+            return res.status(404).send({
+              error: true,
+              message: "Follow record not found"
+            });
+          }
+          res.status(204).send();
+        } catch (err) {
+          res.send({
+            error: true,
+            messa:err.message
+          })
+        }
 
-    const data = await Follow.deleteOne({ _id: req.params.id });
 
-    res.status(data.deletedCount ? 204 : 404).send({
-      error: !data.deletedCount,
-      data,
-    });
   },
 };
