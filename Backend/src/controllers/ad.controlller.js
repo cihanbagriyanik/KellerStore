@@ -65,17 +65,17 @@ module.exports = {
 
     const data = await Ad.create(req.body);
 
-    sendMail(
-      // to:
-      data.email,
-      // subject:
-      "Your Ad Has Been Added!",
-      // Message:
-      `
-      <h1>Welcome to Keller Store</h1>
-      <p>Dear <b>${data.username}</b>, your ad has been added to Keller Store now!</p>      
-      `
-    );
+    //sendMail(
+    // to:
+    //  data.email,
+    // subject:
+    // "Your Ad Has Been Added!",
+    // Message:
+    // `
+    //  <h1>Welcome to Keller Store</h1>
+    //   <p>Dear <b>${data.username}</b>, your ad has been added to Keller Store now!</p>
+    //  `
+    //);
 
     res.status(201).send({
       error: false,
