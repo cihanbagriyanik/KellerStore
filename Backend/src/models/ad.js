@@ -43,6 +43,7 @@ const AdSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    
     priceChanged: {
         type: Boolean,
         default: false
