@@ -91,7 +91,7 @@ module.exports = {
         #swagger.summary = "Get Single Ad"
     */
 
-    const data = await Ad.findOne({ _id: req.params.id });
+    const data = await Ad.findOne({ _id: req.params.id }).populate("userId");
 
     res.status(200).send({
       error: false,
