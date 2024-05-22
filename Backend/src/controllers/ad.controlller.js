@@ -24,7 +24,8 @@ module.exports = {
         `
     */
 
-    const data = await res.getModelList(Ad);
+        const filters = req.user?.isAdmin ? {} : { userId: req.user._id };
+        const data = await Ad.find(filters);
 
     res.status(200).send({
       error: false,
