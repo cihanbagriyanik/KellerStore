@@ -2,36 +2,51 @@ import React, { useState } from "react";
 import NewAdFormButton from "../buttons/NewAdFormButton";
 import useAdCall from "../../hooks/useAdCall";
 // import { PhotoIcon } from '@heroicons/react/24/solid'
+
 const NewAdForm = () => {
-  const { newAd } = useAdCall();
+  const { postAdData } = useAdCall();
   const [error, setError] = useState(null);
+
   const [formValues, setFormValues] = useState({
-    ichBiete: "",
-    ichsuche: "",
+    offerType: "",
     title: "",
     category: "",
-    preis: "",
+    price: "",
     content: "",
-    images: "",
+    img: "",
     plz: "",
     straße: "",
   });
+
   const handleChange = (e) => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === "price") {
+      setFormValues({
+        ...formValues,
+        [e.target.name]: Number(e.target.value),
+      });
+    } else {
+      setFormValues({
+        ...formValues,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
+
+  console.log(formValues);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
+    setFormValues("");
     try {
-      await newAd(formValues);
+      console.log("in the try: ", formValues);
+      await postAdData("ad", formValues);
     } catch (err) {
-      setError(" Please try again.");
+      console.log("in the catch: ", formValues);
+      setError("Please try again.");
     }
   };
+
   return (
     <div className="border w-1/1 m-10 bg-light-grey pb-7 rounded-lg flex justify-center items-center ">
       <div className=" w-2/4 m-5 bg-white rounded-lg flex justify-center items-center pt-3 pb-3">
@@ -44,14 +59,15 @@ const NewAdForm = () => {
               <div className="  flex items-center gap-x-3 ">
                 <div className="flex items-center gap-x-3 border-2 border-gray-300 rounded-md p-1 px-7">
                   <input
-                    id="ichbiete"
-                    name="ichbiete"
+                    id="offer"
+                    name="offerType"
                     type="radio"
+                    value="offer"
                     onChange={handleChange}
                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   />
                   <label
-                    htmlFor="ichbiete"
+                    htmlFor="offer"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Ich biete
@@ -59,14 +75,15 @@ const NewAdForm = () => {
                 </div>
                 <div className="flex items-center gap-x-3 border-2 border-gray-300 rounded-md p-1 px-7">
                   <input
-                    id="ichsuche"
-                    name="ichsuche"
+                    id="looking"
+                    name="offerType"
                     type="radio"
+                    value="looking"
                     onChange={handleChange}
                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   />
                   <label
-                    htmlFor="ichsuche"
+                    htmlFor="looking"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Ich suche
@@ -82,10 +99,11 @@ const NewAdForm = () => {
                 </label>
                 <div className="mb-3">
                   <input
-                    id="Title"
-                    name="Title"
-                    type="Title"
-                    autoComplete="Title"
+                    id="title"
+                    name="title"
+                    type="title"
+                    autoComplete="title"
+                    value={formValues.title}
                     onChange={handleChange}
                     className=" p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -101,7 +119,10 @@ const NewAdForm = () => {
                 <div className="relative mt-3">
                   <select
                     className="  w-full pl-5 pr-3 py-2 text-sm bg-white text-gray-900 shadow-sm rounded-lg duration-200"
-                    id="grid-state"
+                    id="category"
+                    name="category"
+                    value={formValues.category}
+                    onChange={handleChange}
                   >
                     <option>Auto & Rad</option>
                     <option>Möbel</option>
@@ -120,10 +141,11 @@ const NewAdForm = () => {
               </label>
               <div className="mb-3">
                 <input
-                  id="Preis"
-                  name="Preis"
-                  type="Preis"
-                  autoComplete="Preis"
+                  id="price"
+                  name="price"
+                  type="price"
+                  autoComplete="price"
+                  value={formValues.price}
                   onChange={handleChange}
                   className=" p-3 block  w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -142,13 +164,14 @@ const NewAdForm = () => {
                 name="content"
                 type="content"
                 autoComplete="content"
+                value={formValues.content}
                 onChange={handleChange}
                 className=" p-3 block w-full  rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
             <div>
               <label
-                htmlFor="cover-photo"
+                htmlFor="Bilder"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Bilder
@@ -158,15 +181,18 @@ const NewAdForm = () => {
                   {/* <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" /> */}
                   <div className="mt-4 flex text-sm leading-6 text-gray-600">
                     <label
-                      htmlFor="file-upload"
+                      htmlFor="img"
                       className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                     >
                       <span>Eine Datei hochladen</span>
                       <input
-                        id="file-upload"
-                        name="file-upload"
+                        id="img"
+                        name="img"
                         type="file"
                         className="sr-only"
+                        value={formValues.img}
+                        onChange={handleChange}
+                        multiple
                       />
                     </label>
                     <p className="pl-1">oder per Drag & Drop</p>
@@ -190,10 +216,11 @@ const NewAdForm = () => {
                 </label>
                 <div className="mb-3">
                   <input
-                    id="PLZ"
-                    name="PLZ"
-                    type="PLZ"
-                    autoComplete="PLZ"
+                    id="plz"
+                    name="plz"
+                    type="plz"
+                    autoComplete="plz"
+                    value={formValues.plz}
                     onChange={handleChange}
                     className=" p-3 block  w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -206,10 +233,11 @@ const NewAdForm = () => {
                 </label>
                 <div className="mb-3">
                   <input
-                    id="Straße"
-                    name="Straße"
-                    type="Straße"
-                    autoComplete="Straße"
+                    id="straße"
+                    name="straße"
+                    type="straße"
+                    autoComplete="straße"
+                    value={formValues.straße}
                     onChange={handleChange}
                     className=" p-3 block w-full  rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -233,7 +261,9 @@ const NewAdForm = () => {
                   />
                 </div> */}
               </div>
-
+              {error && (
+                <div className="text-red-500 text-center mt-3">{error}</div>
+              )}
               <div className="mb-3 flex justify-center ">
                 <NewAdFormButton />
               </div>

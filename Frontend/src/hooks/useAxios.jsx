@@ -10,6 +10,8 @@ const useAxios = () => {
     headers: { Authorization: `Token ${token}` },
   });
 
+  console.log(token);
+
   return { axiosWithToken };
 };
 
