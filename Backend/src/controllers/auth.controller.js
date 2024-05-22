@@ -7,12 +7,11 @@ const User = require("../models/user");
 const Token = require("../models/token");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
 const jwt = require("jsonwebtoken");
-const sendMail = require("../helpers/sendMail")
+const sendMail = require("../helpers/sendMail");
 const bcrypt = require("bcrypt");
 /* -------------------------------------------------------------------------- */
 module.exports = {
- 
-  register: async (req, res) => { 
+  register: async (req, res) => {
     /*
         #swagger.tags = ["Authentication"]
         #swagger.summary = "Register"
@@ -38,12 +37,13 @@ module.exports = {
     try {
       const { email } = req.body;
       const emailControl = await User.findOne({ email });
-      if (emailControl) return res.status(404).send({
-        message:"email control"
-      })
+      if (emailControl)
+        return res.status(404).send({
+          message: "email control",
+        });
       const user = new User({
-        userName:req.body.userName,
-        email:req.body.email,
+        userName: req.body.userName,
+        email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
       });
       sendMail(
@@ -68,7 +68,7 @@ module.exports = {
       res.status(500).send({
         success: false,
         message: error.message,
-        der:"taxidsilindi"
+        der: "taxidsilindi",
       });
     }
   },
@@ -92,11 +92,11 @@ module.exports = {
 
     try {
       const { email, password } = req.body;
-      console.log(email,password)
+      console.log(email, password);
 
       if (email && password) {
-        const user = await User.findOne({email});
-        console.log(user)
+        const user = await User.findOne({ email });
+        console.log(user);
 
         if (user) {
           const isPasswordValid = bcrypt.compareSync(password, user.password);
@@ -170,7 +170,7 @@ module.exports = {
     }
   },
   forgot: async (req, res) => {
-       /*
+    /*
         #swagger.tags = ['Forgot']
         #swagger.summary = 'email'
         #swagger.description = 'acces'
@@ -213,7 +213,7 @@ module.exports = {
     }
   },
   reset: async (req, res) => {
-       /*
+    /*
         #swagger.tags = ['Reset']
         #swagger.summary = ''
         #swagger.description = 'Email with AcceshToken'
