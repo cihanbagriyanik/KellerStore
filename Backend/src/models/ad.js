@@ -22,6 +22,7 @@ const AdSchema = new mongoose.Schema({
     subcategoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Subcategory',
+       
         
     },
     title: {
