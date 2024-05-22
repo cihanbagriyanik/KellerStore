@@ -7,7 +7,7 @@ const User = require("../models/user");
 const Token = require("../models/token");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
 const jwt = require("jsonwebtoken");
-const sendMail = require("../helpers/sendMail");
+//const sendMail = require("../helpers/sendMail");
 const bcrypt = require("bcrypt");
 /* -------------------------------------------------------------------------- */
 module.exports = {
