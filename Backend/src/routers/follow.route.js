@@ -1,24 +1,30 @@
 "use strict";
-/* --------------------------------------------------------------------------
-    * NODEJS EXPRESS | Keller Store
------------------------------------------------------------------------------ */
-//? Requaring
+/* -------------------------------------------------------
+    NODEJS EXPRESS | CLARUSWAY FullStack Team
+------------------------------------------------------- */
 const router = require("express").Router();
+/* ------------------------------------------------------- */
+// routes/Address:
 
-const follow = require("../controllers/follow.controller");
+const Follow = require("../controllers/follow.controller");
 
-const permissions = require("../middlewares/permissions");
+// URL: /Addresss
 
-/* -------------------------------------------------------------------------- */
-//! URL: /follow
-router.route("/").get(follow.list).post(follow.create);
+const { isAdmin, isLogin } = require("../middlewares/permissions");
 
-router
-  .route("/:id")
-  .get(follow.read)
-  .put(follow.update)
-  .patch(follow.update)
-  .delete(follow.delete);
+// all request isAdmin
+// router.use(isAdmin);
 
-/* -------------------------------------------------------------------------- */
+
+router.get('/', isLogin, Follow.list);
+
+router.post('/', isLogin, Follow.create);
+
+router.get('/:id', isLogin, Follow.read);
+
+router.put('/:id', isLogin, Follow.update);
+
+router.delete('/:id', isLogin, isAdmin, Follow.delete);
+
+/* ------------------------------------------------------- */
 module.exports = router;
