@@ -43,6 +43,7 @@ module.exports = {
                 in: 'body',
                 required: true,
                 schema: {
+                    "ad":"image"
                     "userId": "000000000"
                     "categoryId": "000000000"
                     "title": "title",
