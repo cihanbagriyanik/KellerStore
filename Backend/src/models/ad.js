@@ -11,7 +11,7 @@ const AdSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+     
     },
     //userId dikkat
     categoryId: {
