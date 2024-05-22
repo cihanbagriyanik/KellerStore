@@ -210,7 +210,6 @@ module.exports = {
 
     res.status(202).send({
       error: false,
-      data,
       new: await Ad.findOne({ _id: req.params.id }), //buna gerek yok new true yapildigindan
     });
   },
