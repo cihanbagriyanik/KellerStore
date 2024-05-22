@@ -4,7 +4,7 @@
 ----------------------------------------------------------------------------- */
 //? Requaring
 const Ad = require("../models/ad");
-const sendMail = require("../helpers/sendMail");
+//const sendMail = require("../helpers/sendMail");
 /* -------------------------------------------------------------------------- */
 //? Ad Controller:
 module.exports = {
