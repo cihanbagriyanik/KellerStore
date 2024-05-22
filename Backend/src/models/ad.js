@@ -22,6 +22,7 @@ const AdSchema = new mongoose.Schema({
     subcategoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Subcategory',
+       
         
     },
     title: {
@@ -36,12 +37,13 @@ const AdSchema = new mongoose.Schema({
     addressId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Address',
-        required: true
+       
     },
     price: {
         type: Number,
         required: true
     },
+    
     priceChanged: {
         type: Boolean,
         default: false
@@ -50,7 +52,7 @@ const AdSchema = new mongoose.Schema({
         type: [String]
     },
     offerType: {
-        type: Boolean,
+        type: String,
         required: true
     },
     isPublish: {
