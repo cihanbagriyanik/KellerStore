@@ -171,7 +171,7 @@ module.exports = {
     const userControl = await Ad.find({ userId: req.user._id });
     console.log(userControl, "usercontollllll");
     // Eğer dizide en az bir öğe koşulu sağlarsa, some metodu true döner, aksi takdirde false döner.
-    const isUserAd = userControl.some((item) => item._id.toString() === id);
+    const isUserAd = await userControl.some((item) => item._id.toString() === id);
     if (!isUserAd) {
       return res.status(403).send({
         error: true,
