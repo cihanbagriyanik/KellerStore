@@ -107,6 +107,7 @@ module.exports = async function () {
     endDate: "2025-01-01",
     future: "Some future info3",
   });
+  
   await User.create({
     _id: "65343222b67e9681f937f006",
     firstName: "user5",
