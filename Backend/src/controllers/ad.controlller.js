@@ -171,7 +171,7 @@ module.exports = {
     const userControl = await Ad.find({ userId: req.user._id });
     console.log(userControl, "usercontollllll");
     // Eğer dizide en az bir öğe koşulu sağlarsa, some metodu true döner, aksi takdirde false döner.
-    const isUserAd = userControl.some((ad) => ad._id.toString() === id);
+    const isUserAd = userControl.some((item) => item._id.toString() === id);
     if (!isUserAd) {
       return res.status(403).send({
         error: true,
@@ -193,19 +193,19 @@ module.exports = {
     const data = await Ad.findByIdAndUpdate({ _id: req.params.id }, req.body, {
       runValidators: true,
     });
-    if (priceControl.price > price) {
-      sendMail(
-        // to:
-        req.user.email,
-        // subject:
-        "Welcome",
-        // Message:
-        `
-              <h1>Welcome to Keller Store</h1>
-              <p>Dear <b>${data.priceControl.price}</b>, Mal dustuuuuuuuuuuuu!</p>
-          `
-      );
-    }
+    // if (priceControl.price > price) {
+    //sendMail(
+    // to:
+    //  req.user.email,
+    // subject:
+    //   "Welcome",
+    // Message:
+    // `
+    //       <h1>Welcome to Keller Store</h1>
+    //       <p>Dear <b>${data.priceControl.price}</b>, Mal dustuuuuuuuuuuuu!</p>
+    //    `
+    // );
+    //}
 
     res.status(202).send({
       error: false,
