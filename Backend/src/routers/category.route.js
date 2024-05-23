@@ -14,7 +14,7 @@ router.get("/", category.list);
 router.post("/", category.create);
 router.get("/:id", category.read);
 router.put("/:id", isLogin, isAdmin, category.update);
-router.delete("/:id", isLogin, isAdmin, category.delete);
+router.delete("/:id",  category.delete);
 router.get("/search", category.enhancedSearch);
 
 /* -------------------------------------------------------------------------- */
