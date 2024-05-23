@@ -6,20 +6,16 @@
 const router = require("express").Router();
 
 const category = require("../controllers/category.controller");
-
-const permissions = require("../middlewares/permissions");
-
+const { isAdmin, isLogin } = require("../middlewares/permissions");
 /* -------------------------------------------------------------------------- */
 //! URL: /category
-router.post("/", category.create)
-router.get("/", category.list)
 
-router
-  .route("/:id")
-  .get(category.read)
-  .put(category.update)
-  .patch(category.update)
-  .delete(category.delete);
+router.get("/", category.list);
+router.post("/", category.create);
+router.get("/:id", category.read);
+router.put("/:id", isLogin, isAdmin, category.update);
+router.delete("/:id", isLogin, isAdmin, category.delete);
+router.get("/search", category.enhancedSearch);
 
 /* -------------------------------------------------------------------------- */
 module.exports = router;
