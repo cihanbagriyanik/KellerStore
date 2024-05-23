@@ -3,9 +3,9 @@
     * NODEJS EXPRESS | Keller Store
 ----------------------------------------------------------------------------- */
 //? Requaring
-const Category = require("../models/category");
-const slugify = require("slugify");
-const message = require("../models/message");
+const { Category, Subcategory } = require("../models/category");
+
+
 
 //slugify, bir npm paketi olarak kullanılır ve metinleri URL dostu slug'lara dönüştürmek için kullanılır. "Slug" genellikle web sayfalarının URL'lerinde kullanılan kısa ve okunabilir metin parçasıdır. Sluglar, SEO (Arama Motoru Optimizasyonu) ve kullanıcı dostu URL'ler için önemlidir.
 //Bir slug, genellikle aşağıdaki özelliklere sahiptir:
@@ -17,24 +17,7 @@ const message = require("../models/message");
 /* -------------------------------------------------------------------------- */
 //? Category Controller:
 
-const createCategories = (categories, parentId = null) => {
-  const categoryList = [];
-  let category;
-  if (parentId == null) {
-    category = categories.filter((cat) => cat.parentId == undefined);
-  } else {
-    category = categories.filter((cat) => cat.parentId == parentId);
-  }
-  for (let cate of category) {
-    categoryList.push({
-      _id: cate._id,
-      name: cate.name,
-      slug: cate.slug,
-      children: createCategories(categories, cate._id),
-    });
-  }
-  return categoryList;
-};
+
 
 module.exports = {
   //! GET
@@ -53,71 +36,143 @@ module.exports = {
         `
     */
 
-    const data = await Category.find({});
-
-    if (data) {
-      const categoryList = createCategories(data);
-      res.status(200).send({
-        error: false,
-        details: await res.getModelListDetails(Category),
-        categoryList,
-      });
-    }
+          const categories = await Category.find().populate('subcategories');
+          res.status(200).send({
+            error: false,
+            data: categories
+          });
+        
   },
 
   //* CRUD Processes:
   //! POST
   create: async (req, res) => {
-    console.log(req.body);
 
-    const categoryObj = {
-      name: req.body.name,
-      slug: slugify(req.body.name),
-    };
-    if (req.body.parentId) {
-      categoryObj.parentId = req.body.parentId;
-    }
+    const { categoryName, subcategories } = req.body;
+    const existingCategory = await Category.findOne({ categoryName });
 
-    const cat = await new Category(categoryObj);
-
-    try {
-      await cat.save();
-      res.status(200).send({
-        message: "okey",
-        cat,
-      });
-    } catch (error) {
-      res.status(404).send({
-        message: "Error saving category",
-        error: error.message,
+    // Kategori adının boş olup olmadığını kontrol edin
+    if (!categoryName || categoryName.trim() === '') {
+      return res.status(400).send({
+        error: true,
+        message: "Category name is required"
       });
     }
+
+    if (subcategories && subcategories.some(subcategory => !subcategory.name)) {
+      return res.status(400).send({
+        error: true,
+        message: "Each subcategory must have a name"
+      });
+    }
+
+    if (existingCategory) {
+      return res.status(400).send({
+        error: true,
+        message: "Category with this name already exists"
+      });
+    }
+
+    const newCategory = new Category({ categoryName });
+    await newCategory.save();
+
+    const subcategoryIds = [];
+    for (const subcategory of subcategories) {
+      const newSubcategory = new Subcategory({ name: subcategory.name, parentCategory: newCategory._id });
+      await newSubcategory.save();
+      subcategoryIds.push(newSubcategory._id);
+    }
+
+    newCategory.subcategories = subcategoryIds;
+    await newCategory.save();
+
+    res.status(201).send({
+      error: false,
+      data: newCategory
+    });
   },
 
   //! /:id -> GET
   read: async (req, res) => {
-    console.log("category");
-    const { id } = req.params;
-    console.log(id);
-    try {
-      const data = await Category.findById(id);
-      
-
-      if (data) {
-        res.send({
-          message: "okey",
-        });
-      } else {
-        res.send({ message: "data yojk" });
-      }
-    } catch (error) {
-      res.send(error);
+    const category = await Category.findById(req.params.id).populate('subcategories');
+    if (!category) {
+      return res.status(404).send({
+        error: true,
+        message: "Category not found"
+      });
     }
+    res.status(200).send({
+      error: false,
+      data: category
+    });
   },
 
   //! /:id -> PUT / PATCH
-  update: async (req, res) => {},
+  update: async (req, res) => {
+
+
+    const { categoryName, subcategories } = req.body;
+
+    // Kontrol edelim
+    if (!categoryName) {
+      return res.status(400).send({
+        error: true,
+        message: "Category name is required"
+      });
+    }
+
+    const updatedCategory = await Category.findByIdAndUpdate(
+      req.params.id,
+      { categoryName, subcategories: [] },
+      { new: true }
+    );
+
+    const subcategoryIds = [];
+    for (const subcategory of subcategories) {
+      const newSubcategory = new Subcategory({ name: subcategory.name, parentCategory: updatedCategory._id });
+      await newSubcategory.save();
+      subcategoryIds.push(newSubcategory._id);
+    }
+
+    updatedCategory.subcategories = subcategoryIds;
+    await updatedCategory.save();
+
+    res.status(200).send({
+      error: false,
+      data: updatedCategory
+    });
+
+  },
 
   //! /:id -> DELETE
-  delete: async (req, res) => {},
+  delete: async (req, res) => {
+    const deletedCategory = await Category.findByIdAndDelete(req.params.id);
+    if (!deletedCategory) {
+      return res.status(404).send({
+        error: true,
+        message: "Category not found"
+      });
+    }
+    res.status(204).send(); // No content to send back
+  },
+
+  enhancedSearch: async (req, res) => {
+    const { searchText } = req.query;
+    
+    const categories = await Category.find({
+      $or: [
+        { categoryName: new RegExp(searchText, 'i') },
+        { subcategories: { $elemMatch: { name: new RegExp(searchText, 'i') } } }
+      ]
+    }).populate('subcategories');
+
+    const subcategories = await Subcategory.find({
+      name: new RegExp(searchText, 'i')
+    }).populate('parentCategory');
+
+    res.status(200).send({ categories, subcategories });
+  }
+
+
+  
 };
