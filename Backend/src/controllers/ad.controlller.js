@@ -230,8 +230,8 @@ module.exports = {
       
     */
      const data = await Ad.find({})
-     const nues = data.reduce()
-     res.status(202).send({message:"reduce Okey",nues})
+     
+     res.status(202).send({message:"reduce Okey",data})
 
   },
 
