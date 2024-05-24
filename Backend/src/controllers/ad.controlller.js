@@ -229,7 +229,7 @@ module.exports = {
         #swagger.description = "Neues Ad"
       
     */
-     const data = await Ad.find({})
+     const data = await Ad.find({}).sort({ createdAt: -1 });
      
      res.status(202).send({message:"reduce Okey",data})
 
