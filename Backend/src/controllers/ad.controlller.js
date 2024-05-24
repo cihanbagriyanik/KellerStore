@@ -91,10 +91,10 @@ module.exports = {
 
 
     const data = await Ad.findOne({ _id: req.params.id });
-    data.countOfVisitors = countOfVisitors++
+      let veri =  data.countOfVisitors++ 
 
 
-    const data = await Ad.findOne({ _id: req.params.id }).populate({
+    const son = await Ad.findByIdAndUpdate({ _id: req.params.id }, { ...data, countOfVisitors:veri },{new:true}).populate({
       path: "userId",
       select: "userName",
     });
