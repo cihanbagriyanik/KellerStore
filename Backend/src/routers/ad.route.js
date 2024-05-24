@@ -13,12 +13,12 @@ const upload = require("../middlewares/upload")
 //! URL: /ad
 router.route("/")
 .get(ad.list)
-.get(ad.neue)
+
 .post(isLogin,upload.array("images",5) ,ad.create);
 
 router.route("/favorite/:id")
 .post(ad.favorite)
-
+router.route("/neue").get(ad.neue)
 router
   .route("/:id")
   .get(ad.read)
