@@ -222,6 +222,18 @@ module.exports = {
       new: await Ad.findOne({ _id: req.params.id }), //buna gerek yok new true yapildigindan
     });
   },
+    neue:async(req,res)=>{
+    /*
+        #swagger.tags = ["Ads"]
+        #swagger.summary = "Neues Ad"
+        #swagger.description = "Neues Ad"
+      
+    */
+     const data = await Ad.find({})
+     const nues = data.reduce()
+     res.status(202).send({message:"reduce Okey",nues})
+
+  },
 
   //! /:id -> DELETE
   delete: async (req, res) => {
