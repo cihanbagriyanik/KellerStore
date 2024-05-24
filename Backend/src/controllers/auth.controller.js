@@ -42,7 +42,7 @@ module.exports = {
           message: "email control",
         });
       const user = new User({
-        userName: req.body.userName,
+       
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
       });

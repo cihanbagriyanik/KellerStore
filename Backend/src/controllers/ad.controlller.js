@@ -43,6 +43,7 @@ module.exports = {
                 in: 'body',
                 required: true,
                 schema: {
+                    "ad":"image"
                     "userId": "000000000"
                     "categoryId": "000000000"
                     "title": "title",
@@ -53,9 +54,7 @@ module.exports = {
             }
     */
 
-    console.log(req.body, "adddddddddddd");
-
-    console.log(req.files, "ad resim");
+    //console.log(req.files, "ad resim");
     //console.log(req.user,"userAD")
     if (req.files) {
       req.body.images = req.files.map((file) => file.originalname);
@@ -63,7 +62,7 @@ module.exports = {
       req.body.images = "resimyok.jpeg";
     }
 
-    const data = await Ad.create(req.body);
+    const data = await Ad.create({ ...req.body, userId: req.user._id });
 
     //sendMail(
     // to:
@@ -90,8 +89,15 @@ module.exports = {
         #swagger.summary = "Get Single Ad"
     */
 
+
     const data = await Ad.findOne({ _id: req.params.id });
     data.countOfVisitors = countOfVisitors++
+
+
+    const data = await Ad.findOne({ _id: req.params.id }).populate({
+      path: "userId",
+      select: "userName",
+    });
 
 
     res.status(200).send({
@@ -173,7 +179,9 @@ module.exports = {
     const userControl = await Ad.find({ userId: req.user._id });
     console.log(userControl, "usercontollllll");
     // Eğer dizide en az bir öğe koşulu sağlarsa, some metodu true döner, aksi takdirde false döner.
-    const isUserAd = userControl.some((item) => item._id.toString() === id);
+    const isUserAd = await userControl.some(
+      (item) => item._id.toString() == id
+    );
     if (!isUserAd) {
       return res.status(403).send({
         error: true,
@@ -211,7 +219,6 @@ module.exports = {
 
     res.status(202).send({
       error: false,
-      data,
       new: await Ad.findOne({ _id: req.params.id }), //buna gerek yok new true yapildigindan
     });
   },

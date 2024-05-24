@@ -1,19 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const NewAdButton = () => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate("/newad");
-  };
+const NewAdFormButton = () => {
+ 
 
   return (
     <div>
       <button
-       type="submit"
+        type="submit"
         className="btn bg-button-blue border border-0.5 border-button-blue hover:border-button-orange"
-        onClick={handleClick}
       >
         Anzeige Aufgeben
       </button>
@@ -21,4 +16,4 @@ const NewAdButton = () => {
   );
 };
 
-export default NewAdButton;
+export default NewAdFormButton;
