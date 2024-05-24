@@ -60,7 +60,8 @@ const AdSchema = new mongoose.Schema({
         default: true
     },
     countOfVisitors: {
-        type: Number
+        type: Number,
+        default:0
         
     },
     expireDate: {

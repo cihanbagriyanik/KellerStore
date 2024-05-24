@@ -89,10 +89,16 @@ module.exports = {
         #swagger.summary = "Get Single Ad"
     */
 
+
+    const data = await Ad.findOne({ _id: req.params.id });
+    data.countOfVisitors = countOfVisitors++
+
+
     const data = await Ad.findOne({ _id: req.params.id }).populate({
       path: "userId",
       select: "userName",
     });
+
 
     res.status(200).send({
       error: false,
