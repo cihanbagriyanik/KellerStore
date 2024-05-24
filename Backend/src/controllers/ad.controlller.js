@@ -91,6 +91,8 @@ module.exports = {
     */
 
     const data = await Ad.findOne({ _id: req.params.id });
+    data.countOfVisitors = countOfVisitors++
+
 
     res.status(200).send({
       error: false,
