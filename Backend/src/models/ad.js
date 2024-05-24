@@ -52,8 +52,7 @@ const AdSchema = new mongoose.Schema({
         type: [String]
     },
     offerType: {
-        type: String,
-        required: true
+        type: String
     },
     isPublish: {
         type: Boolean,
