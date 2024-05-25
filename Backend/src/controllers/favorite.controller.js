@@ -4,7 +4,7 @@
 ----------------------------------------------------------------------------- */
 //? Requaring
 const Favorite = require("../models/favorite");
-
+const Ad = require("../models/ad")
 /* -------------------------------------------------------------------------- */
 //? Favorite Controller:
 module.exports = {
