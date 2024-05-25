@@ -109,9 +109,7 @@ module.exports = {
         </ul>
       `
     */
-    const data = await Favorite.find({}).sort(
-      (a, b) => b.favorites.length - a.favorites.length
-    );
+    const data = await Favorite.find({});
     res.status(200).send({
       error: false,
       data,
