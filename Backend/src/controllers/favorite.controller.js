@@ -109,12 +109,13 @@ module.exports = {
         </ul>
       `
     */
-  const data = await Favorite.find({});
-const sortedData = data.sort((a, b) => b.favorites.length - a.favorites.length);
-res.status(200).send({
-  error: false,
-  data: sortedData,
-});
+
+ const data = await Favorite.find({});
+      const Data = data.sort((a, b) => b.favorites.length - a.favorites.length);
+      res.status(200).send({
+        error: false,
+        data:Data,
+      });
   },
 
   //! /:id -> PUT / PATCH
