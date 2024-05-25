@@ -234,6 +234,16 @@ module.exports = {
      res.status(202).send({message:"reduce Okey",data})
 
   },
+     view:async(req,res)=>{
+  /*
+        #swagger.tags = ["Ads"]
+        #swagger.summary = "Viemss Ad"
+        #swagger.description = "MostViem Ad"
+      
+    */
+   const data = await Ad.find({}).sort({ countOfVisitors: -1 });
+   res.status(202).send({ message: "most viem Okey", data });
+  },
 
   //! /:id -> DELETE
   delete: async (req, res) => {
