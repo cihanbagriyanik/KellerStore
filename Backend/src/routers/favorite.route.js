@@ -14,8 +14,10 @@ const { isAdmin, isLogin } = require("../middlewares/permissions");
 
 // all request isAdmin
 // router.use(isAdmin);
-
-router.route("/").get(isAdmin,Favorite.list).post(isLogin, Favorite.create);
+router.route("/")
+.get(isAdmin,Favorite.list)
+.get(Favorite.belibt)
+.post(isLogin, Favorite.create);
 
 router
   .route("/:id")
