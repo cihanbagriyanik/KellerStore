@@ -19,6 +19,7 @@ router.route("/")
 router.route("/favorite/:id")
 .post(ad.favorite)
 router.route("/neue").get(ad.neue)
+router.route("/view").get(ad.view)
 router
   .route("/:id")
   .get(ad.read)
