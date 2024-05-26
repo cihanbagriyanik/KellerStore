@@ -12,9 +12,9 @@ const multer = require("multer");
 /* -------------------------------------------------------------------------- */
 module.exports = multer({
   //limitleme
-  limits: {
-    fieldSize: 1024 * 1024 * 2000,
-  },
+ // limits: {
+   // fieldSize: 1024 * 1024 * 2000,
+ // },
   //filterleme
   fileFilter: (req, res, cb) => {
     // if(!file.orginalname.match(/\.(jpg|jpeg|png)$/)){
