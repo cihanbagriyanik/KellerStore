@@ -25,7 +25,7 @@ module.exports = multer({
   //nereye kayfedci ve ne isminde kaydecek
   storage: multer.diskStorage({
     filename: (req, file, cb) => {
-      cb(null, file?.originalname);
+      cb(null, file.originalname);
     },
     destination: "./uploads",
   }),
