@@ -13,7 +13,7 @@ const multer = require("multer");
 module.exports = multer({
   //limitleme
   limits: {
-    fieldSize: 1024 * 1024 * 20,
+    fieldSize: 1024 * 1024 * 2000,
   },
   //filterleme
   fileFilter: (req, res, cb) => {
@@ -25,8 +25,9 @@ module.exports = multer({
   //nereye kayfedci ve ne isminde kaydecek
   storage: multer.diskStorage({
     filename: (req, file, cb) => {
-      cb(null, file.originalname);
+      cb(null, file?.originalname);
     },
     destination: "./uploads",
   }),
 });
+
