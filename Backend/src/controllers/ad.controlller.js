@@ -54,9 +54,8 @@ module.exports = {
             }
     */
 
-    //console.log(req.files, "ad resim");
-    //console.log(req.user,"userAD")
-    if (req.files) {
+   try {
+       if (req.files) {
       req.body.images = req.files.map((file) => file.originalname);
     } else {
       req.body.images = "resimyok.jpeg";
@@ -80,6 +79,12 @@ module.exports = {
       error: false,
       data,
     });
+    } catch (error) {
+      res.send({
+        message:error.message,
+        error:true
+      })
+    }
   },
 
   //! /:id -> GET
