@@ -1,4 +1,4 @@
-import React from 'react'
+
 import NewAdForm from '../components/forms/NewAdForm'
 import Banner from '../components/Banner';
 

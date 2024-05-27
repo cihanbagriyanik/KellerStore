@@ -4,6 +4,7 @@
 ----------------------------------------------------------------------------- */
 //? Requaring
 const Ad = require("../models/ad");
+const message = require("../models/message");
 //const sendMail = require("../helpers/sendMail");
 /* -------------------------------------------------------------------------- */
 //? Ad Controller:
@@ -56,7 +57,8 @@ module.exports = {
 
     //console.log(req.files, "ad resim");
     //console.log(req.user,"userAD")
-    if (req.files) {
+    try {
+       if (req.files) {
       req.body.images = req.files.map((file) => file.originalname);
     } else {
       req.body.images = "resimyok.jpeg";
@@ -80,6 +82,13 @@ module.exports = {
       error: false,
       data,
     });
+    } catch (error) {
+      res.send({
+        message:error.message,
+        error:true
+      })
+    }
+   
   },
 
   //! /:id -> GET
@@ -89,16 +98,17 @@ module.exports = {
         #swagger.summary = "Get Single Ad"
     */
 
-
     const data = await Ad.findOne({ _id: req.params.id });
-      let veri =  data.countOfVisitors++ 
+    let veri = data.countOfVisitors++;
 
-
-    const son = await Ad.findByIdAndUpdate({ _id: req.params.id }, { ...data, countOfVisitors:veri },{new:true}).populate({
+    const son = await Ad.findByIdAndUpdate(
+      { _id: req.params.id },
+      { ...data, countOfVisitors: veri },
+      { new: true }
+    ).populate({
       path: "userId",
       select: "userName",
     });
-
 
     res.status(200).send({
       error: false,
@@ -221,6 +231,28 @@ module.exports = {
       error: false,
       new: await Ad.findOne({ _id: req.params.id }), //buna gerek yok new true yapildigindan
     });
+  },
+
+  neue: async (req, res) => {
+    /*
+        #swagger.tags = ["Ads"]
+        #swagger.summary = "Neues Ad"
+        #swagger.description = "Neues Ad"
+      
+    */
+        const data = await Ad.find({}).sort({ createdAt: -1 });
+    
+    res.status(202).send({ message: "reduce Okey", data });
+  },
+  view:async(req,res)=>{
+  /*
+        #swagger.tags = ["Ads"]
+        #swagger.summary = "Viemss Ad"
+        #swagger.description = "MostViem Ad"
+      
+    */
+   const data = await Ad.find({}).sort({ countOfVisitors: -1 });
+   res.status(202).send({ message: "most viem Okey", data });
   },
 
   //! /:id -> DELETE

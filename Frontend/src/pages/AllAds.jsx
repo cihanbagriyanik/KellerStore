@@ -1,4 +1,4 @@
-import React from "react";
+
 import Banner from "../components/Banner";
 import CategoryIconCard from "../components/cards/CategoryIconCard";
 import SideBar from "../components/SideBar";
@@ -6,6 +6,7 @@ import AdCard from "../components/cards/AdCard";
 
 const AllAds = () => {
   const title = `Alle Anzeigen`;
+  
 
   return (
     <div>

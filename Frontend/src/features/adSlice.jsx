@@ -16,6 +16,7 @@ const adSlice = createSlice({
       state.error = false;
     },
     adSuccess: (state, { payload }) => {
+      console.log(payload)
       state.loading = false;
       state.ad = payload;
     },

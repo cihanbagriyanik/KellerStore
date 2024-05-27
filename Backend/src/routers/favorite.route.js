@@ -8,15 +8,14 @@ const router = require("express").Router();
 
 const Favorite = require("../controllers/favorite.controller");
 
-// URL: /Favorites
+// URL: /Favorite
 
 const { isAdmin, isLogin } = require("../middlewares/permissions");
 
 // all request isAdmin
 // router.use(isAdmin);
-
-router.route("/").get(isAdmin,Favorite.list).post(isLogin, Favorite.create);
-
+router.route("/").get(isAdmin, Favorite.list).post(isLogin, Favorite.create);
+router.route("/belibt").get(Favorite.belibt);
 router
   .route("/:id")
   .get(Favorite.read)

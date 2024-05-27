@@ -13,7 +13,7 @@ const multer = require("multer");
 module.exports = multer({
   //limitleme
   limits: {
-    fieldSize: 1024 * 1024 * 20,
+    fieldSize: 1024 * 1024 * 2000,
   },
   //filterleme
   fileFilter: (req, res, cb) => {

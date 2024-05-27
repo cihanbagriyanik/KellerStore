@@ -1,6 +1,7 @@
-// import axios from "axios";
-import React from "react";
+
+
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios"
 import {
   fetchFail,
   fetchStart,
@@ -20,17 +21,23 @@ const useAdCall = () => {
   const getAd = async () => {
     dispatch(fetchStart());
     try {
-      const { data } = await axios(`${BASE_URL}ad/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      });
+      const { data } = await axios(`${BASE_URL}ad`);
       console.log(data.data);
       dispatch(adSuccess({ data: data.data, url: "ad" }));
     } catch (error) {
       dispatch(fetchFail());
     }
   };
+   const neue = async()=>{
+    dispatch(fetchStart());
+    try {
+         const {data} = await axiosWithToken(`${BASE_URL}ad/neue`)
+         console.log(data,"neueeeeeeeeeeeeeee")
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+
+   };
 
   const deleteAdData = async (url, id) => {
     dispatch(fetchStart());
@@ -53,6 +60,8 @@ const useAdCall = () => {
 
   const postAdData = async (url, body) => {
     dispatch(fetchStart());
+    console.log(body,"postdataaaaaaaaaa")
+    
     try {
       await axiosWithToken.post(`${url}/`, body);
       getAd(url);
@@ -67,6 +76,7 @@ const useAdCall = () => {
   };
   const putAdData = async (url, body) => {
     dispatch(fetchStart());
+
     try {
       await axiosWithToken.put(`${url}/${body._id}`, body);
       getAd(url);
@@ -84,6 +94,7 @@ const useAdCall = () => {
     deleteAdData,
     postAdData,
     putAdData,
+    neue
   };
 };
 

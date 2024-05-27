@@ -1,4 +1,4 @@
-import React from "react";
+
 import { FaLocationPin } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";

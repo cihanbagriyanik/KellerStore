@@ -1,12 +1,19 @@
-import React from "react";
+import { useEffect } from "react";
 import Banner from "../components/Banner";
 import CategoryIconCard from "../components/cards/CategoryIconCard";
 import AdContainer from "../components/container/AdContainer";
+import useAdCall from "../hooks/useAdCall";
 
 const Home = () => {
   const title = `Von hier aus konnen Sie alles #Kaufen, #mieten, #buchen.`;
+
   const desc = ` Kaufen und verkaufen Sie alles, von Gebrauchtwagen bis hin zu Mobiltelefonen und Computern, oder suchen Sie weltweit nach Immobilien, Jobs und mehr`;
- 
+  const { getAd ,neue } = useAdCall();
+
+  useEffect(() => {
+    getAd();
+neue()
+  }, []);
 
   return (
     <div className=" ">

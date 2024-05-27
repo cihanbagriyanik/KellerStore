@@ -53,7 +53,7 @@ const AdSchema = new mongoose.Schema({
     },
     offerType: {
         type: String,
-        required: true
+        
     },
     isPublish: {
         type: Boolean,
@@ -88,6 +88,9 @@ const AdSchema = new mongoose.Schema({
     },
     reservedDate: {
         type: Date
+    },
+    images: {
+        type: [String]
     },
   
     future: {

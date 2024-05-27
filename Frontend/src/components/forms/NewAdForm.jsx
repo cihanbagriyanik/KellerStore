@@ -1,56 +1,75 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import NewAdFormButton from "../buttons/NewAdFormButton";
-import useAdCall from "../../hooks/useAdCall";
+//import useAdCall from "../../hooks/useAdCall";
+import axios from "axios";
 // import { PhotoIcon } from '@heroicons/react/24/solid'
-
+import { useSelector } from "react-redux";
 const NewAdForm = () => {
-  const { postAdData } = useAdCall();
+  //const { postAdData } = useAdCall();
   const [error, setError] = useState(null);
+  const [images, setImages] = useState([]);
 
+  const { token } = useSelector((state) => state.auth);
   const [formValues, setFormValues] = useState({
     offerType: "",
     title: "",
-    category: "",
+    categoryId: "",
     price: "",
     content: "",
-    img: "",
     plz: "",
     straße: "",
   });
 
   const handleChange = (e) => {
-    if (e.target.name === "price") {
-      setFormValues({
-        ...formValues,
-        [e.target.name]: Number(e.target.value),
-      });
-    } else {
-      setFormValues({
-        ...formValues,
-        [e.target.name]: e.target.value,
-      });
-    }
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  console.log(formValues);
-
+  const handlef = (e) => {
+    const newFiles = Array.from(e.target.files);
+    setImages([...images, ...newFiles]);
+  };
+ console.log(images,"images")
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
-    setFormValues("");
+    const formData = new FormData();
+
+    formData.append("offerType", formValues.offerType);
+    formData.append("title", formValues.title);
+    formData.append("categoryId", "611dc37f60ae434ae87a13a3");
+    formData.append("price", Number(formValues.price));
+    formData.append("content", formValues.content);
+    formData.append("plz", formValues.plz);
+    formData.append("straße", formValues.straße);
+    images.forEach((image) => {
+      formData.append("images", image);
+    });
+    console.log(formData.get("images"));
+
     try {
-      console.log("in the try: ", formValues);
-      await postAdData("ad", formValues);
-    } catch (err) {
-      console.log("in the catch: ", formValues);
-      setError("Please try again.");
+      const response = await axios.post(
+        "https://kellerstore.onrender.com/ad",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      console.log(response.data, "response");
+      // Başarılı yanıt alındığında başka işlemler yapılabilir
+    } catch (error) {
+      console.error("Error:", error.message);
+      // Hata durumunda kullanıcıya uygun mesaj gösterilebilir
     }
   };
-
   return (
     <div className="border w-1/1 m-10 bg-light-grey pb-7 rounded-lg flex justify-center items-center ">
       <div className=" w-2/4 m-5 bg-white rounded-lg flex justify-center items-center pt-3 pb-3">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div>
             <h4 className=" text-xl mb-5 border-b-2 border-button-blue text-button-blue ">
               Anzeige aufgeben
@@ -64,6 +83,7 @@ const NewAdForm = () => {
                     type="radio"
                     value="offer"
                     onChange={handleChange}
+                    multiple // Birden fazla dosya seçimine izin ver
                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   />
                   <label
@@ -121,7 +141,7 @@ const NewAdForm = () => {
                     className="  w-full pl-5 pr-3 py-2 text-sm bg-white text-gray-900 shadow-sm rounded-lg duration-200"
                     id="category"
                     name="category"
-                    value={formValues.category}
+                    value={formValues.categoryId}
                     onChange={handleChange}
                   >
                     <option>Auto & Rad</option>
@@ -187,12 +207,12 @@ const NewAdForm = () => {
                       <span>Eine Datei hochladen</span>
                       <input
                         id="img"
-                        name="img"
+                        name="images"
                         type="file"
                         className="sr-only"
-                        value={formValues.img}
-                        onChange={handleChange}
+                        accept="image/*"
                         multiple
+                        onChange={handlef}
                       />
                     </label>
                     <p className="pl-1">oder per Drag & Drop</p>
@@ -203,6 +223,7 @@ const NewAdForm = () => {
                 </div>
               </div>
             </div>
+
             <div>
               <div>
                 <h4 className=" text-xl mb-5 border-b-2 border-button-blue text-button-blue ">

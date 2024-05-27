@@ -4,6 +4,7 @@
 ----------------------------------------------------------------------------- */
 //? Requaring
 const Favorite = require("../models/favorite");
+const Ad = require("../models/ad")
 
 /* -------------------------------------------------------------------------- */
 //? Favorite Controller:
@@ -46,40 +47,39 @@ module.exports = {
           });
         }
       });
-    } 
-      const fr = await Favorite.findOne({ adId: req.body.adId });
-      console.log(fr, "fr");
-      console.log(req.user._id);
-      try {
-        if (!fr) {
-          const data = await Favorite.create({
-            adId: req.body.adId,
-            favorites: [req.user._id],
-          }).populete("adId");
+    }
+    const fr = await Favorite.findOne({ adId: req.body.adId });
+    console.log(fr, "fr");
+    console.log(req.user._id);
+    try {
+      if (!fr) {
+        const data = await Favorite.create({
+          adId: req.body.adId,
+          favorites: [req.user._id],
+        }).populete("adId");
 
-          return res.status(200).send({
-            data: data.favorites,
-            message: "Favori Eklendi",
-          });
-        } else {
-          const data = await Favorite.findOneAndUpdate(
-            { adId: req.body.adId },
-            fr.favorites.includes(req.user._id)
-              ? { $pull: { favorites: req.user._id } }
-              : { $addToSet: { favorites: req.user._id } },
-            { new: true, runValidators: true },
-            { new: true, runValidators: true }
-          ).populate("adId");
-          return res.status(200).send({
-            data: data,
-            message: "Favori Güncellendi",
-          });
-        }
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: "Sunucu hatası." });
+        return res.status(200).send({
+          data: data.favorites,
+          message: "Favori Eklendi",
+        });
+      } else {
+        const data = await Favorite.findOneAndUpdate(
+          { adId: req.body.adId },
+          fr.favorites.includes(req.user._id)
+            ? { $pull: { favorites: req.user._id } }
+            : { $addToSet: { favorites: req.user._id } },
+          { new: true, runValidators: true },
+          { new: true, runValidators: true }
+        ).populate("adId");
+        return res.status(200).send({
+          data: data,
+          message: "Favori Güncellendi",
+        });
       }
-    
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Sunucu hatası." });
+    }
   },
 
   //! /:id -> GET
@@ -118,6 +118,26 @@ module.exports = {
       data,
       new: await Favorite.findOne({ _id: req.params.id }),
     });
+  },
+  belibt: async (req, res) => {
+    /*
+      #swagger.tags = ["Favorites"]
+      #swagger.summary = "Belibts Favorite"
+      #swagger.description = `
+        You can send query with endpoint for search[], sort[], page and limit.
+          <ul> Examples:
+            <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
+            <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
+            <li>URL/?<b>page=2&limit=1</b></li>
+        </ul>
+      `
+    */
+      const data = await Favorite.find({});
+      const Data = data.sort((a, b) => b.favorites.length - a.favorites.length);
+      res.status(200).send({
+        error: false,
+        data:Data,
+      });
   },
 
   //! /:id -> DELETE

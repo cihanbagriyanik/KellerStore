@@ -1,4 +1,4 @@
-import React from "react";
+
 import Logo from "../assets/logo.png";
 import NewAdButton from "./buttons/NewAdButton";
 import RegisterButton from "./buttons/RegisterButton";
@@ -6,8 +6,12 @@ import LoginButton from "./buttons/LoginButton";
 import MessageIcon from "./icons/MessageIcon";
 import FavoriteIcon from "./icons/FavoriteIcon";
 import AvatarMenu from "./AvatarMenu";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const { token } = useSelector((state) => state.auth);
+  console.log(token, "auth");
+
   return (
     <nav className="bg-white border-b z-50">
       <div className="flex items-center space-x-8 py-3 mx-5 md:px-8">
@@ -41,29 +45,33 @@ const Navbar = () => {
               className=" w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto bg-gray-100 "
               type="text"
               placeholder="Suchen Sie, was immer Sie brauchen"
-              style={{ paddingRight: "2rem", width: "23rem" }}
+              style={{ paddingRight: "2rem", width: "36rem" }}
             />
           </form>
         </div>
-
         <div>
-          <MessageIcon count={5} />
-        </div>
-
-        <div>
-          <FavoriteIcon count={3} />
-        </div>
-
-        <div>
-          <RegisterButton />
-        </div>
-
-        <div>
-          <LoginButton />
-        </div>
-
-        <div>
-          <AvatarMenu />
+          {token ? (
+            <div className="flex items-center space-x-8 py-3 mx-5 md:px-8 ">
+              <div>
+                <MessageIcon count={5} />
+              </div>
+              <div>
+                <FavoriteIcon count={3} />
+              </div>
+              <div>
+                <AvatarMenu />
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center space-x-8 py-3 mx-5 md:px-8">
+              <div>
+                <RegisterButton />
+              </div>
+              <div>
+                <LoginButton />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </nav>
