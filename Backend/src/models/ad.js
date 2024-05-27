@@ -88,9 +88,7 @@ const AdSchema = new mongoose.Schema({
     reservedDate: {
         type: Date
     },
-   images: {
-        type: [String]
-    },
+ 
     future: {
         type: String
     }
