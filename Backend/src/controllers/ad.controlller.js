@@ -246,7 +246,7 @@ module.exports = {
         #swagger.description = "MostViem Ad"
       
     */
-   const data = await Ad.find({}).sort({ countOfVisitors: -1 }).populate("adId");
+   const data = await Ad.find({}).sort({ countOfVisitors: -1 });
    res.status(202).send({ message: "most viem Okey", data });
   },
 
