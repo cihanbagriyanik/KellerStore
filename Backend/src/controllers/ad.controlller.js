@@ -25,7 +25,7 @@ module.exports = {
     */
 
   
-   const data = await Ad.getModelList(Ad);
+   const data = await res.getModelList(Ad);
 
     res.status(200).send({
       error: false,
