@@ -19,7 +19,7 @@ const express = require("express");
 const app = express();
 
 // envVariables to process.env:
-require("dotenv").config();
+require('dotenv').config({ path: __dirname + '/.env' });
 const PORT = process.env?.PORT || 8000;
 
 // asyncErrors to errorHandler:
