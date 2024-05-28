@@ -18,7 +18,8 @@ const FavoriteSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Ad",
     },
-    favorites: [String]
+
+    favorites: [String],
   },
 
   {

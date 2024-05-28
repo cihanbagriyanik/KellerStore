@@ -55,16 +55,18 @@ module.exports = {
             }
     */
 
-    //console.log(req.files, "ad resim");
+    console.log(req.files, "ad resim");
     //console.log(req.user,"userAD")
-    try {
+  
+   try {
+
        if (req.files) {
       req.body.images = req.files.map((file) => file.originalname);
     } else {
       req.body.images = "resimyok.jpeg";
     }
 
-    const data = await Ad.create({ ...req.body, userId: req.user._id });
+    const data = await Ad.create({ ...req.body });
 
     //sendMail(
     // to:
@@ -88,7 +90,7 @@ module.exports = {
         error:true
       })
     }
-   
+
   },
 
   //! /:id -> GET
@@ -231,6 +233,28 @@ module.exports = {
       error: false,
       new: await Ad.findOne({ _id: req.params.id }), //buna gerek yok new true yapildigindan
     });
+  },
+    neue:async(req,res)=>{
+    /*
+        #swagger.tags = ["Ads"]
+        #swagger.summary = "Neues Ad"
+        #swagger.description = "Neues Ad"
+      
+    */
+     const data = await Ad.find({}).sort({ createdAt: -1 });
+     
+     res.status(202).send({message:"reduce Okey",data})
+
+  },
+     view:async(req,res)=>{
+  /*
+        #swagger.tags = ["Ads"]
+        #swagger.summary = "Viemss Ad"
+        #swagger.description = "MostViem Ad"
+      
+    */
+   const data = await Ad.find({}).sort({ countOfVisitors: -1 });
+   res.status(202).send({ message: "most viem Okey", data });
   },
 
   neue: async (req, res) => {
