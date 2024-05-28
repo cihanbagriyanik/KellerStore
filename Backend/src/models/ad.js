@@ -87,7 +87,7 @@ const AdSchema = new mongoose.Schema(
       type: String,
     },
   },
-  { collection: "ads", timestamps: true }
+  { collection: "ad", timestamps: true }
 );
 
 // Pre-save hooks to set dates automatically and clear userId fields

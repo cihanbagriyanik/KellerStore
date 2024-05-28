@@ -78,7 +78,7 @@ module.exports = {
       }
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ error: "Sunucu hatası." });
+      return res.status(500).json({ error: "create bak." });
     }
   },
 
@@ -111,7 +111,7 @@ module.exports = {
     */
 
       try {
-        const data = await Favorite.find({}).populate('adId');
+        const data = await Favorite.find({}).populete("adId");
         const sortedData = data.sort((a, b) => {
           if (a.favorites && b.favorites) {
             return b.favorites.length - a.favorites.length;

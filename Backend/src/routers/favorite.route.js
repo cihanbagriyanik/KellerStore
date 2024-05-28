@@ -8,7 +8,7 @@ const router = require("express").Router();
 
 const Favorite = require("../controllers/favorite.controller");
 
-// URL: /Favorite
+// URL: /favorite
 
 const { isAdmin, isLogin } = require("../middlewares/permissions");
 
