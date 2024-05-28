@@ -1,8 +1,13 @@
 import React from "react";
 import AdCard from "../cards/AdCard";
 import AdAllButton from "../buttons/AdAllButton";
+import { useSelector } from "react-redux";
 
-const AdContainer = ({ title, target }) => {
+
+const AdContainer = ({ title, target,data}) => {
+
+
+  
   return (
     <div className="border w-5/6 m-auto bg-light-grey pb-7 mb-20">
       <div className="flex justify-between items-center pt-3 pb-3">
@@ -16,7 +21,9 @@ const AdContainer = ({ title, target }) => {
       </div>
 
       <div>
-        <AdCard />
+      
+          <AdCard data={data} />
+        
       </div>
     </div>
   );

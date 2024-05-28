@@ -43,6 +43,7 @@ const useAuthCall = () => {
       dispatch(loginSuccess(data));
       toastSuccessNotify("Login performed");
       navigate("/");
+      
       console.log(data);
     } catch (error) {
       dispatch(fetchFail());
@@ -50,7 +51,7 @@ const useAuthCall = () => {
       toastErrorNotify("Login can not be performed");
     }
   };
-
+  
   const logout = async () => {
     dispatch(fetchStart());
     try {

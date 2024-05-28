@@ -24,7 +24,7 @@ module.exports = {
             </ul>
         `
     */
-
+       // const filters = req.user?.isAdmin ? {} : { userId: req.user._id };
     const data = await res.getModelList(Ad);
 
     res.status(200).send({
@@ -257,27 +257,22 @@ module.exports = {
    res.status(202).send({ message: "most viem Okey", data });
   },
 
-  neue: async (req, res) => {
-    /*
+  reserve :async(req,res)=>{
+     /*
         #swagger.tags = ["Ads"]
-        #swagger.summary = "Neues Ad"
-        #swagger.description = "Neues Ad"
-      
-    */
-        const data = await Ad.find({}).sort({ createdAt: -1 });
-    
-    res.status(202).send({ message: "reduce Okey", data });
-  },
-  view:async(req,res)=>{
-  /*
-        #swagger.tags = ["Ads"]
-        #swagger.summary = "Viemss Ad"
+        #swagger.summary = "reserve Ad"
         #swagger.description = "MostViem Ad"
+         schema: {
+                    "adId": "000000000"
+                
+                        }
       
     */
-   const data = await Ad.find({}).sort({ countOfVisitors: -1 });
-   res.status(202).send({ message: "most viem Okey", data });
+     const {id} = req.params
+     const data = await Ad.findByIdAndUpdate({_id:id},{isReserved:!isReserved},{new:true})
+    res.status(202).send({message:"reserve Okey",data})
   },
+
 
   //! /:id -> DELETE
   delete: async (req, res) => {

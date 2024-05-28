@@ -9,6 +9,7 @@ const authSlice = createSlice({
     error: false,
     isAdmin: false,
     token: null,
+    user:null
   },
 
   reducers: {
@@ -28,6 +29,7 @@ const authSlice = createSlice({
       state.currentUser = payload?.user?.email;
       state.isAdmin = payload?.user?.isAdmin;
       state.token = payload?.token;
+      state.user = payload?.user;
     },
 
     refresh: (state, { payload }) => {

@@ -1,11 +1,12 @@
-
-
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios"
+import axios from "axios";
 import {
   fetchFail,
   fetchStart,
   adSuccess,
+  neuSucces,
+  belibtSucces,
+  mostSucces,
   //   messageSuccess,
   //   categoriesSuccess,
 } from "../features/adSlice";
@@ -19,27 +20,50 @@ const useAdCall = () => {
   const dispatch = useDispatch();
 
   const getAd = async () => {
-    dispatch(fetchStart());
+
     try {
-      const { data } = await axios(`${BASE_URL}ad`);
-      console.log(data.data);
-      dispatch(adSuccess({ data: data.data, url: "ad" }));
+      const { data } = await  axiosWithToken(`${BASE_URL}ad`);
+      console.log(data?.data,"genel ad");
+      const neues = data?.data
+
+      dispatch(adSuccess(neues));
     } catch (error) {
       dispatch(fetchFail());
     }
   };
-   const neue = async()=>{
-    dispatch(fetchStart());
+  const neue = async () => {
     try {
-         const {data} = await axiosWithToken(`${BASE_URL}ad/neue`)
-         console.log(data,"neueeeeeeeeeeeeeee")
+      const { data } = await axiosWithToken(`${BASE_URL}ad/neue`);
+      // console.log(data?.data.slice(0,10),"neueeeeeeeeeeeeeee")
+      const neues = data?.data.slice(0, 4);
+      dispatch(neuSucces(neues));
     } catch (error) {
       dispatch(fetchFail());
     }
+  };
+  const belibt = async () => {
+    try {
+      const { data } = await axiosWithToken(`${BASE_URL}favorite/belibt`);
+       console.log(data?.data.slice(0,10),"belibt")
+      const neues = data?.data.slice(0, 4);
+      dispatch(belibtSucces(neues));
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
+  const most = async () => {
+    try {
+      const { data } = await axiosWithToken(`${BASE_URL}ad/view`);
+       console.log(data?.data.slice(0,4),"most")
+      const neues = data?.data.slice(0, 4);
+      dispatch(mostSucces(neues));
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
 
-   };
-
-  const deleteAdData = async (url, id) => {
+  const deleteAdData = async ( id) => {
+    console.log(id,"ad deleten gelen id")
     dispatch(fetchStart());
     try {
       // await axios.delete(`${BASE_URL}${url}/${id}`, {
@@ -47,9 +71,9 @@ const useAdCall = () => {
       //     Authorization: `Token ${token}`,
       //   },
       // });
-      await axiosWithToken.delete(`${url}/${id}`);
+      await axiosWithToken.delete(`${BASE_URL}ad/${id}`);
       toastSuccessNotify("Operation succes");
-      getAd(url);
+      getAd();
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(
@@ -60,8 +84,8 @@ const useAdCall = () => {
 
   const postAdData = async (url, body) => {
     dispatch(fetchStart());
-    console.log(body,"postdataaaaaaaaaa")
-    
+    console.log(body, "postdataaaaaaaaaa");
+
     try {
       await axiosWithToken.post(`${url}/`, body);
       getAd(url);
@@ -74,12 +98,13 @@ const useAdCall = () => {
       console.log(error);
     }
   };
-  const putAdData = async (url, body) => {
+  const putAdData = async (id,body) => {
     dispatch(fetchStart());
-
+console.log(id,body,"putdata guncelememden gele")
     try {
-      await axiosWithToken.put(`${url}/${body._id}`, body);
-      getAd(url);
+      await axiosWithToken.put(`${BASE_URL}ad/${id}`, body);
+      
+      getAd();
       toastSuccessNotify("Operation succes");
     } catch (error) {
       dispatch(fetchFail());
@@ -94,7 +119,9 @@ const useAdCall = () => {
     deleteAdData,
     postAdData,
     putAdData,
-    neue
+    neue,
+    belibt,
+    most
   };
 };
 
