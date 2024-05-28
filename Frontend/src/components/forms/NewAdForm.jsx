@@ -4,10 +4,12 @@ import NewAdFormButton from "../buttons/NewAdFormButton";
 import axios from "axios";
 // import { PhotoIcon } from '@heroicons/react/24/solid'
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const NewAdForm = () => {
   //const { postAdData } = useAdCall();
   const [error, setError] = useState(null);
   const [images, setImages] = useState([]);
+  const navigate = useNavigate()
 
   const { token } = useSelector((state) => state.auth);
   const [formValues, setFormValues] = useState({
@@ -61,6 +63,7 @@ const NewAdForm = () => {
       );
       console.log(response.data, "response");
       // Başarılı yanıt alındığında başka işlemler yapılabilir
+      navigate("/");
     } catch (error) {
       console.error("Error:", error.message);
       // Hata durumunda kullanıcıya uygun mesaj gösterilebilir

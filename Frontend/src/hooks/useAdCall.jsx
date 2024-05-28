@@ -20,13 +20,19 @@ const useAdCall = () => {
   const dispatch = useDispatch();
 
   const getAd = async () => {
-
     try {
-      const { data } = await  axiosWithToken(`${BASE_URL}ad`);
-      console.log(data?.data,"genel ad");
-      const neues = data?.data
-
-      dispatch(adSuccess(neues));
+      const { data } = await axiosWithToken(`${BASE_URL}ad`);
+      console.log(data.data)
+      const neues = data?.data;
+      const reserveControl = neues?.map((item)=>{
+        if(item.isReserved === true){
+         return   {...item,images:["animals.png"]}
+        }
+        return item
+      })
+      
+      dispatch(adSuccess(reserveControl));
+      
     } catch (error) {
       dispatch(fetchFail());
     }
@@ -44,7 +50,7 @@ const useAdCall = () => {
   const belibt = async () => {
     try {
       const { data } = await axiosWithToken(`${BASE_URL}favorite/belibt`);
-       console.log(data?.data.slice(0,10),"belibt")
+      console.log(data?.data.slice(0, 10), "belibt");
       const neues = data?.data.slice(0, 4);
       dispatch(belibtSucces(neues));
     } catch (error) {
@@ -54,7 +60,7 @@ const useAdCall = () => {
   const most = async () => {
     try {
       const { data } = await axiosWithToken(`${BASE_URL}ad/view`);
-       console.log(data?.data.slice(0,4),"most")
+      console.log(data?.data.slice(0, 4), "most");
       const neues = data?.data.slice(0, 4);
       dispatch(mostSucces(neues));
     } catch (error) {
@@ -62,8 +68,8 @@ const useAdCall = () => {
     }
   };
 
-  const deleteAdData = async ( id) => {
-    console.log(id,"ad deleten gelen id")
+  const deleteAdData = async (id) => {
+    console.log(id, "ad deleten gelen id");
     dispatch(fetchStart());
     try {
       // await axios.delete(`${BASE_URL}${url}/${id}`, {
@@ -98,12 +104,26 @@ const useAdCall = () => {
       console.log(error);
     }
   };
-  const putAdData = async (id,body) => {
+  const putAdData = async (id, body) => {
     dispatch(fetchStart());
-console.log(id,body,"putdata guncelememden gele")
+    console.log(id, body, "putdata guncelememden gele");
     try {
       await axiosWithToken.put(`${BASE_URL}ad/${id}`, body);
-      
+
+      getAd();
+      toastSuccessNotify("Operation succes");
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify(
+        error?.response?.data?.message || "Operation not success"
+      );
+    }
+  };
+  const putadReserve = async (id) => {
+    console.log(id, "putdata guncelememden gele");
+    try {
+      await axiosWithToken.put(`${BASE_URL}ad/reserve/${id}`);
+
       getAd();
       toastSuccessNotify("Operation succes");
     } catch (error) {
@@ -119,9 +139,10 @@ console.log(id,body,"putdata guncelememden gele")
     deleteAdData,
     postAdData,
     putAdData,
+    putadReserve,
     neue,
     belibt,
-    most
+    most,
   };
 };
 

@@ -17,9 +17,9 @@ import update from "../../src/assets/update.jpg";
 const MyAds = () => {
   const title = `Meine Anzeigen`;
 
-  const { getAd ,deleteAdData} = useAdCall();
+  const { getAd ,deleteAdData,putadReserve} = useAdCall();
   const { ad } = useSelector((state) => state.ad);
-  console.log(ad)
+ 
   const { user } = useSelector((state) => state.auth);
   const id = user._id;
 
@@ -29,7 +29,11 @@ const MyAds = () => {
    await  deleteAdData(id);
    getAd()
   }
-
+  const reserved = async(id)=>{
+  await  putadReserve(id)
+  getAd()
+      
+  }
 
   useEffect(() => {
     getAd();
@@ -67,7 +71,8 @@ const MyAds = () => {
                     <div className="px-16 pt-3 pb-5 flex ">
                       <div>
                         <img
-                          src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                          //src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                            src={item?.images[0]}
                           width={600}
                           alt="img"
                           className="ms-1 mt-14"
@@ -152,7 +157,7 @@ const MyAds = () => {
                             />
                           </div>
                           <div className="w-12 h-12 bg-button-blue rounded-full ring-offset-2 ring-gray-200 focus:ring-2 focus:ring-button-blue">
-                          <button> 
+                          <button onClick={()=>reserved(item._id)}> 
                             <img
                               src={reserve}
                               className="w-full h-full rounded-full"

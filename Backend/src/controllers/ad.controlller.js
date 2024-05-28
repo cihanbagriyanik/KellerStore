@@ -26,11 +26,12 @@ module.exports = {
     */
 
     const data = await Ad.find({});
+    const redu = data.reduce()
 
     res.status(200).send({
       error: false,
       details: await res.getModelListDetails(Ad),
-      data,
+      data:redu
     });
   },
 

@@ -9,9 +9,9 @@ const adSlice = createSlice({
     ad: [],
     message: [],
     categories: [],
-    neuesAd:[],
-    belibtAd:[],
-    mostAd:[]
+    neuesAd: [],
+    belibtAd: [],
+    mostAd: [],
   },
   reducers: {
     fetchStart: (state) => {
@@ -19,20 +19,18 @@ const adSlice = createSlice({
       state.error = false;
     },
     adSuccess: (state, { payload }) => {
-      console.log(payload,"genel ad")
       state.loading = false;
       state.ad = payload;
-      console.log(state.ad,"genel ad")
     },
-    neuSucces:(state,{payload})=>{
+    neuSucces: (state, { payload }) => {
       state.loading = false;
       state.neuesAd = payload;
     },
-    belibtSucces:(state,{payload})=>{
+    belibtSucces: (state, { payload }) => {
       state.loading = false;
       state.belibtAd = payload;
     },
-    mostSucces:(state,{payload})=>{
+    mostSucces: (state, { payload }) => {
       state.loading = false;
       state.mostAd = payload;
     },
@@ -52,6 +50,13 @@ const adSlice = createSlice({
   },
 });
 
-export const { fetchStart, adSuccess, messageSuccess, fetchFail,neuSucces,belibtSucces,mostSucces } =
-  adSlice.actions;
+export const {
+  fetchStart,
+  adSuccess,
+  messageSuccess,
+  fetchFail,
+  neuSucces,
+  belibtSucces,
+  mostSucces,
+} = adSlice.actions;
 export default adSlice.reducer;
