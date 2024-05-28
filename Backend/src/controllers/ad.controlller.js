@@ -265,18 +265,24 @@ module.exports = {
                   }
       
     */
-   try {
-     const { id } = req.params;
-    const data = await Ad.findByIdAndUpdate(
-      { _id: id },
-      { isReserved: !isReserved },
-      { new: true }
-    );
-    res.status(202).send({ message: "reserve Okey", data });
-   } catch (error) {
-    res.send({message:error})
-   }
-   
+
+    try {
+      const { id } = req.params;
+
+      const ad = await Ad.findById(id);
+      if (!ad) {
+        return res.status(404).send({ message: "Ad not found" });
+      }
+      ad.isReserved = !ad.isReserved;
+      ad.reservedDate = ad.isReserved ? new Date() : null;
+      const updatedAd = await ad.save();
+
+      res
+        .status(202)
+        .send({ message: "Reserve status toggled", data: updatedAd });
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
   },
 
   //! /:id -> DELETE
