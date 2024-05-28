@@ -22,17 +22,16 @@ const useAdCall = () => {
   const getAd = async () => {
     try {
       const { data } = await axiosWithToken(`${BASE_URL}ad`);
-      console.log(data.data)
+      console.log(data.data);
       const neues = data?.data;
-      const reserveControl = neues?.map((item)=>{
-        if(item.isReserved === true){
-         return   {...item,images:["animals.png"]}
+      const reserveControl = neues?.map((item) => {
+        if (item.isReserved === true) {
+          return { ...item, images: ["animals.png"] };
         }
-        return item
-      })
-      
+        return item;
+      });
+
       dispatch(adSuccess(reserveControl));
-      
     } catch (error) {
       dispatch(fetchFail());
     }
@@ -42,7 +41,14 @@ const useAdCall = () => {
       const { data } = await axiosWithToken(`${BASE_URL}ad/neue`);
       // console.log(data?.data.slice(0,10),"neueeeeeeeeeeeeeee")
       const neues = data?.data.slice(0, 4);
-      dispatch(neuSucces(neues));
+     
+      const reserveControl = neues?.map((item) => {
+        if (item.isReserved === true) {
+          return { ...item, images: ["animals.png"] };
+        }
+        return item;
+      })
+      dispatch(neuSucces(reserveControl));
     } catch (error) {
       dispatch(fetchFail());
     }
@@ -123,8 +129,18 @@ const useAdCall = () => {
     console.log(id, "putdata guncelememden gele");
     try {
       await axiosWithToken.put(`${BASE_URL}ad/reserve/${id}`);
+      const { data } = await axiosWithToken(`${BASE_URL}ad`);
+      console.log(data.data);
+      const neues = data?.data;
+      const reserveControl = neues?.map((item) => {
+        if (item.isReserved === true) {
+          return { ...item, images: ["animals.png"] };
+        }
+        return item;
+      });
 
-      getAd();
+      dispatch(adSuccess(reserveControl));
+
       toastSuccessNotify("Operation succes");
     } catch (error) {
       dispatch(fetchFail());

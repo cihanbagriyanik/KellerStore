@@ -4,19 +4,25 @@ import CategoryIconCard from "../components/cards/CategoryIconCard";
 import AdContainer from "../components/container/AdContainer";
 import useAdCall from "../hooks/useAdCall";
 import { useSelector } from "react-redux";
+import useCategoryCall from "../hooks/useCategoryCall";
 
 const Home = () => {
   const title = `Von hier aus konnen Sie alles #Kaufen, #mieten, #buchen.`;
 
   const desc = ` Kaufen und verkaufen Sie alles, von Gebrauchtwagen bis hin zu Mobiltelefonen und Computern, oder suchen Sie weltweit nach Immobilien, Jobs und mehr`;
   const { getAd, neue, belibt, most } = useAdCall();
-  const { neuesAd, belibtAd, mostAd ,ad} = useSelector((state) => state.ad);
-console.log(ad)
+  const {getCategory} = useCategoryCall()
+  const {category} = useSelector(state=>state.category)
+  console.log(category,"category")
+  const { neuesAd, belibtAd, mostAd } = useSelector((state) => state.ad);
+
   useEffect(() => {
     getAd();
     neue();
     belibt();
     most();
+    getCategory()
+
   }, []);
 
   return (

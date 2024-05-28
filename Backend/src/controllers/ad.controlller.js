@@ -66,7 +66,7 @@ module.exports = {
         req.body.images = "resimyok.jpeg";
       }
 
-      const data = await Ad.create({ ...req.body });
+      const data = await Ad.create({ ...req.body});
 
       //sendMail(
       // to:
