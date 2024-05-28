@@ -110,7 +110,11 @@ module.exports = {
       `
     */
 
+<<<<<<< HEAD
       const data = await Favorite.find({}).populate('adId');
+=======
+ const data = await Favorite.find({}).populate('adId');
+>>>>>>> 3bddc79014d0b4dba919dff0e1d2692cf53d36e5
       const Data = data.sort((a, b) => b.favorites.length - a.favorites.length);
       res.status(200).send({
         error: false,
