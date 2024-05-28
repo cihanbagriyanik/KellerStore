@@ -279,7 +279,7 @@ module.exports = {
 
       res
         .status(202)
-        .send({ message: "Reserve status toggled", data: updatedAd });
+        .send({ message: "Reserve okey", data: updatedAd });
     } catch (error) {
       res.status(500).send({ message: error.message });
     }

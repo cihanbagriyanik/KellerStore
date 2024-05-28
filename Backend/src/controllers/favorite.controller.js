@@ -110,13 +110,25 @@ module.exports = {
       `
     */
 
-      const data = await Favorite.find({}).populate('adId');
-
-      const Data = data.sort((a, b) => b.favorites.length - a.favorites.length);
-      res.status(200).send({
-        error: false,
-        data:Data,
-      });
+      try {
+        const data = await Favorite.find({}).populate('adId');
+        const sortedData = data.sort((a, b) => {
+          if (a.favorites && b.favorites) {
+            return b.favorites.length - a.favorites.length;
+          }
+          return 0;
+        });
+    
+        res.status(200).send({
+          error: false,
+          data: sortedData,
+        });
+      } catch (error) {
+        res.status(500).send({
+          error: true,
+          message: error.message,
+        });
+      };
   },
 
   //! /:id -> PUT / PATCH

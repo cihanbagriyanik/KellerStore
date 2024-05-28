@@ -101,7 +101,8 @@ const AdCard = ({ data }) => {
                   <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
                     <a>
                       <img
-                        src={items?.adId?.images[1]}
+                      //  src={items?.adId?.images[0]}
+
                         loading="lazy"
                         className="w-full h-48 rounded-t-md"
                       />

@@ -1,7 +1,7 @@
 import React from "react";
 import AdCard from "../cards/AdCard";
 import AdAllButton from "../buttons/AdAllButton";
-import { useSelector } from "react-redux";
+
 
 
 const AdContainer = ({ title, target,data}) => {
