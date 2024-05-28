@@ -15,7 +15,7 @@ router.route("/").get(ad.list).post(upload.array("images", 5), ad.create);
 router.route("/neue").get(ad.neue);
 router.route("/view").get(ad.view);
 router.route("/favorite/:id").post(ad.favorite);
-router.route("/reserve/:id").post(ad.reserve);
+router.route("/reserve/:id").put(ad.reserve);
 
 router
   .route("/:id")

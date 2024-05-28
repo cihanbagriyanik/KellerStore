@@ -265,13 +265,18 @@ module.exports = {
                   }
       
     */
-    const { id } = req.params;
+   try {
+     const { id } = req.params;
     const data = await Ad.findByIdAndUpdate(
       { _id: id },
       { isReserved: !isReserved },
       { new: true }
     );
     res.status(202).send({ message: "reserve Okey", data });
+   } catch (error) {
+    res.send({message:error})
+   }
+   
   },
 
   //! /:id -> DELETE
