@@ -26,7 +26,7 @@ module.exports = {
     */
 
     const data = await Ad.find({});
-    const redu = data.reduce()
+    const redu = data.reverse()
 
     res.status(200).send({
       error: false,
