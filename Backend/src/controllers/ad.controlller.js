@@ -57,40 +57,38 @@ module.exports = {
 
     console.log(req.files, "ad resim");
     //console.log(req.user,"userAD")
-  
-   try {
 
-       if (req.files) {
-      req.body.images = req.files.map((file) => file.originalname);
-    } else {
-      req.body.images = "resimyok.jpeg";
-    }
+    try {
+      if (req.files) {
+        req.body.images = req.files.map((file) => file.originalname);
+      } else {
+        req.body.images = "resimyok.jpeg";
+      }
 
-    const data = await Ad.create({ ...req.body });
+      const data = await Ad.create({ ...req.body });
 
-    //sendMail(
-    // to:
-    //  data.email,
-    // subject:
-    // "Your Ad Has Been Added!",
-    // Message:
-    // `
-    //  <h1>Welcome to Keller Store</h1>
-    //   <p>Dear <b>${data.username}</b>, your ad has been added to Keller Store now!</p>
-    //  `
-    //);
+      //sendMail(
+      // to:
+      //  data.email,
+      // subject:
+      // "Your Ad Has Been Added!",
+      // Message:
+      // `
+      //  <h1>Welcome to Keller Store</h1>
+      //   <p>Dear <b>${data.username}</b>, your ad has been added to Keller Store now!</p>
+      //  `
+      //);
 
-    res.status(201).send({
-      error: false,
-      data,
-    });
+      res.status(201).send({
+        error: false,
+        data,
+      });
     } catch (error) {
       res.send({
-        message:error.message,
-        error:true
-      })
+        message: error.message,
+        error: true,
+      });
     }
-
   },
 
   //! /:id -> GET
@@ -234,45 +232,47 @@ module.exports = {
       new: await Ad.findOne({ _id: req.params.id }), //buna gerek yok new true yapildigindan
     });
   },
-    neue:async(req,res)=>{
+  neue: async (req, res) => {
     /*
         #swagger.tags = ["Ads"]
         #swagger.summary = "Neues Ad"
         #swagger.description = "Neues Ad"
       
     */
-     const data = await Ad.find({}).sort({ createdAt: -1 });
-     
-     res.status(202).send({message:"reduce Okey",data})
+    const data = await Ad.find({}).sort({ createdAt: -1 });
 
+    res.status(202).send({ message: "reduce Okey", data });
   },
-     view:async(req,res)=>{
-  /*
+  view: async (req, res) => {
+    /*
         #swagger.tags = ["Ads"]
         #swagger.summary = "Viemss Ad"
         #swagger.description = "MostViem Ad"
       
     */
-   const data = await Ad.find({}).sort({ countOfVisitors: -1 });
-   res.status(202).send({ message: "most viem Okey", data });
+    const data = await Ad.find({}).sort({ countOfVisitors: -1 });
+    res.status(202).send({ message: "most viem Okey", data });
   },
 
-  reserve :async(req,res)=>{
-     /*
+  reserve: async (req, res) => {
+    /*
         #swagger.tags = ["Ads"]
         #swagger.summary = "reserve Ad"
         #swagger.description = "MostViem Ad"
          schema: {
                     "adId": "000000000"
                 
-                        }
+                  }
       
     */
-     const {id} = req.params
-     const data = await Ad.findByIdAndUpdate({_id:id},{isReserved:!isReserved},{new:true})
-    res.status(202).send({message:"reserve Okey",data})
+    const { id } = req.params;
+    const data = await Ad.findByIdAndUpdate(
+      { _id: id },
+      { isReserved: !isReserved },
+      { new: true }
+    );
+    res.status(202).send({ message: "reserve Okey", data });
   },
-
 
   //! /:id -> DELETE
   delete: async (req, res) => {
