@@ -21,6 +21,10 @@ const FavoriteSchema = new mongoose.Schema(
     },
 
     favorites: [String],
+    // favorites: [{
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'User'  // Bu alanın neyi referansladığını belirtmeniz gerekiyor
+    // }]
   },
 
   {
