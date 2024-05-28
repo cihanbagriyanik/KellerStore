@@ -17,8 +17,9 @@ import update from "../../src/assets/update.jpg";
 const MyAds = () => {
   const title = `Meine Anzeigen`;
 
-  const { getAd ,deleteAdData,putAdData} = useAdCall();
+  const { getAd ,deleteAdData} = useAdCall();
   const { ad } = useSelector((state) => state.ad);
+  console.log(ad)
   const { user } = useSelector((state) => state.auth);
   const id = user._id;
 
@@ -28,11 +29,7 @@ const MyAds = () => {
    await  deleteAdData(id);
    getAd()
   }
-const reserve = async(id)=>{
-  console.log(id,"reserve ki id")
-  await putAdData({id,isReserved:true});
-  getAd()
-}
+
 
   useEffect(() => {
     getAd();
@@ -60,7 +57,7 @@ const reserve = async(id)=>{
             <h1 className="text-3xl ps-5 pt-5 ">Meine Anzeigen</h1>
           </div>
           {ad?.map((item, index) => {
-            if (item.userId === id) {
+            if (item?.userId == id) {
               return (
                 <div
                   key={index}
@@ -155,7 +152,7 @@ const reserve = async(id)=>{
                             />
                           </div>
                           <div className="w-12 h-12 bg-button-blue rounded-full ring-offset-2 ring-gray-200 focus:ring-2 focus:ring-button-blue">
-                          <button onClick={()=>reserve(item._id)}> 
+                          <button> 
                             <img
                               src={reserve}
                               className="w-full h-full rounded-full"
@@ -169,7 +166,7 @@ const reserve = async(id)=>{
                 </div>
               );
             }
-            return null;
+            return
           })}
         </div>
       </div>
