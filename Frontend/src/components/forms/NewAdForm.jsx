@@ -15,26 +15,27 @@ const NewAdForm = () => {
   const [formValues, setFormValues] = useState({
     offerType: "",
     title: "",
-    categoryName: "",
-    subCategoryName: "",
+    categoryId: "",
+    subCategoryId: "",
     price: "",
     content: "",
     plz: "",
     straße: "",
   });
-
+  console.log(formValues);
+  
   const [subCategories, setSubCategories] = useState([]);
 
   useEffect(() => {
     const selectedCategory = category.find(
-      (cat) => cat.categoryName === formValues.categoryName
+      (cat) => cat._id === formValues.categoryId
     );
     if (selectedCategory) {
       setSubCategories(selectedCategory.subcategories);
     } else {
       setSubCategories([]);
     }
-  }, [formValues.categoryName, category]);
+  }, [formValues.categoryId, category]);
 
   const handleChange = (e) => {
     setFormValues({
@@ -54,7 +55,8 @@ const NewAdForm = () => {
 
     formData.append("offerType", formValues.offerType);
     formData.append("title", formValues.title);
-    formData.append("categoryId", "611dc37f60ae434ae87a13a3");
+    formData.append("categoryId", formValues.categoryId);
+    formData.append("subCategoryId", formValues.subCategoryId);
     formData.append("price", Number(formValues.price));
     formData.append("content", formValues.content);
     formData.append("plz", formValues.plz);
@@ -65,7 +67,7 @@ const NewAdForm = () => {
     formData.append("userId", user._id);
 
     try {
-      const response = await axios.post(
+       await axios.post(
         "https://kellerstore.onrender.com/ad",
         formData,
         {
@@ -154,13 +156,13 @@ const NewAdForm = () => {
                   <select
                     className="w-full pl-5 pr-3 py-2 text-sm bg-white text-gray-900 shadow-sm rounded-lg duration-200"
                     id="category"
-                    name="categoryName"
-                    value={formValues.categoryName}
+                    name="categoryId"
+                    value={formValues.categoryId}
                     onChange={handleChange}
                   >
                     <option value="">Select Category</option>
                     {category?.map((item, index) => (
-                      <option key={index} value={item.categoryName} onClick={()=>console.log(item._id,"category")}>
+                      <option key={index} value={item._id}>
                         {item.categoryName}
                       </option>
                     ))}
@@ -179,13 +181,13 @@ const NewAdForm = () => {
                     <select
                       className="w-full pl-5 pr-3 py-2 text-sm bg-white text-gray-900 shadow-sm rounded-lg duration-200"
                       id="subCategory"
-                      name="subCategoryName"
-                      value={formValues.subCategoryName}
+                      name="subCategoryId"
+                      value={formValues.subCategoryId}
                       onChange={handleChange}
                     >
                       <option value="">Select Subcategory</option>
                       {subCategories.map((sub, index) => (
-                        <option key={index} value={sub.name} onClick={()=>console.log(sub._id,"SUBcategory")}>
+                        <option key={index} value={sub._id}>
                           {sub.name}
                         </option>
                       ))}

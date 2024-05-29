@@ -1,16 +1,11 @@
-import React from "react";
 import "../App.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import PrivateRouter from "./PrivateRouter";
-
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-
 import Home from "../pages/Home";
 import Navbar from "../components/Navbar";
-
 import AllAds from "../pages/AllAds";
 import NewAd from "../pages/NewAd";
 import Profile from "../pages/Profile";

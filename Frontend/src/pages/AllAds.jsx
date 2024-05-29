@@ -1,12 +1,23 @@
-
 import Banner from "../components/Banner";
 import CategoryIconCard from "../components/cards/CategoryIconCard";
 import SideBar from "../components/SideBar";
+
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import useAdCall from "../hooks/useAdCall";
+
+import HomeCard from "../components/cards/HomeCard";
 import AdCard from "../components/cards/AdCard";
 
 const AllAds = () => {
+  const { getAd } = useAdCall();
   const title = `Alle Anzeigen`;
-  
+  const { ad ,homecateories} = useSelector((state) => state.ad);
+  console.log(ad,homecateories,"allCARDDDDDD");
+
+  useEffect(() => {
+    getAd();
+  }, []);
 
   return (
     <div>
@@ -21,7 +32,11 @@ const AllAds = () => {
           <SideBar />
         </div>
         <div className="flex-grow">
-          <AdCard />
+        {
+          homecateories.length > 0 ? <AdCard  data={homecateories} />   : <HomeCard data={ad} />
+        }
+          
+         
         </div>
       </div>
     </div>

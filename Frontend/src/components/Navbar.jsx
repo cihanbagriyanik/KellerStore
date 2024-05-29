@@ -1,4 +1,3 @@
-
 import Logo from "../assets/logo.png";
 import NewAdButton from "./buttons/NewAdButton";
 import RegisterButton from "./buttons/RegisterButton";
@@ -7,6 +6,7 @@ import MessageIcon from "./icons/MessageIcon";
 import FavoriteIcon from "./icons/FavoriteIcon";
 import AvatarMenu from "./AvatarMenu";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { token } = useSelector((state) => state.auth);
@@ -16,15 +16,13 @@ const Navbar = () => {
     <nav className="bg-white border-b z-50">
       <div className="flex items-center space-x-8 py-3 mx-5 md:px-8">
         <div className="flex-none lg:flex-initial">
-          <a href="/">
+          <Link to="/">
             <img src={Logo} width={120} height={50} alt="Logo" />
-          </a>
+          </Link>
         </div>
-
         <div>
           <NewAdButton />
         </div>
-
         <div className="flex-1 flex items-center  sm:space-x-6 ">
           <form className="flex items-center space-x-2 border rounded-md p-2 bg-gray-100">
             <svg

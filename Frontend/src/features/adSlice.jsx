@@ -12,6 +12,7 @@ const adSlice = createSlice({
     neuesAd: [],
     belibtAd: [],
     mostAd: [],
+    homecateories:[],
   },
   reducers: {
     fetchStart: (state) => {
@@ -40,7 +41,13 @@ const adSlice = createSlice({
     },
     categoriesSuccess: (state, { payload }) => {
       state.loading = false;
-      state.message = payload;
+      state.categories = payload;
+    },
+    homecateoriesSucces:(state,{payload})=>{
+      
+      state.loading = false;
+      state.homecateories = payload;
+      console.log(state.homecateories,"homecarories conrol SLICE")
     },
 
     fetchFail: (state) => {
@@ -58,5 +65,6 @@ export const {
   neuSucces,
   belibtSucces,
   mostSucces,
+  homecateoriesSucces,
 } = adSlice.actions;
 export default adSlice.reducer;

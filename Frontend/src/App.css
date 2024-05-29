@@ -4,3 +4,40 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin-top: 20px; /* Yukarıda küçük bir boşluk bırakır */
+}
+
+.page-item {
+  margin: 0 5px; /* Sayfa numaraları arasına boşluk bırakır */
+}
+
+.page-link {
+  display: block;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.page-link:hover {
+  background-color: #e9ecef;
+}
+
+.active .page-link {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}
+
+.page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}

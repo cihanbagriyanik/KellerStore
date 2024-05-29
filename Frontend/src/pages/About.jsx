@@ -1,4 +1,4 @@
-import React from "react";
+
 import Team from "../components/Team";
 import Stats from "../components/Stats";
 import Banner from "../components/Banner";
