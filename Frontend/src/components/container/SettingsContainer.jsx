@@ -1,7 +1,16 @@
-import React from "react";
+
+import { useState } from "react";
+import Modals from "../cards/Modals";
+//import Modals from "../cards/Modals";
+
 
 const SettingsContainer = () => {
+  const [modal, setModal] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen((cur) => !cur);
+
   return (
+    <div> 
     <div className="border w-1/1 m-10 bg-light-grey pb-7 rounded-lg">
       <div className="flex justify-between items-center pt-3 pb-3">
         <h1 className="text-3xl ps-5 pt-5 ">Profile</h1>
@@ -29,9 +38,12 @@ const SettingsContainer = () => {
                 <h2>Lieferadresse :</h2>
               </div>
               <div>
-                <a href="#" className="hover:underline hover:text-button-blue">
+                <button onClick={handleOpen}  className="hover:underline hover:text-button-blue">
                   Bearbeiten
-                </a>
+                
+                  
+                  
+                </button>
               </div>
             </div>
           </div>
@@ -72,6 +84,10 @@ const SettingsContainer = () => {
         </div>
       </div>
       {/* /* -------------------------------------------------------------------------- */}
+
+      
+    </div>
+  { modal &&  <Modals open={open} handleOpen= {handleOpen} />    }
     </div>
   );
 };

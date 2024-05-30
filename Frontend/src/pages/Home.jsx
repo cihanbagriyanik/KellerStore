@@ -14,8 +14,8 @@ const Home = () => {
   const {getCategory} = useCategoryCall()
   const {category} = useSelector(state=>state.category)
   console.log(category,"category")
-  const { neuesAd, belibtAd, mostAd } = useSelector((state) => state.ad);
-
+  const { neuesAd, belibtAd, mostAd,ad } = useSelector((state) => state.ad);
+console.log(ad,"adddddddddddddddddddddddddd")
   useEffect(() => {
     getAd();
     neue();
@@ -55,7 +55,7 @@ const Home = () => {
             target={"/allad"}
             data={[...mostAd]}
           />
-              <h1>ddddddddddddddd</h1>
+             
           {/* /! -------------------------------------------------------------------------- */}
         </div>
       </div>
