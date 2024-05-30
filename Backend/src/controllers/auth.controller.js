@@ -36,14 +36,16 @@ module.exports = {
     */
     try {
       const { email ,userType} = req.body;
-      if(userType == "gewerblich")  isBusiness:true
+   
       const emailControl = await User.findOne({ email });
       if (emailControl)
         return res.status(404).send({
           message: "email control",
         });
       const user = new User({
-        
+        isBusiness: userType == "gewerblich" ? true : false,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
          userName:req.body.UserName,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
