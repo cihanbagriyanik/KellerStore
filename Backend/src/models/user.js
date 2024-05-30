@@ -37,6 +37,7 @@ const UserSchema = new mongoose.Schema(
 
     businessName: {
       type: String,
+    
     },
 
     email: {

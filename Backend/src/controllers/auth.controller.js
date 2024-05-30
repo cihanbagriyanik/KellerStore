@@ -35,14 +35,16 @@ module.exports = {
       }
     */
     try {
-      const { email } = req.body;
+      const { email ,userType} = req.body;
+      if(userType == "gewerblich")  isBusiness:true
       const emailControl = await User.findOne({ email });
       if (emailControl)
         return res.status(404).send({
           message: "email control",
         });
       const user = new User({
-       
+        
+         userName:req.body.UserName,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
       });

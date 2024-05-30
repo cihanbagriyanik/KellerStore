@@ -1,4 +1,4 @@
-import React from "react";
+
 import AdCard from "../cards/AdCard";
 
 const WishListContainer = () => {
