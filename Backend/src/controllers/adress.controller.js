@@ -23,8 +23,8 @@ module.exports = {
         `
     */
 
-  const filters = req.user?.isAdmin ? {} : { _id: req.user._id };
-     const data = await res.getModelList(Address, filters);
+  const filters = req.user?.isAdmin ? {} : { userId: req.user._id };
+        const data = await res.getModelList(Address, filters);
 
     res.status(200).send({
       error: false,
