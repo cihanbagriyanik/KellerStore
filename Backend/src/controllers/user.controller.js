@@ -111,7 +111,7 @@ module.exports = {
       ? { _id: req.params.id }
       : { _id: req.user._id };
     req.body.isAdmin = req.user?.isAdmin ? req.body.isAdmin : false;
-    const data = await User.updateOne(filters, req.body, {
+    const data = await User.updateOne(filters, {...req.body}, {
       runValidators: true,
     });
     res.status(202).send({
