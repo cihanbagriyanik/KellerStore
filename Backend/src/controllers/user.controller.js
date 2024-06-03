@@ -112,12 +112,12 @@ module.exports = {
       : { _id: req.user._id };
     req.body.isAdmin = req.user?.isAdmin ? req.body.isAdmin : false;
     const data = await User.updateOne(filters, {...req.body}, {
-      runValidators: true,
+      runValidators: true, new:true
     });
     res.status(202).send({
       error: false,
       data,
-      new: await User.findOne(filters),
+     
     });
   },
 
