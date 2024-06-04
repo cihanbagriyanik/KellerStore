@@ -4,7 +4,7 @@
 ----------------------------------------------------------------------------- */
 //? Requaring
 const Favorite = require("../models/favorite");
-const Ad = require("../models/ad")
+const Ad = require("../models/ad");
 
 /* -------------------------------------------------------------------------- */
 //? Favorite Controller:
@@ -95,19 +95,19 @@ module.exports = {
       data,
     });
   },
-  user : async(req,res)=>{
+  user: async (req, res) => {
     const userControl = await Favorite.find({}).populate("adId");
-    const data= userControl?.favorites?.filter( (item)=> item == req.user._id );
 
+    const userId = req.user._id;
 
-
+    const filteredFavorites = userControl.filter((item) =>
+      item.favorites.includes(userId)
+    );
 
     res.send({
-      message:"ola",
-      userControl
-    }
-    )
-
+      message: "ola",
+      data: filteredFavorites,
+    });
   },
 
   // belibt: async (req, res) => {
@@ -132,7 +132,7 @@ module.exports = {
   //         }
   //         return 0;
   //       });
-    
+
   //       res.status(200).send({
   //         error: false,
   //         data: sortedData,
@@ -180,15 +180,13 @@ module.exports = {
         </ul>
       `
     */
-      const data = await Favorite.find({});
-      const Data = data.sort((a, b) => b.favorites.length - a.favorites.length);
-      res.status(200).send({
-        error: false,
-        data:Data,
-      });
+    const data = await Favorite.find({});
+    const Data = data.sort((a, b) => b.favorites.length - a.favorites.length);
+    res.status(200).send({
+      error: false,
+      data: Data,
+    });
   },
-
-
 
   //! /:id -> DELETE
   delete: async (req, res) => {
