@@ -97,8 +97,11 @@ module.exports = {
   },
   user : async(req,res)=>{
     const userControl = await Favorite.find({}).populate("adId");
+    const data= userControl?.favorites?.filter( (item)=>{return item.includes(req.user._id)})
 
-    res.send(userControl)
+
+
+    res.send(data)
 
   },
 
