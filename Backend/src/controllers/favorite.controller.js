@@ -43,7 +43,7 @@ module.exports = {
       userControl?.map((item) => {
         if (item._id == req.body.adId) {
           res.errorStatusCode = 401;
-          throw new Error("Please enter username and password HATALI.");
+          throw new Error("Please LIKE AYNI HATALI.");
         }
       });
     }
