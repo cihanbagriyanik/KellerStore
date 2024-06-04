@@ -96,40 +96,41 @@ module.exports = {
       data,
     });
   },
-    belibt: async (req, res) => {
-    /*
-      #swagger.tags = ["Favorites"]
-      #swagger.summary = "Belibts Favorite"
-      #swagger.description = `
-        You can send query with endpoint for search[], sort[], page and limit.
-          <ul> Examples:
-            <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
-            <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
-            <li>URL/?<b>page=2&limit=1</b></li>
-        </ul>
-      `
-    */
 
-      try {
-        const data = await Favorite.find({}).populete("adId");
-        const sortedData = data.sort((a, b) => {
-          if (a.favorites && b.favorites) {
-            return b.favorites.length - a.favorites.length;
-          }
-          return 0;
-        });
+  // belibt: async (req, res) => {
+  //   /*
+  //     #swagger.tags = ["Favorites"]
+  //     #swagger.summary = "Belibts Favorite"
+  //     #swagger.description = `
+  //       You can send query with endpoint for search[], sort[], page and limit.
+  //         <ul> Examples:
+  //           <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
+  //           <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
+  //           <li>URL/?<b>page=2&limit=1</b></li>
+  //       </ul>
+  //     `
+  //   */
+
+  //     try {
+  //       const data = await Favorite.find({}).populete("adId");
+  //       const sortedData = data.sort((a, b) => {
+  //         if (a.favorites && b.favorites) {
+  //           return b.favorites.length - a.favorites.length;
+  //         }
+  //         return 0;
+  //       });
     
-        res.status(200).send({
-          error: false,
-          data: sortedData,
-        });
-      } catch (error) {
-        res.status(500).send({
-          error: true,
-          message: error.message,
-        });
-      };
-  },
+  //       res.status(200).send({
+  //         error: false,
+  //         data: sortedData,
+  //       });
+  //     } catch (error) {
+  //       res.status(500).send({
+  //         error: true,
+  //         message: error.message,
+  //       });
+  //     };
+  // },
 
   //! /:id -> PUT / PATCH
   update: async (req, res) => {
@@ -153,26 +154,26 @@ module.exports = {
       new: await Favorite.findOne({ _id: req.params.id }),
     });
   },
-  // belibt: async (req, res) => {
-  //   /*
-  //     #swagger.tags = ["Favorites"]
-  //     #swagger.summary = "Belibts Favorite"
-  //     #swagger.description = `
-  //       You can send query with endpoint for search[], sort[], page and limit.
-  //         <ul> Examples:
-  //           <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
-  //           <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
-  //           <li>URL/?<b>page=2&limit=1</b></li>
-  //       </ul>
-  //     `
-  //   */
-  //     const data = await Favorite.find({});
-  //     const Data = data.sort((a, b) => b.favorites.length - a.favorites.length);
-  //     res.status(200).send({
-  //       error: false,
-  //       data:Data,
-  //     });
-  // },
+  belibt: async (req, res) => {
+    /*
+      #swagger.tags = ["Favorites"]
+      #swagger.summary = "Belibts Favorite"
+      #swagger.description = `
+        You can send query with endpoint for search[], sort[], page and limit.
+          <ul> Examples:
+            <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
+            <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
+            <li>URL/?<b>page=2&limit=1</b></li>
+        </ul>
+      `
+    */
+      const data = await Favorite.find({});
+      const Data = data.sort((a, b) => b.favorites.length - a.favorites.length);
+      res.status(200).send({
+        error: false,
+        data:Data,
+      });
+  },
 
   //! /:id -> DELETE
   delete: async (req, res) => {
