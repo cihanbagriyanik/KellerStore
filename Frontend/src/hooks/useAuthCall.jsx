@@ -89,7 +89,7 @@ const useAuthCall = () => {
 
         console.log(userResponse.data?.new[0], "TEK UASERR");
         dispatch(updateUser(userResponse.data?.new[0]));
-navigate("/profile")
+        navigate("/profile");
 
         const addressResponse = await axios.put(
           `${BASE_URL}address/${user._id}`,

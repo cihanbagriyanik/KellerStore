@@ -5,6 +5,7 @@
 //? Requaring
 const Ad = require("../models/ad");
 const message = require("../models/message");
+const { populate } = require("../models/user");
 //const sendMail = require("../helpers/sendMail");
 /* -------------------------------------------------------------------------- */
 //? Ad Controller:
@@ -106,14 +107,12 @@ module.exports = {
       { _id: req.params.id },
       { ...data, countOfVisitors: veri },
       { new: true }
-    ).populate({
-      path: "userId",
-      select: "userName",
-    });
+    ).populate("userId");
+   // populate({path:"userId",select:"usernama"})
 
     res.status(200).send({
       error: false,
-      data,
+      son
     });
   },
   favorite: async (req, res) => {

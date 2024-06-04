@@ -148,6 +148,14 @@ const useAdCall = () => {
         error?.response?.data?.message || "Operation not success"
       );
     }
+    const getAdsingle = async()=>{
+      try {
+      console.log("ddd")
+      } catch (error) {
+        toastErrorNotify(error?.response?.data?.message || "ADsingle not success");
+
+      }
+    }
   };
 
   return {

@@ -99,7 +99,7 @@ const AdCard = ({ data }) => {
                   </article>
                 ) : (
                   <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
-                    <a>
+                  <Link to={`/detail/${items._id}`}> 
                       <img
                       //  src={items?.adId?.images[0]}
 
@@ -147,7 +147,7 @@ const AdCard = ({ data }) => {
                          {items.favorites?.length} <MdFavorite size={24} />
                         </div>
                       </div>
-                    </a>
+                     </Link>
                   </article>
                 )}
               </div>

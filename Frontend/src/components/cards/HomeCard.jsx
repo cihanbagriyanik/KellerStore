@@ -4,6 +4,7 @@ import { FaClock } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";
 import { IoEyeSharp } from "react-icons/io5";
 import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
 
 const Items = ({ currentItems }) => {
   return (
@@ -12,6 +13,7 @@ const Items = ({ currentItems }) => {
         currentItems.map((items, index) => (
           <div key={index}>
             <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
+            <Link to={`/detail/${items._id}`}> 
               <div>
                 <img
                   src={items?.images[0]}
@@ -62,6 +64,7 @@ const Items = ({ currentItems }) => {
                   </div>
                 </div>
               </div>
+              </Link>
             </article>
           </div>
         ))}
