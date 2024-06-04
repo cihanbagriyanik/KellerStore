@@ -96,7 +96,7 @@ module.exports = {
     });
   },
   user : async(req,res)=>{
-    const userControl = await Ad.find({ userId: req.user._id });
+    const userControl = await Favorite.find({ });
     res.send(userControl)
 
   },
