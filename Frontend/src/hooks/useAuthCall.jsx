@@ -1,14 +1,14 @@
-
-
 import {
   fetchFail,
   fetchStart,
   registerSuccess,
   loginSuccess,
   logoutSuccess,
+  addressSucces,
+  updateUser,
 } from "../features/authSlice";
 
-import axios from  "axios";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -19,14 +19,13 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token } = useSelector((store) => store.auth);
+  const { token, user, access } = useSelector((store) => store.auth);
 
   const register = async (userInfo) => {
     console.log(userInfo);
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(`${BASE_URL}auth/register`, userInfo);
-
       console.log("register", data);
       toastSuccessNotify("Register performed");
       dispatch(registerSuccess(data));
@@ -40,10 +39,10 @@ const useAuthCall = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(`${BASE_URL}auth/login/`, userInfo);
+      console.log(data, "logindeki");
       dispatch(loginSuccess(data));
       toastSuccessNotify("Login performed");
       navigate("/");
-      
       console.log(data);
     } catch (error) {
       dispatch(fetchFail());
@@ -51,26 +50,71 @@ const useAuthCall = () => {
       toastErrorNotify("Login can not be performed");
     }
   };
-  
-  const logout = async () => {
+
+  const profile = async () => {
     dispatch(fetchStart());
+    console.log(access, "ACCESSSSSSSS");
+
     try {
-      await axios.get(`${BASE_URL}auth/logout/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      });
-      dispatch(logoutSuccess());
-      toastSuccessNotify("Logout performed");
-      navigate("/login");
+      if (user?._id) {
+        const addressResponse = await axios.get(`${BASE_URL}address/`, {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        });
+
+        // console.log(addressResponse.data.data, "ADDRESS DATA");
+        dispatch(addressSucces(addressResponse.data.data));
+      }
     } catch (error) {
       dispatch(fetchFail());
-      console.log(error);
-      toastErrorNotify("Logout can not be performed");
+      console.log(error.message);
     }
   };
 
-  return { register, login, logout };
+  const profileUpdate = async (userData, address) => {
+    console.log(user?._id);
+
+    try {
+      if (user?._id) {
+        const userResponse = await axios.put(
+          `${BASE_URL}users/${user._id}`,
+          userData,
+          {
+            headers: {
+              Authorization: `Bearer ${access}`,
+            },
+          }
+        );
+
+        console.log(userResponse.data?.new[0], "TEK UASERR");
+        dispatch(updateUser(userResponse.data?.new[0]));
+navigate("/profile")
+
+        const addressResponse = await axios.put(
+          `${BASE_URL}address/${user._id}`,
+          { address },
+          {
+            headers: {
+              Authorization: `Bearer ${access}`,
+            },
+          }
+        );
+
+        console.log(addressResponse.data.data, "ADDRESS DATA");
+        dispatch(addressSucces(addressResponse.data.data));
+      }
+    } catch (error) {
+      dispatch(fetchFail());
+      console.log(error.message);
+    }
+  };
+  const logout = async () => {
+    dispatch(fetchStart());
+    dispatch(logoutSuccess());
+  };
+
+  return { register, login, logout, profile, profileUpdate };
 };
 
 export default useAuthCall;

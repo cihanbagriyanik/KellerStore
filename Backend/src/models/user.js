@@ -37,7 +37,6 @@ const UserSchema = new mongoose.Schema(
 
     businessName: {
       type: String,
-    
     },
 
     email: {
@@ -80,7 +79,6 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-
 
     isStaff: {
       type: Boolean,

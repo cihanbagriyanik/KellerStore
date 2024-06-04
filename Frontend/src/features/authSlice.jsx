@@ -4,12 +4,14 @@ const authSlice = createSlice({
   name: "auth",
 
   initialState: {
-    currentUser: null,
     loading: false,
     error: false,
     isAdmin: false,
     token: null,
-    user:null
+    user: null,
+    currentUser: null,
+    access:null,
+    address:[]
   },
 
   reducers: {
@@ -25,13 +27,21 @@ const authSlice = createSlice({
     },
 
     loginSuccess: (state, { payload }) => {
+      console.log(payload,"LOGIN PAYLOAD")
       state.loading = false;
-      state.currentUser = payload?.user?.email;
-      state.isAdmin = payload?.user?.isAdmin;
       state.token = payload?.token;
       state.user = payload?.user;
+      state.access=payload?.bearer?.access
+      state.currentUser = payload?.user?.email;
     },
+    addressSucces:(state,{payload})=>{
+        state.address = payload
 
+    },
+    updateUser :(state,{payload})=>{
+      console.log(payload,"UPDATE ,,,,,,,,,pazload")
+      state.user = payload
+    },
     refresh: (state, { payload }) => {
       state.loading = false;
       state.token = payload?.bearer?.refresh;
@@ -39,9 +49,9 @@ const authSlice = createSlice({
 
     logoutSuccess: (state) => {
       state.loading = false;
-      state.currentUser = null;
-      state.isAdmin = false;
       state.token = null;
+      state.user = null;
+      state.currentUser = null;
     },
 
     fetchFail: (state) => {
@@ -57,5 +67,7 @@ export const {
   logoutSuccess,
   loginSuccess,
   fetchFail,
+  addressSucces,
+  updateUser
 } = authSlice.actions;
 export default authSlice.reducer;

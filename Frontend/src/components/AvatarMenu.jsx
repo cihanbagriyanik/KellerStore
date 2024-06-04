@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import useAuthCall from "../hooks/useAuthCall";
+import { useDispatch } from "react-redux";
 
 const AvatarMenu = () => {
   const { logout } = useAuthCall();
+  const dispatch = useDispatch()
 
   const [state, setState] = useState(false);
   const profileRef = useRef();
+  // profileRef, profil düğmesine referans oluşturur. Bu referans, useEffect içinde kullanılarak, fare tıklamalarının profil düğmesi dışında gerçekleşip gerçekleşmediğini kontrol eder. Eğer tıklama profil düğmesinin dışında gerçekleşmişse, dropdown menüsü kapanır.
 
   const navigation = [
     { title: "Profile", path: "/profile" },
@@ -19,6 +23,13 @@ const AvatarMenu = () => {
     document.addEventListener("click", handleDropDown);
     return () => document.removeEventListener("click", handleDropDown);
   }, []);
+
+  const handleClick = (title) => {
+    if (title == "Logout") {
+     dispatch(logout())   
+    }
+    setState(false);
+  };
 
   return (
     <div className="relative">
@@ -40,13 +51,22 @@ const AvatarMenu = () => {
       >
         {navigation.map((item, idx) => (
           <li key={idx}>
-            <a
-              className="block text-gray-600 hover:bg-button-blue hover:text-white px-4 py-2 rounded-md cursor-pointer"
-              href={item.path}
-              onClick={logout}
-            >
-              {item.title}
-            </a>
+            {item.title === "Logout" ? (
+              <button
+                className="block text-gray-600 hover:bg-button-blue hover:text-white px-4 py-2 rounded-md cursor-pointer w-full text-left"
+                onClick={() => handleClick(item.title)}
+              >
+                {item.title}
+              </button>
+            ) : (
+              <Link
+                className="block text-gray-600 hover:bg-button-blue hover:text-white px-4 py-2 rounded-md cursor-pointer"
+                to={item.path}
+                onClick={() => setState(false)}
+              >
+                {item.title}
+              </Link>
+            )}
           </li>
         ))}
       </ul>
@@ -55,3 +75,4 @@ const AvatarMenu = () => {
 };
 
 export default AvatarMenu;
+

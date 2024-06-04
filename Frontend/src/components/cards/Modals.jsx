@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Button,
   Dialog,
@@ -7,12 +8,42 @@ import {
   Typography,
   Input,
 } from "@material-tailwind/react";
-import { useSelector } from "react-redux";
+import useAuthCall from "../../hooks/useAuthCall";
 
-function Modals({ open, handleOpen }) {
-  // const [open, setOpen] = useState(false);
-  // const handleOpen = () => setOpen((cur) => !cur);
+
+
+function Modals({ open, handleOpen, user, address }) {
+  const [userData, setUserData] = useState({});
+  const [adres, setAdres] = useState('');
+  const { profileUpdate } = useAuthCall();
+
  
+
+  useEffect(() => {
+    setUserData(user);
+   // setAdres(address[0]?.zipCode || '');
+  }, [user, address]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+  };
+
+  const handleAddressChange = (e) => {
+    setAdres(e.target.value);
+  };
+
+  const handleSave = () => {
+    console.log(userData,"USERDATA");
+    console.log(adres);
+    handleOpen();
+    profileUpdate(userData, adres)
+    
+
+  };
 
   return (
     <>
@@ -31,22 +62,46 @@ function Modals({ open, handleOpen }) {
             <Typography className="-mb-2" variant="h6">
               Profil Name
             </Typography>
-            <Input label="Profil Name" size="lg" />
+            <Input
+              label="Profil Name"
+              size="lg"
+              name="userName"
+              value={userData?.userName || ''}
+              onChange={handleChange}
+            />
             <Typography className="-mb-2" variant="h6">
               Lieferadresse
             </Typography>
-            <Input label="Lieferadresse" size="lg" />
+            <Input
+              label="Lieferadresse"
+              size="lg"
+              name="address"
+              value={adres}
+              onChange={handleAddressChange}
+            />
             <Typography className="-mb-2" variant="h6">
               Telefonnummer
             </Typography>
-            <Input label="Telefonnummer" size="lg" />
+            <Input
+              label="Telefonnummer"
+              size="lg"
+              name="tel"
+              value={userData?.tel || ''}
+              onChange={handleChange}
+            />
             <Typography className="-mb-2" variant="h6">
               Your Email
             </Typography>
-            <Input label="Email" size="lg" />
+            <Input
+              label="Email"
+              size="lg"
+              name="email"
+              value={userData?.email || ''}
+              onChange={handleChange}
+            />
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" onClick={handleOpen} fullWidth>
+            <Button variant="gradient" onClick={handleSave} fullWidth>
               Bearbeiten
             </Button>
           </CardFooter>
@@ -55,4 +110,5 @@ function Modals({ open, handleOpen }) {
     </>
   );
 }
+
 export default Modals;

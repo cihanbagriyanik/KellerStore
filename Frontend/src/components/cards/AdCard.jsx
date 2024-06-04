@@ -4,7 +4,7 @@ import { MdFavorite } from "react-icons/md";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { IoEyeSharp } from "react-icons/io5";
-
+import { Link } from "react-router-dom";
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -42,7 +42,7 @@ const AdCard = ({ data }) => {
               <div key={index}>
                 {items?.categoryId ? (
                   <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
-                    <a>
+                    <Link to={`/detail/${items._id}`}> 
                       <img
                         src={items?.images[0]}
                         loading="lazy"
@@ -95,7 +95,7 @@ const AdCard = ({ data }) => {
                           )}
                         </div>
                       </div>
-                    </a>
+                      </Link>
                   </article>
                 ) : (
                   <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">

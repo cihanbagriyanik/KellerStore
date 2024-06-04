@@ -21,7 +21,7 @@ const MyAds = () => {
   const { ad } = useSelector((state) => state.ad);
  
   const { user } = useSelector((state) => state.auth);
-  const id = user._id;
+  const id = user?._id;
 
   const [openIndexes, setOpenIndexes] = useState({});
   const deleteAd = async (id)=>{

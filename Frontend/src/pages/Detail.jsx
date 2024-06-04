@@ -1,4 +1,4 @@
-import React from "react";
+
 import DetailSidebar from "../components/DetailSidebar";
 import { FaLocationPin } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
@@ -6,8 +6,11 @@ import { MdFavorite } from "react-icons/md";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaTag } from "react-icons/fa6";
 import { FaPhone } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
 const Detail = () => {
+  const {id} = useParams()
+  console.log(id)
   return (
     <div className="flex">
       <div>

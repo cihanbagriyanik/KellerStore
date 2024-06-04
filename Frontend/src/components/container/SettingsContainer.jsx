@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modals from "../cards/Modals";
+import { useDispatch, useSelector } from "react-redux";
+import useAuthCall from "../../hooks/useAuthCall";
+
 //import Modals from "../cards/Modals";
 
 const SettingsContainer = () => {
+  const { profile } = useAuthCall();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
+  const { user, address } = useSelector((state) => state.auth);
+ 
+ 
+  useEffect(() => {
+    profile();
+  }, [user]);
 
   return (
     <div>
@@ -22,7 +32,14 @@ const SettingsContainer = () => {
                 <div className="flex">
                   <h2>Profil Name :</h2>
 
-                  <h2 className="absolute left-52"> Lukas Müller</h2>
+                  {user?.userName ? (
+                    <h2 className="absolute left-52"> {user?.userName}</h2>
+                  ) : (
+                    <h2 className="absolute left-52 text-red-500">
+                      {" "}
+                      000000000
+                    </h2>
+                  )}
                 </div>
                 <div>
                   <button
@@ -33,9 +50,20 @@ const SettingsContainer = () => {
                   </button>
                 </div>
               </div>
-              <div className="my-5 mb-16 flex justify-between">
-                <div>
+              <div className="my-5 mb-16 flex justify-between relative">
+                <div className="flex">
                   <h2>Lieferadresse :</h2>
+                   { address && address[0] ? (
+                    <h2 className="absolute left-52">
+                      {" "}
+                      {address[0]?.city + address[0]?.zipCode}
+                    </h2>
+                  ) : (
+                    <h2 className="absolute left-52 text-red-500">
+                      {" "}
+                      000000000
+                    </h2>
+                  )}
                 </div>
                 <div>
                   <button
@@ -60,8 +88,14 @@ const SettingsContainer = () => {
               <div className="my-5 flex justify-between   relative">
                 <div className="flex   ">
                   <h2>Telefonnummer :</h2>
-
-                  <h2 className="absolute left-52"> +49 176 0000 00 00</h2>
+                  {user?.tel ? (
+                    <h2 className="absolute left-52"> {user?.tel}</h2>
+                  ) : (
+                    <h2 className="absolute left-52 text-red-500">
+                      {" "}
+                      000000000
+                    </h2>
+                  )}
                 </div>
                 <div>
                   <button
@@ -75,7 +109,7 @@ const SettingsContainer = () => {
               <div className="my-5 mb-16 flex justify-between relative">
                 <div className="flex">
                   <h2>Email :</h2>
-                  <h2 className="absolute left-52 "> petra@gmail.com</h2>
+                  <h2 className="absolute left-52 "> {user?.email}</h2>
                 </div>
                 <div>
                   <button
@@ -91,7 +125,7 @@ const SettingsContainer = () => {
         </div>
         {/* /* -------------------------------------------------------------------------- */}
       </div>
-      <Modals open={open} handleOpen={handleOpen} />
+      <Modals open={open} handleOpen={handleOpen} user={user} address={address} />
     </div>
   );
 };

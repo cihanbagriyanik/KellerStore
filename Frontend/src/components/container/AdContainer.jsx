@@ -13,6 +13,7 @@ const AdContainer = ({ title, target, data }) => {
         </div>
       </div>
       <div>
+      
         <AdCard data={data} />
       </div>
     </div>

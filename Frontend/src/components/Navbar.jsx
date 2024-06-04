@@ -5,12 +5,16 @@ import LoginButton from "./buttons/LoginButton";
 import MessageIcon from "./icons/MessageIcon";
 import FavoriteIcon from "./icons/FavoriteIcon";
 import AvatarMenu from "./AvatarMenu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
 
 const Navbar = () => {
   const { token } = useSelector((state) => state.auth);
-  console.log(token, "auth");
+  
+
+  console.log(token, "NAVBAR USR");
+  
 
   return (
     <nav className="bg-white border-b z-50">
