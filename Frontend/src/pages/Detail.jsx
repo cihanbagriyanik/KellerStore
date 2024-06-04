@@ -16,7 +16,7 @@ const Detail = () => {
   const { id } = useParams();
 
   const { single } = useAdCall();
-  const { getCategory, favori ,favoriAdd} = useCategoryCall();
+  const { getCategory, favori ,favoriAdd,favoriAll} = useCategoryCall();
   const { singleAd } = useSelector((state) => state.ad);
   console.log(singleAd, "SINGLE SINGLE SINGLE");
 
@@ -27,11 +27,15 @@ const Detail = () => {
     single(id);
     getCategory();
     favori();
+    favoriAll(id)
   }, []);
 
   const fav = (id) => {
     favoriAdd(id)
-    favori()
+   
+    favoriAll(id)
+     favori()
+    
   };
   return (
     <div className="flex">
@@ -85,6 +89,7 @@ const Detail = () => {
                       if (item.adId == singleAd._id) {
                         return <p key={index}>{item?.favorites?.length}</p>;
                       }
+                     
                     })}
                   </p>
                 </div>

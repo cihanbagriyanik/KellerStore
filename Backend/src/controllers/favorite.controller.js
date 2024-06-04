@@ -95,6 +95,11 @@ module.exports = {
       data,
     });
   },
+  user : async(req,res)=>{
+    const userControl = await Ad.find({ userId: req.user._id });
+    res.send(userControl)
+
+  },
 
   // belibt: async (req, res) => {
   //   /*
@@ -173,6 +178,8 @@ module.exports = {
         data:Data,
       });
   },
+
+
 
   //! /:id -> DELETE
   delete: async (req, res) => {

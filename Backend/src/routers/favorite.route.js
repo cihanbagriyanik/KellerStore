@@ -18,6 +18,7 @@ const { isAdmin, isLogin } = require("../middlewares/permissions");
 
 router.route("/")
 .get(isAdmin,Favorite.list)
+get(isLogin,Favorite.user)
 .post(isLogin, Favorite.create);
 router.route("/belibt").get(Favorite.belibt)
 

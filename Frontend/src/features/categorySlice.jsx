@@ -8,7 +8,7 @@ const categorySlice = createSlice({
     error: false,
     category: [],
     subcategory: [],
-    favoriAd:null,
+    favoriAd:[],
     favorUser:[]
   },
   reducers: {
