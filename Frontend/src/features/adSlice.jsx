@@ -13,6 +13,7 @@ const adSlice = createSlice({
     belibtAd: [],
     mostAd: [],
     homecateories:[],
+    singleAd:[]
   },
   reducers: {
     fetchStart: (state) => {
@@ -38,6 +39,10 @@ const adSlice = createSlice({
     messageSuccess: (state, { payload }) => {
       state.loading = false;
       state.message = payload;
+    },
+    singleSucces:(state, { payload })=>{
+      state.loading = false;
+      state.singleAd = payload;
     },
     categoriesSuccess: (state, { payload }) => {
       state.loading = false;
@@ -66,5 +71,6 @@ export const {
   belibtSucces,
   mostSucces,
   homecateoriesSucces,
+  singleSucces
 } = adSlice.actions;
 export default adSlice.reducer;

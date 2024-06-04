@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // Buttons Infos
@@ -20,6 +21,7 @@ const DetailButtons = [
 const DetailSidebar = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {singleAd} = useSelector(state=>state.ad)
 
   const handleClick = (path) => {
     if (path !== "#") {
@@ -33,9 +35,12 @@ const DetailSidebar = () => {
     <>
       <nav className="bg-background-filter-light-blue space-y-3 sm:w-80 py-5 ms-3 my-3 me-2 mt-10 rounded-lg">
         <div className=" text-center text-white  ">
-          <h1>Lukas Müller</h1>
-          <h4>Aktif zeit 02,2019</h4>
-          <h4>Privater Nutzer</h4>
+          <h1>{singleAd?.userId?.userName}</h1>
+          <h4>Aktif zeit {singleAd?.createdAt?.slice(0,10)}</h4>
+          {singleAd?.userId?.isBusiness ?<h4> Business</h4> : <h4>  Privat</h4> }
+
+
+          
         </div>
         {DetailButtons.map((x) => {
           return (

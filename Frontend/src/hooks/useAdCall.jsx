@@ -1,4 +1,4 @@
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   fetchFail,
@@ -7,15 +7,17 @@ import {
   neuSucces,
   belibtSucces,
   mostSucces,
+  singleSucces,
   //   messageSuccess,
   //   categoriesSuccess,
 } from "../features/adSlice";
 import useAxios from "./useAxios";
+import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
 const useAdCall = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  // const { token } = useSelector((state) => state.auth);
+  const { access } = useSelector((state) => state.auth);
   const { axiosWithToken } = useAxios();
   const dispatch = useDispatch();
 
@@ -41,13 +43,13 @@ const useAdCall = () => {
       const { data } = await axiosWithToken(`${BASE_URL}ad/neue`);
       // console.log(data?.data.slice(0,10),"neueeeeeeeeeeeeeee")
       const neues = data?.data.slice(0, 4);
-     
+
       const reserveControl = neues?.map((item) => {
         if (item.isReserved === true) {
           return { ...item, images: ["animals.png"] };
         }
         return item;
-      })
+      });
       dispatch(neuSucces(reserveControl));
     } catch (error) {
       dispatch(fetchFail());
@@ -148,13 +150,17 @@ const useAdCall = () => {
         error?.response?.data?.message || "Operation not success"
       );
     }
-    const getAdsingle = async()=>{
-      try {
-      console.log("ddd")
-      } catch (error) {
-        toastErrorNotify(error?.response?.data?.message || "ADsingle not success");
-
-      }
+  };
+  const single = async (params) => {
+   // console.log(params,"getsinle IS")
+    try {
+      const data = await axios.get(`${BASE_URL}ad/${params}`);
+     console.log(data?.data.son, "tek olan ad");
+     dispatch(singleSucces(data?.data?.son))
+    } catch (error) {
+      toastErrorNotify(
+       error
+      );
     }
   };
 
@@ -167,6 +173,7 @@ const useAdCall = () => {
     neue,
     belibt,
     most,
+    single,
   };
 };
 

@@ -3,7 +3,6 @@ import authReducer from "../features/authSlice.jsx";
 import adReducer from "../features/adSlice";
 import categoryReducer from "../features/categorySlice";
 
-
 import {
   persistStore,
   persistReducer,
@@ -16,7 +15,6 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
-
 const persistConfig = {
   key: "root",
   storage,
@@ -28,8 +26,7 @@ const store = configureStore({
   reducer: {
     auth: persistedReducer,
     ad: adReducer,
-    category:categoryReducer,
- 
+    category: categoryReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

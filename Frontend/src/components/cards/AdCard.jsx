@@ -91,7 +91,8 @@ const AdCard = ({ data }) => {
                               {items.countOfVisitors} <IoEyeSharp size={25} />
                             </div>
                           ) : (
-                            <MdFavorite size={25} />
+                            <div  className="flex items-center gap-2"> 0 <IoEyeSharp size={25}  /> </div>
+                          
                           )}
                         </div>
                       </div>

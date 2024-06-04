@@ -8,9 +8,36 @@ import { FaTag } from "react-icons/fa6";
 import { FaPhone } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 
+import { useEffect } from "react";
+import useAdCall from "../hooks/useAdCall";
+import { useSelector } from "react-redux";
+import useCategoryCall from "../hooks/useCategoryCall";
+
+
 const Detail = () => {
   const {id} = useParams()
-  console.log(id)
+
+  const { single} = useAdCall();
+  const {getCategory,favori} = useCategoryCall()
+  const {singleAd} = useSelector(state=>state.ad)
+  console.log(singleAd,"SINGLE SINGLE SINGLE")
+  
+  const {category,favoriAd} = useSelector(state=>state.category)
+  console.log(category,favoriAd,"categort")
+ 
+   
+  useEffect(()=>{
+    single(id)
+    getCategory()
+    favori()
+
+
+  },[])
+
+
+  const fav = ()=>{
+    
+  }
   return (
     <div className="flex">
       <div>
@@ -22,6 +49,12 @@ const Detail = () => {
             <div className="text-center">
               <div className=" text-center mt-2 pt-3 ml-4 mr-2">
                 <h2>Category</h2>
+                <p>{category?.map((item,index)=>{
+                      if(item._id == singleAd?.categoryId){
+                        return <p key={index} className="text-red-500">  {item?.categoryName}</p>
+                      }
+                      
+                })}</p>
               </div>
               <div className="flex justify-center items-center mt-5 mb-3 gap-3">
                 <FaLocationPin size={25} />
@@ -29,7 +62,7 @@ const Detail = () => {
               </div>
               <div>
                 <h3 className="text-center text-xl text-gray-900">
-                  Lorem ipsum dolor sit amet consectetur.
+                  {singleAd?.content}
                 </h3>
               </div>
               <div className="flex justify-evenly px-24 py-7">
@@ -37,13 +70,18 @@ const Detail = () => {
                   <button className="border-2 border-view-green p-2 rounded-full bg-view-green text-white">
                     <IoEyeSharp size={25} />
                   </button>
-                  <p>123</p>
+                  <p>{singleAd?.countOfVisitors}</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <button className="border-2 border-like-yellow p-2 rounded-full bg-like-yellow text-white">
+                  <button onClick={fav} className="border-2 border-like-yellow p-2 rounded-full bg-like-yellow text-white">
                     <MdFavorite size={25} />
                   </button>
-                  <p>34</p>
+                  <p>{favoriAd?.map((item,index)=>{
+                    if(item.adId == singleAd._id){
+                       return <p key={index}>{item?.favorites?.length}</p>
+                    }
+
+                  })}</p>
                 </div>
               </div>
 
@@ -88,7 +126,7 @@ const Detail = () => {
               <div className="flex justify-evenly items-center mb-8 mt-8">
                 <div className="w-72 flex justify-around items-center py-3 bg-button-blue shadow-lg shadow-button-blue">
                   <div className="text-white text-2xl font-bold">
-                    <p>2347 €</p>
+                    <p>{singleAd?.price} €</p>
                   </div>
                   <div className="text-indigo-500">
                     <FaTag size={30} />
@@ -96,7 +134,7 @@ const Detail = () => {
                 </div>
                 <div className="w-72 flex justify-around items-center py-3 bg-view-green shadow-lg shadow-button-blue">
                   <div className="text-button-blue text-2xl">
-                    <p>+49176555444333</p>
+                    <p>{singleAd?.userId?.tel}</p>
                   </div>
                   <div className="text-green-200">
                     <FaPhone size={30} />
@@ -112,14 +150,7 @@ const Detail = () => {
                   </div>
                   <div className="m-6">
                     <p className="text-left">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut magni natus vitae qui perferendis, amet suscipit
-                      placeat quas, officia non commodi ipsam consequatur,
-                      consectetur similique corrupti rerum. Libero reiciendis
-                      laudantium quis? Dolorum numquam illo blanditiis delectus
-                      adipisci iure distinctio quibusdam earum quia fuga vero
-                      odio omnis exercitationem eius unde fugit rerum architecto
-                      autem quos dicta quod ab dolores, neque quae
+                      {singleAd?.content}
                     </p>
                   </div>
                 </div>

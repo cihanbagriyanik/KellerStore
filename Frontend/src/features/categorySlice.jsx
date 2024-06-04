@@ -8,6 +8,7 @@ const categorySlice = createSlice({
     error: false,
     category: [],
     subcategory: [],
+    favoriAd:null,
   },
   reducers: {
     fetchStart: (state) => {
@@ -17,6 +18,10 @@ const categorySlice = createSlice({
     adCategory: (state, { payload }) => {
       state.loading = false;
       state.category = payload;
+    },
+    favoriSucces: (state, { payload }) => {
+      state.loading = false;
+      state.favoriAd = payload;
     },
 
     fetchFail: (state) => {
@@ -30,5 +35,6 @@ export const {
   fetchStart,
   adCategory,
   fetchFail,
+  favoriSucces,
 } = categorySlice.actions;
 export default categorySlice.reducer;
