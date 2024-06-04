@@ -35,8 +35,8 @@ module.exports = {
       }
     */
     try {
-      const { email ,userType} = req.body;
-   
+      const { email, userType } = req.body;
+
       const emailControl = await User.findOne({ email });
       if (emailControl)
         return res.status(404).send({
@@ -46,7 +46,7 @@ module.exports = {
         isBusiness: userType == "gewerblich" ? true : false,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-         userName:req.body.UserName,
+        userName: req.body.UserName,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
       });
@@ -167,7 +167,7 @@ module.exports = {
       }
     } catch (error) {
       res.errorStatusCode = 401;
-          throw new Error("Please enter username and password HATALI.");
+      throw new Error("Please enter username and password HATALI.");
     }
   },
   forgot: async (req, res) => {
