@@ -104,7 +104,7 @@ module.exports = {
 
     res.send({
       message:"ola",
-      data
+      userControl
     }
     )
 
