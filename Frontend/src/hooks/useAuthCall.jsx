@@ -39,7 +39,7 @@ const useAuthCall = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(`${BASE_URL}auth/login/`, userInfo);
-      console.log(data, "logindeki");
+      console.log(data.error == "true", "kontrol et");
       dispatch(loginSuccess(data));
       toastSuccessNotify("Login performed");
       navigate("/");

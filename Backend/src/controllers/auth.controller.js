@@ -163,14 +163,11 @@ module.exports = {
         }
       } else {
         res.errorStatusCode = 401;
-        throw new Error("Please enter username and password.");
+        
       }
     } catch (error) {
-      res.send({
-        error: true,
-        message: error.message,
-        data: null,
-      });
+      res.errorStatusCode = 401;
+          throw new Error("Please enter username and password.");
     }
   },
   forgot: async (req, res) => {
