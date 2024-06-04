@@ -1,4 +1,3 @@
-
 import DetailSidebar from "../components/DetailSidebar";
 import { FaLocationPin } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
@@ -13,31 +12,27 @@ import useAdCall from "../hooks/useAdCall";
 import { useSelector } from "react-redux";
 import useCategoryCall from "../hooks/useCategoryCall";
 
-
 const Detail = () => {
-  const {id} = useParams()
+  const { id } = useParams();
 
-  const { single} = useAdCall();
-  const {getCategory,favori} = useCategoryCall()
-  const {singleAd} = useSelector(state=>state.ad)
-  console.log(singleAd,"SINGLE SINGLE SINGLE")
-  
-  const {category,favoriAd} = useSelector(state=>state.category)
-  console.log(category,favoriAd,"categort")
- 
-   
-  useEffect(()=>{
-    single(id)
-    getCategory()
+  const { single } = useAdCall();
+  const { getCategory, favori ,favoriAdd} = useCategoryCall();
+  const { singleAd } = useSelector((state) => state.ad);
+  console.log(singleAd, "SINGLE SINGLE SINGLE");
+
+  const { category, favoriAd } = useSelector((state) => state.category);
+  console.log(category, favoriAd, "categort");
+
+  useEffect(() => {
+    single(id);
+    getCategory();
+    favori();
+  }, []);
+
+  const fav = (id) => {
+    favoriAdd(id)
     favori()
-
-
-  },[])
-
-
-  const fav = ()=>{
-    
-  }
+  };
   return (
     <div className="flex">
       <div>
@@ -49,12 +44,18 @@ const Detail = () => {
             <div className="text-center">
               <div className=" text-center mt-2 pt-3 ml-4 mr-2">
                 <h2>Category</h2>
-                <p>{category?.map((item,index)=>{
-                      if(item._id == singleAd?.categoryId){
-                        return <p key={index} className="text-red-500">  {item?.categoryName}</p>
-                      }
-                      
-                })}</p>
+                <p>
+                  {category?.map((item, index) => {
+                    if (item._id == singleAd?.categoryId) {
+                      return (
+                        <p key={index} className="text-red-500">
+                          {" "}
+                          {item?.categoryName}
+                        </p>
+                      );
+                    }
+                  })}
+                </p>
               </div>
               <div className="flex justify-center items-center mt-5 mb-3 gap-3">
                 <FaLocationPin size={25} />
@@ -73,15 +74,19 @@ const Detail = () => {
                   <p>{singleAd?.countOfVisitors}</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <button onClick={fav} className="border-2 border-like-yellow p-2 rounded-full bg-like-yellow text-white">
+                  <button
+                    onClick={()=>fav(singleAd._id)}
+                    className="border-2 border-like-yellow p-2 rounded-full bg-like-yellow text-white"
+                  >
                     <MdFavorite size={25} />
                   </button>
-                  <p>{favoriAd?.map((item,index)=>{
-                    if(item.adId == singleAd._id){
-                       return <p key={index}>{item?.favorites?.length}</p>
-                    }
-
-                  })}</p>
+                  <p>
+                    {favoriAd?.map((item, index) => {
+                      if (item.adId == singleAd._id) {
+                        return <p key={index}>{item?.favorites?.length}</p>;
+                      }
+                    })}
+                  </p>
                 </div>
               </div>
 
@@ -149,9 +154,7 @@ const Detail = () => {
                     </h4>
                   </div>
                   <div className="m-6">
-                    <p className="text-left">
-                      {singleAd?.content}
-                    </p>
+                    <p className="text-left">{singleAd?.content}</p>
                   </div>
                 </div>
               </div>

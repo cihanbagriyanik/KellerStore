@@ -42,9 +42,8 @@ module.exports = {
     if (userControl.length > 0) {
       userControl?.map((item) => {
         if (item._id == req.body.adId) {
-          return res.send({
-            message: "Kullanici sen sin uyanik",
-          });
+          res.errorStatusCode = 401;
+          throw new Error("adamsin HATALI.");
         }
       });
     }

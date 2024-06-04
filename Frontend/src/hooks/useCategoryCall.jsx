@@ -38,13 +38,14 @@ const useCategoryCall = () => {
       toastErrorNotify(error.response.data.message);
     }
   }
-  const favoriAd= async(id)=>{
+  const favoriAdd= async(id)=>{
      try {
-      const data = await axios.post(`${BASE_URL}favorite`,id,{
+      const data = await axios.post(`${BASE_URL}favorite`,{adId:id},{
         headers: {
           Authorization: `Bearer ${access}`,
         },
       })
+      console.log(data,"favoriadddddd")
      } catch (error) {
       console.log(error)
      }
@@ -52,7 +53,7 @@ const useCategoryCall = () => {
 
   return {
     getCategory,
-    favori,favoriAd
+    favori,favoriAdd
   };
 };
 
