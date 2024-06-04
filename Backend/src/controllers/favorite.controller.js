@@ -41,11 +41,7 @@ module.exports = {
     console.log(userControl, "favori");
     if (userControl.length > 0) {
       userControl?.map((item) => {
-        if (item._id == req.body.adId) {
-          return res.send({
-            message: "Kullanici sen sin uyanik",
-          });
-        }
+        if (item._id == req.body.adId) throw new Error("KENDIE LIKE HATALI.");
       });
     }
     const fr = await Favorite.findOne({ adId: req.body.adId });

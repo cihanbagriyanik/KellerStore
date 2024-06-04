@@ -9,6 +9,7 @@ const categorySlice = createSlice({
     category: [],
     subcategory: [],
     favoriAd:null,
+    favorUser:[]
   },
   reducers: {
     fetchStart: (state) => {
@@ -23,6 +24,11 @@ const categorySlice = createSlice({
       state.loading = false;
       state.favoriAd = payload;
     },
+    singleUser:(state,{payload})=>{
+      state.loading = false;
+      state.favorUser.push(payload);
+      console.log(state.favorUser,"SINGLEUSER SLICE")
+    },
 
     fetchFail: (state) => {
       state.loading = false;
@@ -36,5 +42,6 @@ export const {
   adCategory,
   fetchFail,
   favoriSucces,
+  singleUser,
 } = categorySlice.actions;
 export default categorySlice.reducer;

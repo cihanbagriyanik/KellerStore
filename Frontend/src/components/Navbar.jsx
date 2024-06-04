@@ -7,13 +7,18 @@ import FavoriteIcon from "./icons/FavoriteIcon";
 import AvatarMenu from "./AvatarMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import useCategoryCall from "../hooks/useCategoryCall";
+import { useEffect } from "react";
 
 
 const Navbar = () => {
   const { token } = useSelector((state) => state.auth);
-  
+  const {favorUser} = useSelector(state=>state.category)
+  const {favoriAll} = useCategoryCall()
+ console.log(favorUser.length)
+  useEffect(()=>{favoriAll()},[])
 
-  console.log(token, "NAVBAR USR");
+  //console.log(token, "NAVBAR USR");
   
 
   return (
@@ -55,10 +60,11 @@ const Navbar = () => {
           {token ? (
             <div className="flex items-center space-x-8 py-3 mx-5 md:px-8 ">
               <div>
-                <MessageIcon count={5} />
+                <MessageIcon count= {3}/>
               </div>
               <div>
-                <FavoriteIcon count={3} />
+              <FavoriteIcon count={favorUser?.length} />
+                
               </div>
               <div>
                 <AvatarMenu />
