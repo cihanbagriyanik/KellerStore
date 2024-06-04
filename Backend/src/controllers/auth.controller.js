@@ -167,7 +167,7 @@ module.exports = {
       }
     } catch (error) {
       res.errorStatusCode = 401;
-          throw new Error("Please enter username and password.");
+          throw new Error("Please enter username and password HATALI.");
     }
   },
   forgot: async (req, res) => {
