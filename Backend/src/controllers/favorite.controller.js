@@ -41,7 +41,10 @@ module.exports = {
     console.log(userControl, "favori");
     if (userControl.length > 0) {
       userControl?.map((item) => {
-        if (item._id == req.body.adId) throw new Error("KENDIE LIKE HATALI.");
+        if (item._id == req.body.adId) {
+          res.errorStatusCode = 401;
+          throw new Error("Please enter username and password HATALI.");
+        }
       });
     }
     const fr = await Favorite.findOne({ adId: req.body.adId });
