@@ -100,21 +100,38 @@ module.exports = {
         #swagger.summary = "Get Single Ad"
     */
 
-    const data = await Ad.findOne({ _id: req.params.id });
-    let veri =  data.countOfVisitors++;
+    try {
+        const data = await Ad.findOne({ _id: req.params.id });
+        
+        if (!data) {
+            return res.status(404).send({
+                error: true,
+                message: "Ad not found",
+                body: {}
+            });
+        }
 
-    const son = await Ad.findByIdAndUpdate(
-      { _id: req.params.id },
-      { ...data, countOfVisitors: veri },
-      { new: true }
-    ).populate("userId");
-   // populate({path:"userId",select:"usernama"})
+        let veri = data.countOfVisitors + 1; // Ziyaretçi sayısını bir artırıyoruz.
 
-    res.status(200).send({
-      error: false,
-      son
-    });
-  },
+        const son = await Ad.findByIdAndUpdate(
+            req.params.id,
+            { ...data._doc, countOfVisitors: veri },
+            { new: true }
+        ).populate("userId");
+
+        res.status(200).send({
+            error: false,
+            son
+        });
+    } catch (error) {
+        res.status(500).send({
+            error: true,
+            message: error.message,
+            body: {}
+        });
+    }
+},
+
   favorite: async (req, res) => {
     /*
         #swagger.tags = ["Ads"]
