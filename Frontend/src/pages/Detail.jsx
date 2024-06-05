@@ -18,6 +18,7 @@ const Detail = () => {
   const { single } = useAdCall();
   const { getCategory, favori ,favoriAdd,favoriAll} = useCategoryCall();
   const { singleAd } = useSelector((state) => state.ad);
+  console.log(singleAd,"SINGLEAD")
   
 
   const { category, favoriAd } = useSelector((state) => state.category);

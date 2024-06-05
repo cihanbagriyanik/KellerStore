@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { searchSuccesnav, homecateoriesSucces } from "../features/adSlice";
@@ -7,7 +7,7 @@ const Searchnav = () => {
   const [inpt, setInpt] = useState("");
   const dispatch = useDispatch();
   const navi = useNavigate();
-
+//burda async yapisindan dolayi son silinsende inputt armis gibi goyukuyordu bend kisa yoldan boyle yaptim
   const handleChange = (e) => {
     const { value } = e.target;
     setInpt(value);
@@ -16,15 +16,12 @@ const Searchnav = () => {
       dispatch(searchSuccesnav(value));
       navi("/allad");
     }
-    if(1 > value?.length)   {
+    if (1 > value?.length) {
       dispatch(homecateoriesSucces(""));
       dispatch(searchSuccesnav(""));
       navi("/allad");
     }
   };
-  
- 
-
 
   return (
     <div>
@@ -49,7 +46,7 @@ const Searchnav = () => {
           placeholder="Suchen Sie, was immer Sie brauchen"
           style={{ paddingRight: "2rem", width: "36rem" }}
           value={inpt}
-          onChange={handleChange }
+          onChange={handleChange}
         />
       </form>
     </div>
@@ -57,4 +54,3 @@ const Searchnav = () => {
 };
 
 export default Searchnav;
-

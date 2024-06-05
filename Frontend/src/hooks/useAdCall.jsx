@@ -152,7 +152,7 @@ const useAdCall = () => {
     }
   };
   const single = async (params) => {
-   // console.log(params,"getsinle IS")
+  console.log(params,"getsinle IS")
     try {
       const data = await axios.get(`${BASE_URL}ad/${params}`);
      console.log(data?.data.son, "tek olan ad");
