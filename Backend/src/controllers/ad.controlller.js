@@ -101,7 +101,7 @@ module.exports = {
     */
 
     const data = await Ad.findOne({ _id: req.params.id });
-    let veri =  data?.countOfVisitors++;
+    let veri =  data.countOfVisitors++;
 
     const son = await Ad.findByIdAndUpdate(
       { _id: req.params.id },
