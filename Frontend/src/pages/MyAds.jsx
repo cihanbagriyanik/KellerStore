@@ -23,6 +23,9 @@ const MyAds = () => {
   const { user } = useSelector((state) => state.auth);
   const id = user?._id;
 
+  const { favoriAd} =useSelector(state=>state.category)
+  console.log(favoriAd,"myads")
+
   const [openIndexes, setOpenIndexes] = useState({});
   const deleteAd = async (id)=>{
     console.log(id,"deletedki id")
@@ -31,8 +34,7 @@ const MyAds = () => {
   }
   const reserved = async(id)=>{
   await  putadReserve(id)
-  getAd()
-      
+  getAd()   
   }
 
   useEffect(() => {
@@ -103,7 +105,13 @@ const MyAds = () => {
                               <button className="border-2 border-like-yellow p-2 rounded-full bg-like-yellow text-white">
                                 <MdFavorite size={25} />
                               </button>
-                              <p>34</p>
+                              <p>{favoriAd?.map((it,index)=>{
+                                console.log(it?.adId)
+                                if(it.adId == item._id ){
+                                  return  <p key={index}>{it?.favorites?.length}</p>
+                                }
+                                
+                              })}</p>
                             </div>
                           </div>
                         </div>

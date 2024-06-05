@@ -1,5 +1,3 @@
-
-
 import ProfileSidebar from "../components/ProfileSidebar";
 import WishListContainer from "../components/container/WishListContainer";
 import Banner from "../components/Banner";
@@ -15,7 +13,6 @@ const WishList = () => {
         <div>
           <ProfileSidebar />
         </div>
-
         <div className="flex-grow">
           <WishListContainer />
         </div>

@@ -5,21 +5,25 @@ import LoginButton from "./buttons/LoginButton";
 import MessageIcon from "./icons/MessageIcon";
 import FavoriteIcon from "./icons/FavoriteIcon";
 import AvatarMenu from "./AvatarMenu";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import {  useSelector } from "react-redux";
+import { Link} from "react-router-dom";
 import useCategoryCall from "../hooks/useCategoryCall";
-import { useEffect } from "react";
+import { useEffect} from "react";
+import Searchnav from "../pages/Searchnav";
+
 
 
 const Navbar = () => {
   const { token } = useSelector((state) => state.auth);
   const {favorUser} = useSelector(state=>state.category)
-  const {favoriAll} = useCategoryCall()
- console.log(favorUser.length)
-  useEffect(()=>{favoriAll()},[])
+
+  const {favoriAll,favori} = useCategoryCall()
+  
+
+  useEffect(()=>{favoriAll(),  favori()},[])
 
   //console.log(token, "NAVBAR USR");
-  
+ 
 
   return (
     <nav className="bg-white border-b z-50">
@@ -33,28 +37,7 @@ const Navbar = () => {
           <NewAdButton />
         </div>
         <div className="flex-1 flex items-center  sm:space-x-6 ">
-          <form className="flex items-center space-x-2 border rounded-md p-2 bg-gray-100">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 flex-none text-gray-500  "
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            <input
-              className=" w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto bg-gray-100 "
-              type="text"
-              placeholder="Suchen Sie, was immer Sie brauchen"
-              style={{ paddingRight: "2rem", width: "36rem" }}
-            />
-          </form>
+       <Searchnav/>
         </div>
         <div>
           {token ? (
@@ -63,7 +46,7 @@ const Navbar = () => {
                 <MessageIcon count= {3}/>
               </div>
               <div>
-              <FavoriteIcon count={favorUser?.length} />
+              <FavoriteIcon count={favorUser?.data?.length} />
                 
               </div>
               <div>

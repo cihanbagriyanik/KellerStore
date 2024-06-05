@@ -29,6 +29,7 @@ const useAuthCall = () => {
       console.log("register", data);
       toastSuccessNotify("Register performed");
       dispatch(registerSuccess(data));
+      
       navigate("/");
     } catch (error) {
       dispatch(fetchFail());

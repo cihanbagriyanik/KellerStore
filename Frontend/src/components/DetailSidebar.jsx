@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -26,6 +26,7 @@ const DetailSidebar = () => {
   const handleClick = (path) => {
     if (path !== "#") {
       navigate(path);
+      console.log(path,"sidebar drail")
     } else {
       setIsModalOpen(!isModalOpen);
     }

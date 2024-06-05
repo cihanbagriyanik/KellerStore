@@ -9,15 +9,17 @@ import useAdCall from "../hooks/useAdCall";
 import HomeCard from "../components/cards/HomeCard";
 import AdCard from "../components/cards/AdCard";
 
+
 const AllAds = () => {
   const { getAd } = useAdCall();
   const title = `Alle Anzeigen`;
-  const { ad ,homecateories} = useSelector((state) => state.ad);
-  console.log(ad,homecateories,"allCARDDDDDD");
+  const { ad, homecateories, searchNav } = useSelector((state) => state.ad);
+  console.log(ad, homecateories, "allCARDDDDDD");
+  console.log(searchNav, "ALLADS SEARCNAV");
 
   useEffect(() => {
     getAd();
-  }, []);
+  }, [searchNav]);
 
   return (
     <div>
@@ -32,11 +34,10 @@ const AllAds = () => {
           <SideBar />
         </div>
         <div className="flex-grow">
-        {
-          homecateories.length > 0 ? <AdCard  data={homecateories} />   : <HomeCard data={ad} />
-        }
           
-         
+          {
+            homecateories?.length > 0 ? <AdCard data={homecateories} /> : <HomeCard data={ad} inp={searchNav}  />
+          }
         </div>
       </div>
     </div>
@@ -44,3 +45,4 @@ const AllAds = () => {
 };
 
 export default AllAds;
+

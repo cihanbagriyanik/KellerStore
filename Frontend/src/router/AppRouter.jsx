@@ -41,7 +41,7 @@ const AppRouter = () => {
               <Route path="following" element={<Following />} />
               <Route path="about" element={<About />} />
               <Route path="detail/:id" element={<Detail />} />
-              {/* <Route path="*" element={<NotFound/>} /> */}
+               <Route path="*" element={<NotFound/>} /> 
             </Route>
           </Routes>
         </div>

@@ -18,10 +18,10 @@ const Detail = () => {
   const { single } = useAdCall();
   const { getCategory, favori ,favoriAdd,favoriAll} = useCategoryCall();
   const { singleAd } = useSelector((state) => state.ad);
-  console.log(singleAd, "SINGLE SINGLE SINGLE");
+  
 
   const { category, favoriAd } = useSelector((state) => state.category);
-  console.log(category, favoriAd, "categort");
+
 
   useEffect(() => {
     single(id);
@@ -32,8 +32,7 @@ const Detail = () => {
 
   const fav = (id) => {
     favoriAdd(id)
-   
-    favoriAll(id)
+    favoriAll()
      favori()
     
   };

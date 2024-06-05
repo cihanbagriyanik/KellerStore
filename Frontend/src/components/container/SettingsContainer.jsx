@@ -10,8 +10,7 @@ const SettingsContainer = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
   const { user, address } = useSelector((state) => state.auth);
- 
- 
+
   useEffect(() => {
     profile();
   }, [user]);
@@ -53,7 +52,7 @@ const SettingsContainer = () => {
               <div className="my-5 mb-16 flex justify-between relative">
                 <div className="flex">
                   <h2>Lieferadresse :</h2>
-                   { address && address[0] ? (
+                  {address && address[0] ? (
                     <h2 className="absolute left-52">
                       {" "}
                       {address[0]?.city + address[0]?.zipCode}
@@ -125,7 +124,12 @@ const SettingsContainer = () => {
         </div>
         {/* /* -------------------------------------------------------------------------- */}
       </div>
-      <Modals open={open} handleOpen={handleOpen} user={user} address={address} />
+      <Modals
+        open={open}
+        handleOpen={handleOpen}
+        user={user}
+        address={address}
+      />
     </div>
   );
 };

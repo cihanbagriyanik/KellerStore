@@ -10,18 +10,14 @@ import {
 } from "@material-tailwind/react";
 import useAuthCall from "../../hooks/useAuthCall";
 
-
-
 function Modals({ open, handleOpen, user, address }) {
   const [userData, setUserData] = useState({});
-  const [adres, setAdres] = useState('');
+  const [adres, setAdres] = useState("");
   const { profileUpdate } = useAuthCall();
-
- 
 
   useEffect(() => {
     setUserData(user);
-   // setAdres(address[0]?.zipCode || '');
+    // setAdres(address[0]?.zipCode || '');
   }, [user, address]);
 
   const handleChange = (e) => {
@@ -37,12 +33,10 @@ function Modals({ open, handleOpen, user, address }) {
   };
 
   const handleSave = () => {
-    console.log(userData,"USERDATA");
+    console.log(userData, "USERDATA");
     console.log(adres);
     handleOpen();
-    profileUpdate(userData, adres)
-    
-
+    profileUpdate(userData, adres);
   };
 
   return (
@@ -66,7 +60,7 @@ function Modals({ open, handleOpen, user, address }) {
               label="Profil Name"
               size="lg"
               name="userName"
-              value={userData?.userName || ''}
+              value={userData?.userName || ""}
               onChange={handleChange}
             />
             <Typography className="-mb-2" variant="h6">
@@ -86,7 +80,7 @@ function Modals({ open, handleOpen, user, address }) {
               label="Telefonnummer"
               size="lg"
               name="tel"
-              value={userData?.tel || ''}
+              value={userData?.tel || ""}
               onChange={handleChange}
             />
             <Typography className="-mb-2" variant="h6">
@@ -96,7 +90,7 @@ function Modals({ open, handleOpen, user, address }) {
               label="Email"
               size="lg"
               name="email"
-              value={userData?.email || ''}
+              value={userData?.email || ""}
               onChange={handleChange}
             />
           </CardBody>

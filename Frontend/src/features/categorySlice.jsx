@@ -26,7 +26,7 @@ const categorySlice = createSlice({
     },
     singleUser:(state,{payload})=>{
       state.loading = false;
-      state.favorUser.push(payload);
+      state.favorUser=payload;
       console.log(state.favorUser,"SINGLEUSER SLICE")
     },
 

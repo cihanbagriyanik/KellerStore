@@ -96,6 +96,10 @@ module.exports = {
     });
   },
   user: async (req, res) => {
+     /*
+      #swagger.tags = ["Favorites"]
+      #swagger.summary = "Get SingleUser Favorite"
+    */
     const userControl = await Favorite.find({}).populate("adId");
 
     const userId = req.user._id;
@@ -105,7 +109,7 @@ module.exports = {
     );
 
     res.send({
-      message: "ola",
+      message: "user/",
       data: filteredFavorites,
     });
   },

@@ -7,10 +7,11 @@ import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 
 const Items = ({ currentItems }) => {
+  
   return (
     <div className="items grid gap-7 sm:grid-cols-2 lg:grid-cols-4 xxl:grid-cols-6">
       {currentItems &&
-        currentItems.map((items, index) => (
+        currentItems?.map((items, index) => (
           <div key={index}>
             <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
             <Link to={`/detail/${items._id}`}> 
@@ -115,10 +116,11 @@ const PaginatedItems = ({ items, itemsPerPage }) => {
   );
 };
 
-const HomeCard = ({ data }) => {
+const HomeCard = ({ data ,inp}) => {
+  const filteredData = data.filter(item => item.title.toLowerCase().includes(inp.toLowerCase()));
   return (
     <section className="mx-auto px-4 max-w-screen-xl md:px-8">
-      <PaginatedItems items={data} itemsPerPage={8} />
+      <PaginatedItems items={filteredData} itemsPerPage={8} />
     </section>
   );
 };

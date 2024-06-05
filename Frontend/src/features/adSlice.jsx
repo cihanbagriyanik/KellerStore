@@ -13,7 +13,8 @@ const adSlice = createSlice({
     belibtAd: [],
     mostAd: [],
     homecateories:[],
-    singleAd:[]
+    singleAd:[],
+    searchNav:""
   },
   reducers: {
     fetchStart: (state) => {
@@ -52,7 +53,12 @@ const adSlice = createSlice({
       
       state.loading = false;
       state.homecateories = payload;
-      console.log(state.homecateories,"homecarories conrol SLICE")
+      //console.log(state.homecateories,"homecarories conrol SLICE")
+    },
+    searchSuccesnav:(state,{payload})=>{
+      state.loading = false;
+      state.searchNav = payload;
+      console.log(state.searchNav,"SLICE NAVBAR SEARCH")
     },
 
     fetchFail: (state) => {
@@ -71,6 +77,7 @@ export const {
   belibtSucces,
   mostSucces,
   homecateoriesSucces,
-  singleSucces
+  singleSucces,
+  searchSuccesnav
 } = adSlice.actions;
 export default adSlice.reducer;
