@@ -23,9 +23,7 @@ const Searchnav = () => {
     }
   };
   
-  useEffect(() => {
-   
-  }, [inpt]);
+ 
 
 
   return (
