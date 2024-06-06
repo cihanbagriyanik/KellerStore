@@ -86,8 +86,10 @@ module.exports = {
       const filters = req.user?.isAdmin
         ? { _id: req.params.id }
         : { userId: req.user._id };
+
+       const veri = Follow.filter((item)=>item.userId == userId)
   
-      const data = await Follow.findOne(filters).populate("followUserId");
+       const data = await Follow.findOne(filters).populate("followUserId");
   
       if (!data) {
         return res.status(404).send({
@@ -99,6 +101,7 @@ module.exports = {
       res.status(200).send({
         error: false,
         data,
+        veri
       });
     } catch (err) {
       res.status(500).send({
