@@ -85,7 +85,7 @@ module.exports = {
     try {
       const filters = req.user?.isAdmin
         ? { _id: req.params.id }
-        : { userId: req.user._id, _id: req.params.id };
+        : { userId: req.user._id };
   
       // Tüm follow kayıtlarını userId'ye göre filtrele
       const allFollows = await Follow.find({ userId: req.user._id }).populate("followUserId");
