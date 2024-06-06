@@ -25,10 +25,14 @@ const DetailSidebar = () => {
 
   const handleClick = (path) => {
     if (path == "#") {
-     navigate(path);
+    //navigate(path);
     } else if (path == "folgen") {
       console.log("folgendesin adamim");
-    } else {
+    } 
+    else if (path == "Merkliste") {
+      navigate(path);
+    }
+    else {
       console.log(path, "sidebar drail");
       setIsModalOpen(!isModalOpen);
     }
