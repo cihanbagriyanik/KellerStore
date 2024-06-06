@@ -88,7 +88,7 @@ module.exports = {
         : { userId: req.user._id };
   
       // Tüm follow kayıtlarını userId'ye göre filtrele
-      const allFollows = await Follow.find({ userId: req.user._id }).populate("followUserId");
+      const allFollows = await Follow.find(filters).populate("followUserId");
   
       // Tek bir follow kaydını id'ye göre bul ve followUserId'yi popüle et
      // const data = await Follow.findOne(filters).populate("followUserId");
