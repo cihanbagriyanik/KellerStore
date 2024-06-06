@@ -85,23 +85,25 @@ module.exports = {
     try {
       const filters = req.user?.isAdmin
         ? { _id: req.params.id }
-        : { userId: req.user._id };
-
-       const veri = Follow.filter((item)=>item.userId == userId)
+        : { userId: req.user._id, _id: req.params.id };
   
-       const data = await Follow.findOne(filters).populate("followUserId");
+      // Tüm follow kayıtlarını userId'ye göre filtrele
+      const allFollows = await Follow.find({ userId: req.user._id }).populate("followUserId");
+  
+      // Tek bir follow kaydını id'ye göre bul ve followUserId'yi popüle et
+      const data = await Follow.findOne(filters).populate("followUserId");
   
       if (!data) {
         return res.status(404).send({
           error: true,
-          message: "Follow weg",
+          message: "Follow kaydı bulunamadı",
         });
       }
   
       res.status(200).send({
         error: false,
         data,
-        veri
+        allFollows, // Filtrelenmiş tüm follow kayıtlarını da döndürüyoruz
       });
     } catch (err) {
       res.status(500).send({
