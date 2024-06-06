@@ -77,7 +77,7 @@ module.exports = {
   },
 
   //! /:id -> GET
-  const read = async (req, res) => {
+   read : async (req, res) => {
     /*
         #swagger.tags = ["Follows"]
         #swagger.summary = "Tek Bir Follow Bilgisi Getir"
@@ -106,7 +106,7 @@ module.exports = {
         message: err.message,
       });
     }
-  };
+  },
   
   //! /:id -> PUT / PATCH
   update: async (req, res) => {
