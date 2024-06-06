@@ -87,7 +87,7 @@ module.exports = {
         ? { _id: req.params.id }
         : {  userId: req.user._id };
       const data = await Follow.findOne(filters).populate(
-        "followedUserId"
+        "userId followedUserId"
       );
       if (!data) {
         return res.status(404).send({
