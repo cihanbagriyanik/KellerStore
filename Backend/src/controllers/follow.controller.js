@@ -27,7 +27,7 @@ module.exports = {
     try {
       const filters = req.user?.isAdmin ? {} : { userId: req.user._id };
       const data = await res.getModelList(
-        
+        Follow,
         filters,
      
       );
