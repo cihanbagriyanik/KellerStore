@@ -77,42 +77,37 @@ module.exports = {
   },
 
   //! /:id -> GET
-  read: async (req, res) => {
+  const read = async (req, res) => {
     /*
         #swagger.tags = ["Follows"]
-        #swagger.summary = "Get Single Follow"
+        #swagger.summary = "Tek Bir Follow Bilgisi Getir"
     */
     try {
       const filters = req.user?.isAdmin
         ? { _id: req.params.id }
-        : {  userId: req.user._id };
-      const data = await Follow.findOne(filters).populate(
-        "userId followedUserId"
-      );
+        : { userId: req.user._id };
+  
+      const data = await Follow.findOne(filters).populate("userId followUserId");
+  
       if (!data) {
         return res.status(404).send({
           error: true,
-          message: "Follow record not found",
+          message: "Follow weg",
         });
       }
+  
       res.status(200).send({
         error: false,
         data,
       });
     } catch (err) {
-      res.send({
+      res.status(500).send({
         error: true,
-        messa: err.message,
+        message: err.message,
       });
     }
-    const data = await Follow.findOne({ _id: req.params.id });
-
-    res.status(200).send({
-      error: false,
-      data,
-    });
-  },
-
+  };
+  
   //! /:id -> PUT / PATCH
   update: async (req, res) => {
     /*
