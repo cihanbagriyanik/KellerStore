@@ -85,9 +85,9 @@ module.exports = {
     try {
       const filters = req.user?.isAdmin
         ? { _id: req.params.id }
-        : { _id: req.params.id, userId: req.user._id };
+        : {  userId: req.user._id };
       const data = await Follow.findOne(filters).populate(
-        "userId followedUserId"
+        "followedUserId"
       );
       if (!data) {
         return res.status(404).send({
