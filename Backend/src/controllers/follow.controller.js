@@ -26,11 +26,7 @@ module.exports = {
 
     try {
       const filters = req.user?.isAdmin ? {} : { userId: req.user._id };
-      const data = await res.getModelList(
-        Follow,
-        filters,
-     
-      );
+      const data = await res.getModelList(Follow, filters);
       const details = await res.getModelListDetails(Follow, filters);
       res.status(200).send({
         error: false,
@@ -71,13 +67,13 @@ module.exports = {
     } catch (err) {
       res.send({
         error: true,
-        messa: err.message,
+        message: err.message,
       });
     }
   },
 
   //! /:id -> GET
-   read : async (req, res) => {
+  read: async (req, res) => {
     /*
         #swagger.tags = ["Follows"]
         #swagger.summary = "Tek Bir Follow Bilgisi Getir"
@@ -86,23 +82,24 @@ module.exports = {
       const filters = req.user?.isAdmin
         ? { _id: req.params.id }
         : { userId: req.user._id };
-  
+
       // Tüm follow kayıtlarını userId'ye göre filtrele
       const allFollows = await Follow.find(filters).populate("followUserId");
-  
+
       // Tek bir follow kaydını id'ye göre bul ve followUserId'yi popüle et
-     // const data = await Follow.findOne(filters).populate("followUserId");
-  
-      if (!data) {
-        return res.status(404).send({
-          error: true,
-          message: "Follow kaydı bulunamadı",
-        });
-      }
-  
+      // const data = await Follow.findOne(filters).populate("followUserId");
+
+      // if (!data) {
+      //   return res.status(404).send({
+      //     error: true,
+      //     message: "Follow kaydı bulunamadı",
+      //   });
+      // }
+
+
       res.status(200).send({
         error: false,
-       // data,
+        // data,
         allFollows, // Filtrelenmiş tüm follow kayıtlarını da döndürüyoruz
       });
     } catch (err) {
@@ -112,7 +109,7 @@ module.exports = {
       });
     }
   },
-  
+
   //! /:id -> PUT / PATCH
   update: async (req, res) => {
     /*
@@ -163,25 +160,23 @@ module.exports = {
         #swagger.tags = ["Follows"]
         #swagger.summary = "Delete Follow"
     */
-        try {
-          const filters = req.user?.isAdmin
-            ? { _id: req.params.id }
-            : { _id: req.params.id, userId: req.user._id };
-          const data = await Follow.deleteOne(filters);
-          if (data.deletedCount === 0) {
-            return res.status(404).send({
-              error: true,
-              message: "Follow record not found"
-            });
-          }
-          res.status(204).send();
-        } catch (err) {
-          res.send({
-            error: true,
-            messa:err.message
-          })
-        }
-
-
+    try {
+      const filters = req.user?.isAdmin
+        ? { _id: req.params.id }
+        : { _id: req.params.id, userId: req.user._id };
+      const data = await Follow.deleteOne(filters);
+      if (data.deletedCount === 0) {
+        return res.status(404).send({
+          error: true,
+          message: "Follow record not found",
+        });
+      }
+      res.status(204).send();
+    } catch (err) {
+      res.send({
+        error: true,
+        messa: err.message,
+      });
+    }
   },
 };

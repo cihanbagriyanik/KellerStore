@@ -96,19 +96,18 @@ module.exports = {
     });
   },
   user: async (req, res) => {
-     /*
+    /*
       #swagger.tags = ["Favorites"]
       #swagger.summary = "Get SingleUser Favorite"
     */
     const userControl = await Favorite.find({}).populate("adId");
-
     const userId = req.user._id;
-
     const filteredFavorites = userControl.filter((item) =>
       item.favorites.includes(userId)
     );
 
     res.send({
+      error:false,
       message: "user/",
       data: filteredFavorites,
     });
