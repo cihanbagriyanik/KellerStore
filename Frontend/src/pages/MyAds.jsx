@@ -106,7 +106,7 @@ const MyAds = () => {
                                 <MdFavorite size={25} />
                               </button>
                               <p>{favoriAd?.map((it,index)=>{
-                                console.log(it?.adId)
+                               // console.log(it?.adId)
                                 if(it.adId == item._id ){
                                   return  <p key={index}>{it?.favorites?.length}</p>
                                 }

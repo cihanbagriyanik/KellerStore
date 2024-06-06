@@ -22,7 +22,7 @@ const Detail = () => {
   
 
   const { category, favoriAd } = useSelector((state) => state.category);
-
+console.log(id,"sinle")
 
   useEffect(() => {
     single(id);

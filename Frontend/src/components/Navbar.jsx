@@ -5,25 +5,23 @@ import LoginButton from "./buttons/LoginButton";
 import MessageIcon from "./icons/MessageIcon";
 import FavoriteIcon from "./icons/FavoriteIcon";
 import AvatarMenu from "./AvatarMenu";
-import {  useSelector } from "react-redux";
-import { Link} from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import useCategoryCall from "../hooks/useCategoryCall";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import Searchnav from "../pages/Searchnav";
-
-
 
 const Navbar = () => {
   const { token } = useSelector((state) => state.auth);
-  const {favorUser} = useSelector(state=>state.category)
+  const { favorUser } = useSelector((state) => state.category);
 
-  const {favoriAll,favori} = useCategoryCall()
-  
+  const { favoriAll, favori } = useCategoryCall();
 
-  useEffect(()=>{favoriAll(),  favori()},[])
+  useEffect(() => {
+    favoriAll(), favori();
+  }, []);
 
   //console.log(token, "NAVBAR USR");
- 
 
   return (
     <nav className="bg-white border-b z-50">
@@ -37,17 +35,16 @@ const Navbar = () => {
           <NewAdButton />
         </div>
         <div className="flex-1 flex items-center  sm:space-x-6 ">
-       <Searchnav/>
+          <Searchnav />
         </div>
         <div>
           {token ? (
             <div className="flex items-center space-x-8 py-3 mx-5 md:px-8 ">
               <div>
-                <MessageIcon count= {3}/>
+                <MessageIcon count={3} />
               </div>
               <div>
-              <FavoriteIcon count={favorUser?.data?.length} />
-                
+                <FavoriteIcon count={favorUser?.data?.length} />
               </div>
               <div>
                 <AvatarMenu />

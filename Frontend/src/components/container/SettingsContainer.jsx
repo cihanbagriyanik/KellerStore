@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Modals from "../cards/Modals";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import useAuthCall from "../../hooks/useAuthCall";
 
 //import Modals from "../cards/Modals";

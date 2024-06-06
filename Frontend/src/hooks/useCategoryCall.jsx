@@ -1,22 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchFail, adCategory,favoriSucces, singleUser } from "../features/categorySlice";
-import useAxios from "./useAxios";
+
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import axios from "axios";
 
 const useCategoryCall = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   // const { token } = useSelector((state) => state.auth);
-  const { axiosWithToken } = useAxios();
+  
   const { access } = useSelector((state) => state.auth);
-  const {favoriAd} =useSelector(state=>state.category)
+ 
   const dispatch = useDispatch();
 
 
   const getCategory = async () => {
     try {
-      const { data } = await axiosWithToken(`${BASE_URL}category`);
+      const { data } = await axios.get(`${BASE_URL}category`);
       console.log(data.data);
       const neues = data?.data;
 
@@ -29,8 +29,8 @@ const useCategoryCall = () => {
   };
   const favori = async()=>{
     try {
-      const { data } = await axiosWithToken(`${BASE_URL}favorite`);
-      console.log(data.data);
+      const { data } = await axios.get(`${BASE_URL}favorite`);
+      console.log(data?.data);
       const neues = data?.data;
 
       dispatch(favoriSucces(neues));
