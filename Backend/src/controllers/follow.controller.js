@@ -65,14 +65,16 @@ module.exports = {
         (item) => item.followUserId == followUserId
       );
       if (followController) {
-        res.errorStatusCode = 401;
-        throw new Error("kullanici var  HATALI.");
+        res.send({
+          error: true,
+          message: "Bu kullanıcı zaten takip etmişsiniz.",
+        })
       } else {
         const data = await Follow.create(req.body);
         res.status(201).send({
           error: false,
           data,
-          vert,
+          
         });
       }
     } catch (err) {
