@@ -1,8 +1,9 @@
 
 
 import ProfileSidebar from "../components/ProfileSidebar";
-import FollowingContainer from "../components/container/FollowingContainer";
+
 import Banner from "../components/Banner";
+import FollowerContanier from "../components/container/FollowerContanier";
 
 const Follower = () => {
   const title = `FOLGEN`;
@@ -18,7 +19,7 @@ const Follower = () => {
         </div>
 
         <div className="flex-grow">
-          <FollowingContainer />
+          <FollowerContanier />
         </div>
       </div>
     </>

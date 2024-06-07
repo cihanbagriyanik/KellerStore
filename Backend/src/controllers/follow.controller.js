@@ -119,6 +119,15 @@ module.exports = {
       });
     }
   },
+  follower:async(req,res)=>{
+
+    res.send({
+      error: false,
+      message: "follower",
+    })
+
+  },
+
 
   //! /:id -> PUT / PATCH
   update: async (req, res) => {

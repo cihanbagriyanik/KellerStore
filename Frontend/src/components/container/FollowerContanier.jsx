@@ -1,38 +1,26 @@
-
-//import UnderConstruction from "../../assets/underConstruction.jpeg"
-
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import useAuthCall from "../../hooks/useAuthCall"
-import { Link } from "react-router-dom"
+
 import { FaClock, FaLocationPin } from "react-icons/fa6"
 
-
-const FollowingContainer = () => {
-  const {folgenGetSin} = useAuthCall()
-  const {followSingle}= useSelector(state=>state.auth)
-  console.log(followSingle,"following")
-  useEffect(()=>{folgenGetSin()},[])
-
+const FollowerContanier = () => {
+    const {folgenGetSin} = useAuthCall()
+    const {followSingle}= useSelector(state=>state.auth)
+    console.log(followSingle,"following")
+    useEffect(()=>{folgenGetSin()},[])
   return (
     <div className="border w-1/1 m-10 bg-light-grey pb-7 rounded-lg">
     <div className="flex justify-between items-center pt-3 pb-3">
-      <h1 className="text-3xl ps-5 pt-5 ">Folgen</h1>
+    <h1 className="text-3xl ps-5 pt-5 ">Follower</h1>
     </div>
-    {/* <div className="bg-white mx-7 my-2 rounded-lg border-2 mb-10">
-      <div className="">
-        <div className="mt-3 mb-7 ">
-        <img src={UnderConstruction} alt="img" />
-      
-        </div>
-      </div>
-    </div> */}
+  
     <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4 xxl:grid-cols-6">
           {followSingle?.map((items, index) => (
             <div key={index}>
               
                 <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
-                  <Link to={`/detail/${items._id}`}>
+                 
                     <img
                     //  src={items?.images[0]}
                       loading="lazy"
@@ -74,7 +62,7 @@ const FollowingContainer = () => {
                       </div>
                     
                     </div>
-                  </Link>
+                 
                 </article>
              
             </div>
@@ -84,4 +72,4 @@ const FollowingContainer = () => {
   )
 }
 
-export default FollowingContainer
+export default FollowerContanier

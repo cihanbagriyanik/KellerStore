@@ -19,6 +19,7 @@ const { isAdmin, isLogin } = require("../middlewares/permissions");
 router.get('/', isLogin, Follow.list);
 
 router.post('/', isLogin, Follow.create);
+router.route("/follower").get(isLogin,Follow.follower);
 
 router.get('/:id', isLogin, Follow.read);
 
