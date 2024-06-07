@@ -61,11 +61,12 @@ module.exports = {
       const {followUserId } = req.body
       req.body.userId = req.user._id;
     const vert = await Follow.find({userId:req.user._id})
-     res.send({vert,message:"okey"})
+     
       const data = await Follow.create(req.body);
       res.status(201).send({
         error: false,
         data,
+        vert
       });
     } catch (err) {
       res.send({
