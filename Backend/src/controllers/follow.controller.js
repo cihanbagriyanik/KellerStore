@@ -58,16 +58,25 @@ module.exports = {
             }
     */
     try {
-      const {followUserId } = req.body
+      const { followUserId } = req.body;
       req.body.userId = req.user._id;
-    const vert = await Follow.find({userId:req.user._id})
-     
-      const data = await Follow.create(req.body);
-      res.status(201).send({
-        error: false,
-        data,
-        vert
-      });
+      const vert = await Follow.find({ userId: req.user._id });
+      const followController = await find.some(
+        (item) => item.followUserId == followUserId
+      );
+      if (followController) {
+        return res.status(400).send({
+          error: true,
+          message: "kullanici var.",
+        });
+      } else {
+        const data = await Follow.create(req.body);
+        res.status(201).send({
+          error: false,
+          data,
+          vert,
+        });
+      }
     } catch (err) {
       res.send({
         error: true,
@@ -99,7 +108,6 @@ module.exports = {
       //     message: "Follow kaydı bulunamadı",
       //   });
       // }
-
 
       res.status(200).send({
         error: false,
