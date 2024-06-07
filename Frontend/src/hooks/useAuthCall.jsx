@@ -147,7 +147,7 @@ const useAuthCall = () => {
     try {
   
       if (user?._id) {
-        await axios.post(
+      const data =   await axios.post(
           `${BASE_URL}follow/`,
           { followUserId: id },
           {
@@ -156,7 +156,7 @@ const useAuthCall = () => {
             },
           }
         );
-        // console.log(userResponse);
+         console.log(data.data);
         toastSuccessNotify("Follow okey");
       }
     } catch (error) {
