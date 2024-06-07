@@ -5,17 +5,23 @@ import AdContainer from "../components/container/AdContainer";
 import useAdCall from "../hooks/useAdCall";
 import { useSelector } from "react-redux";
 import useCategoryCall from "../hooks/useCategoryCall";
+import useAutthCall from "../hooks/useAuthCall";
 
 const Home = () => {
   const title = `Von hier aus konnen Sie alles #Kaufen, #mieten, #buchen.`;
 
   const desc = ` Kaufen und verkaufen Sie alles, von Gebrauchtwagen bis hin zu Mobiltelefonen und Computern, oder suchen Sie weltweit nach Immobilien, Jobs und mehr`;
   const { getAd, neue, belibt, most } = useAdCall();
-  const { getCategory, favori,favoriAll } = useCategoryCall();
- 
+  const { getCategory, favori, favoriAll } = useCategoryCall();
+  const { access } = useSelector((state) => state.auth);
+  const { folgenAll, folgenGetSin } = useAutthCall();
+  
+  useEffect(()=>{
+folgenAll(), folgenGetSin();
+  },[access])
 
-  const { neuesAd, belibtAd, mostAd} = useSelector((state) => state.ad);
- // console.log(ad, "adddddddddddddddddddddddddd");
+  const { neuesAd, belibtAd, mostAd } = useSelector((state) => state.ad);
+  // console.log(ad, "adddddddddddddddddddddddddd");
   useEffect(() => {
     getAd();
     neue();

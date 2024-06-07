@@ -4,10 +4,8 @@ import ProfileSidebar from "../components/ProfileSidebar";
 import FollowingContainer from "../components/container/FollowingContainer";
 import Banner from "../components/Banner";
 
-
-const Following = () => {
+const Follower = () => {
   const title = `FOLGEN`;
-
 
   return (
     <>
@@ -27,4 +25,4 @@ const Following = () => {
   );
 };
 
-export default Following;
+export default Follower;

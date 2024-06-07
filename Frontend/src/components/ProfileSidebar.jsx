@@ -7,6 +7,7 @@ const ProfileButtons = [
   { name: "Nachricht", path: "/message" },
   { name: "Merkliste", path: "/wishlist" },
   { name: "Folgen", path: "/following" },
+  { name: "Folowwer", path: "/follower" },
 ];
 
 const ProfileSidebar = () => {

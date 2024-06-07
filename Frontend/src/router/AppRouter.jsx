@@ -18,6 +18,7 @@ import WishList from "../pages/WishList";
 import Following from "../pages/Following";
 import About from "../pages/About";
 import Detail from "../pages/Detail";
+import Follower from "../pages/Follower";
 
 const AppRouter = () => {
   return (
@@ -39,6 +40,7 @@ const AppRouter = () => {
               <Route path="settings" element={<Profile />} />
               <Route path="wishlist" element={<WishList />} />
               <Route path="following" element={<Following />} />
+              <Route path="follower" element={<Follower />} />
               <Route path="about" element={<About />} />
               <Route path="detail/:id" element={<Detail />} />
                <Route path="*" element={<NotFound/>} /> 

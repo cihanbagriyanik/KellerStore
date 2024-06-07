@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useAuthCall from "../hooks/useAuthCall";
 
 // Buttons Infos
 const DetailButtons = [
@@ -22,12 +23,15 @@ const DetailSidebar = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { singleAd } = useSelector((state) => state.ad);
+  const {folgenSingle} = useAuthCall()
 
   const handleClick = (path) => {
     if (path == "#") {
     //navigate(path);
     } else if (path == "folgen") {
       console.log("folgendesin adamim");
+      folgenSingle(singleAd?.userId?._id)
+
     } 
     else if (path == "Merkliste") {
       navigate(path);

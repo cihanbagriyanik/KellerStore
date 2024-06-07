@@ -6,6 +6,8 @@ import {
   logoutSuccess,
   addressSucces,
   updateUser,
+  followAllSucces,
+  followSingleSucces
 } from "../features/authSlice";
 
 import axios from "axios";
@@ -19,17 +21,18 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token, user, access } = useSelector((store) => store.auth);
-
+  const { user, access ,followAll} = useSelector((store) => store.auth);
+  //********************                   *********************** */
+  //********************    AUTHOCEIZIN               ************ */
+  //********************                   *********************** */
   const register = async (userInfo) => {
-    console.log(userInfo);
+    // console.log(userInfo);
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(`${BASE_URL}auth/register`, userInfo);
-      console.log("register", data);
+      //  console.log("register", data);
       toastSuccessNotify("Register performed");
       dispatch(registerSuccess(data));
-      
       navigate("/");
     } catch (error) {
       dispatch(fetchFail());
@@ -43,19 +46,30 @@ const useAuthCall = () => {
       console.log(data.error == "true", "kontrol et");
       dispatch(loginSuccess(data));
       toastSuccessNotify("Login performed");
-      navigate("/");
-      console.log(data);
+     
+      //  console.log(data);
+      folgenAll()
+      folgenGetSin()
+      console.log(followAll,"takip login")
+ navigate("/");
+
     } catch (error) {
       dispatch(fetchFail());
-      console.log(error);
+      // console.log(error);
       toastErrorNotify("Login can not be performed");
     }
   };
+  const logout = async () => {
+    dispatch(fetchStart());
+    dispatch(logoutSuccess());
+  };
 
+  //********************                   *********************** */
+  //********************    PROFILE          ********************* */
+  //********************                   *********************** */
   const profile = async () => {
     dispatch(fetchStart());
-    console.log(access, "ACCESSSSSSSS");
-
+    //console.log(access, "ACCESSSSSSSS");
     try {
       if (user?._id) {
         const addressResponse = await axios.get(`${BASE_URL}address/`, {
@@ -63,19 +77,17 @@ const useAuthCall = () => {
             Authorization: `Bearer ${access}`,
           },
         });
-
         // console.log(addressResponse.data.data, "ADDRESS DATA");
         dispatch(addressSucces(addressResponse.data.data));
       }
     } catch (error) {
       dispatch(fetchFail());
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 
   const profileUpdate = async (userData, address) => {
-    console.log(user?._id);
-
+    //  console.log(user?._id);
     try {
       if (user?._id) {
         const userResponse = await axios.put(
@@ -88,7 +100,7 @@ const useAuthCall = () => {
           }
         );
 
-        console.log(userResponse.data?.new[0], "TEK UASERR");
+        // console.log(userResponse.data?.new[0], "TEK UASERR");
         dispatch(updateUser(userResponse.data?.new[0]));
         navigate("/profile");
 
@@ -102,20 +114,85 @@ const useAuthCall = () => {
           }
         );
 
-        console.log(addressResponse.data.data, "ADDRESS DATA");
+        //console.log(addressResponse.data.data, "ADDRESS DATA");
         dispatch(addressSucces(addressResponse.data.data));
       }
     } catch (error) {
       dispatch(fetchFail());
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
-  const logout = async () => {
-    dispatch(fetchStart());
-    dispatch(logoutSuccess());
+
+  //********************                   *********************** */
+  //********************    FOLLOW            ********************* */
+  //********************                   *********************** */
+
+  const folgenAll = async () => {
+    try {
+      if (user?._id) {
+        const followResponse = await axios.get(`${BASE_URL}follow`, {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        });
+        // console.log(followResponse);
+        dispatch(followAllSucces(followResponse?.data?.data));
+        toastSuccessNotify("Follow okey");
+      }
+    } catch (error) {
+      toastErrorNotify(error);
+    }
+  };
+  const folgenSingle = async (id) => {
+    try {
+  
+      if (user?._id) {
+        await axios.post(
+          `${BASE_URL}follow/`,
+          { followUserId: id },
+          {
+            headers: {
+              Authorization: `Bearer ${access}`,
+            },
+          }
+        );
+        // console.log(userResponse);
+        toastSuccessNotify("Follow okey");
+      }
+    } catch (error) {
+      toastErrorNotify(error);
+    }
+  };
+  const folgenGetSin = async () => {
+    try {
+      if (user?._id) {
+        const followSing =   await axios.get(
+          `${BASE_URL}follow/${user._id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${access}`,
+            },
+          }
+        );
+      console.log(followSing,"tek olan follow");
+        toastSuccessNotify("Follow okey");
+        dispatch(followSingleSucces(followSing?.data.allFollows))
+      }
+    } catch (error) {
+      toastErrorNotify(error);
+    }
   };
 
-  return { register, login, logout, profile, profileUpdate };
+  return {
+    register,
+    login,
+    logout,
+    profile,
+    profileUpdate,
+    folgenSingle,
+    folgenAll,
+    folgenGetSin,
+  };
 };
 
 export default useAuthCall;

@@ -11,7 +11,9 @@ const authSlice = createSlice({
     user: null,
     currentUser: null,
     access:null,
-    address:[]
+    address:[],
+    followAll:[],
+    followSingle:[]
   },
 
   reducers: {
@@ -27,7 +29,7 @@ const authSlice = createSlice({
     },
 
     loginSuccess: (state, { payload }) => {
-      console.log(payload,"LOGIN PAYLOAD")
+      //console.log(payload,"LOGIN PAYLOAD")
       state.loading = false;
       state.token = payload?.token;
       state.user = payload?.user;
@@ -39,8 +41,16 @@ const authSlice = createSlice({
 
     },
     updateUser :(state,{payload})=>{
-      console.log(payload,"UPDATE ,,,,,,,,,pazload")
+     // console.log(payload,"UPDATE ,,,,,,,,,pazload")
       state.user = payload
+    },
+    followAllSucces:(state,{payload})=>{
+      state.loading = false;
+      state.followAll = payload;
+    },
+    followSingleSucces:(state,{payload})=>{
+      state.loading = false;
+      state.followSingle = payload;
     },
     refresh: (state, { payload }) => {
       state.loading = false;
@@ -68,6 +78,8 @@ export const {
   loginSuccess,
   fetchFail,
   addressSucces,
-  updateUser
+  updateUser,
+  followAllSucces,
+  followSingleSucces
 } = authSlice.actions;
 export default authSlice.reducer;
