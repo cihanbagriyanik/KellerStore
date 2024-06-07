@@ -57,7 +57,7 @@ module.exports = {
                 }
             }
     */
-   
+    try {
       const { followUserId } = req.body;
       req.body.userId = req.user._id;
       const vert = await Follow.find({ userId: req.user._id });
@@ -75,8 +75,12 @@ module.exports = {
           
         });
       }
-  
-    
+    } catch (err) {
+      res.send({
+        error: true,
+        message: err.message,
+      });
+    }
   },
 
   //! /:id -> GET
