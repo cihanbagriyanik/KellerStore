@@ -123,7 +123,7 @@ module.exports = {
 
     res.send({
       error: false,
-      message: "follower",
+      message: "follower basladik bakaom",
     })
 
   },
