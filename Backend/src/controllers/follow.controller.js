@@ -61,7 +61,7 @@ module.exports = {
       const { followUserId } = req.body;
       req.body.userId = req.user._id;
       const vert = await Follow.find({ userId: req.user._id });
-      const followController = await find.some(
+      const followController = await Follow.some(
         (item) => item.followUserId == followUserId
       );
       if (followController) {
