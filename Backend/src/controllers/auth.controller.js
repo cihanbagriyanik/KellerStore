@@ -104,24 +104,24 @@ module.exports = {
 
         if (user) {
           const isPasswordValid = bcrypt.compareSync(password, user.password);
-          console.log("icerdeyiz");
+         // console.log("icerdeyiz");
 
-          console.log("isactive", user.isActive);
-          console.log(isPasswordValid);
+          //console.log("isactive", user.isActive);
+          //console.log(isPasswordValid);
           if (isPasswordValid && user.isActive) {
             //* -------------------------------------------------------------------------- */
             //* TOKEN */
             let tokenData = await Token.findOne({ _id: user._id });
-            console.log(tokenData, "tokendata");
+            //console.log(tokenData, "tokendata");
             if (!tokenData) {
               const tokenKey = passwordEncrypt(user._id + Date.now());
-              console.log(tokenKey, "tokenkey");
+             // console.log(tokenKey, "tokenkey");
               tokenData = await Token.create({
                 userId: user._id,
                 token: tokenKey,
               });
             }
-            console.log(tokenData, "altaki");
+           // console.log(tokenData, "altaki");
             //* TOKEN */
             /* -------------------------------------------------------------------------- */
             //* JWT */

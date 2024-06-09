@@ -124,7 +124,10 @@ module.exports = {
         #swagger.summary = "Tek Bir Follower Bilgisi Getir"
     */
     try {
-      const dat = await Follow.find({}).populate("userId");
+      const dat = await Follow.find({}).populate({
+        path: 'userId',
+        select: 'username email isBusiness createdAt _id'
+      });
 
       const data = dat
         .filter(

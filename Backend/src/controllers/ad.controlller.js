@@ -57,7 +57,7 @@ module.exports = {
             }
     */
 
-    console.log(req.files, "ad resim");
+    //console.log(req.files, "ad resim");
     //console.log(req.user,"userAD")
 
     try {
