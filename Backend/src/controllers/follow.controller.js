@@ -129,7 +129,7 @@ module.exports = {
       const data = dat
         .filter(
           (item) => item.followUserId.toString() === req.user._id.toString()
-        )
+        ).populate("userId")
       
 
       res.send({
