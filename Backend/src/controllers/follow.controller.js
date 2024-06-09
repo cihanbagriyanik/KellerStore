@@ -124,18 +124,18 @@ module.exports = {
         #swagger.summary = "Tek Bir Follower Bilgisi Getir"
     */
     try {
-      const dat = await Follow.find({});
+      const dat = await Follow.find({}).populate("userId");
 
       const data = dat
         .filter(
           (item) => item.followUserId.toString() === req.user._id.toString()
-        ).populate("userId")
+        )
       
 
       res.send({
         error: false,
         message: "Takipe ytalkip.",
-        data,
+        data.populate("userId"),
       });
     } catch (error) {
       res.status(500).send({
