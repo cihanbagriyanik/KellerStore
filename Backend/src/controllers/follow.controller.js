@@ -59,6 +59,10 @@ module.exports = {
     */
     try {
       const { followUserId } = req.body;
+      if (followUserId == req.user._id) {
+        res.errorStatusCode = 401;
+        throw new Error("kendimi takip. edemem");
+      }
       req.body.userId = req.user._id;
       const vert = await Follow.find({ userId: req.user._id });
       const followController = vert.some(
@@ -125,20 +129,18 @@ module.exports = {
     */
     try {
       const dat = await Follow.find({}).populate({
-        path: 'userId',
-        select: 'userName email isBusiness createdAt _id'
+        path: "userId",
+        select: "userName email isBusiness createdAt _id",
       });
 
-      const data = dat
-        .filter(
-          (item) => item.followUserId.toString() === req.user._id.toString()
-        )
-      
+      const data = dat.filter(
+        (item) => item.followUserId.toString() === req.user._id.toString()
+      );
 
       res.send({
         error: false,
         message: "Takipe ytalkip.",
-        data
+        data,
       });
     } catch (error) {
       res.status(500).send({
