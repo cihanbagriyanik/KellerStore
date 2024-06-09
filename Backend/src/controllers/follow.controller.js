@@ -125,18 +125,18 @@ module.exports = {
     */
         try {
        
-          const data = await Follow.find({});
+          const dat = await Follow.find({});
       
           
-          const foll = data
+          const data = dat
             .filter(item => item.followUserId.toString() === req.user._id.toString())
-            .map(item => item.userId);
+            .map(item);
       
          
           res.send({
             error: false,
             message: "Takipe ytalkip.",
-            foll,
+            data,
           });
         } catch (error) {
           res.status(500).send({
