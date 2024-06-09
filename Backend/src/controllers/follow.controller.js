@@ -135,7 +135,7 @@ module.exports = {
       res.send({
         error: false,
         message: "Takipe ytalkip.",
-        data.populate("userId"),
+        data
       });
     } catch (error) {
       res.status(500).send({
