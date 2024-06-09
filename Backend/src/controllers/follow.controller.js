@@ -120,10 +120,12 @@ module.exports = {
     }
   },
   follower:async(req,res)=>{
+    const data = await Follow.find({})
 
     res.send({
       error: false,
       message: "follower basladik bakaom",
+    data
     })
 
   },

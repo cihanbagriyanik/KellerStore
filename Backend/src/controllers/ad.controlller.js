@@ -112,7 +112,7 @@ module.exports = {
         }
 
         let veri = data.countOfVisitors + 1; // Ziyaretçi sayısını bir artırıyoruz.
-
+        //data._doc Mongoose belgesinin ham veri nesnesini temsil eder ve bu nesne ile doğrudan çalışarak güncelleme işlemlerini gerçekleştiririz.
         const son = await Ad.findByIdAndUpdate(
             req.params.id,
             { ...data._doc, countOfVisitors: veri },
