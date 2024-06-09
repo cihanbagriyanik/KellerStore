@@ -119,19 +119,32 @@ module.exports = {
     }
   },
   follower: async (req, res) => {
-    let foll = []
-    const data = await Follow.find({});
-    data.map((item)=>{
-      if(item.followUserId == req.user._id){
-          return  foll.push(item.userId)
-      }
-    })
-
-    res.send({
-      error: false,
-      message: "follower basladik bakaom",
-      foll,
-    });
+    /*
+        #swagger.tags = ["Follows"]
+        #swagger.summary = "Tek Bir Follower Bilgisi Getir"
+    */
+        try {
+       
+          const data = await Follow.find({});
+      
+          
+          const foll = data
+            .filter(item => item.followUserId.toString() === req.user._id.toString())
+            .map(item => item.userId);
+      
+         
+          res.send({
+            error: false,
+            message: "Takipe ytalkip.",
+            foll,
+          });
+        } catch (error) {
+          res.status(500).send({
+            error: true,
+            message: error.message,
+            body: {},
+          });
+        }
   },
 
   //! /:id -> PUT / PATCH
