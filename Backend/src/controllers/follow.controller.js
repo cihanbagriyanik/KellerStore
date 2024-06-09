@@ -72,7 +72,6 @@ module.exports = {
         res.status(201).send({
           error: false,
           data,
-          
         });
       }
     } catch (err) {
@@ -119,17 +118,21 @@ module.exports = {
       });
     }
   },
-  follower:async(req,res)=>{
-    const data = await Follow.find({})
+  follower: async (req, res) => {
+    let foll = []
+    const data = await Follow.find({});
+    data.map((item)=>{
+      if(item.followUserId == req.user._id){
+          return  foll.push(item.userId)
+      }
+    })
 
     res.send({
       error: false,
       message: "follower basladik bakaom",
-    data
-    })
-
+      foll,
+    });
   },
-
 
   //! /:id -> PUT / PATCH
   update: async (req, res) => {
