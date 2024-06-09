@@ -123,28 +123,27 @@ module.exports = {
         #swagger.tags = ["Follows"]
         #swagger.summary = "Tek Bir Follower Bilgisi Getir"
     */
-        try {
-       
-          const dat = await Follow.find({});
+    try {
+      const dat = await Follow.find({});
+
+      const data = dat
+        .filter(
+          (item) => item.followUserId.toString() === req.user._id.toString()
+        )
       
-          
-          const data = dat
-            .filter(item => item.followUserId.toString() === req.user._id.toString())
-            .map(item);
-      
-         
-          res.send({
-            error: false,
-            message: "Takipe ytalkip.",
-            data,
-          });
-        } catch (error) {
-          res.status(500).send({
-            error: true,
-            message: error.message,
-            body: {},
-          });
-        }
+
+      res.send({
+        error: false,
+        message: "Takipe ytalkip.",
+        data,
+      });
+    } catch (error) {
+      res.status(500).send({
+        error: true,
+        message: error.message,
+        body: {},
+      });
+    }
   },
 
   //! /:id -> PUT / PATCH
