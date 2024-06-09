@@ -24,6 +24,7 @@ const DetailSidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { singleAd } = useSelector((state) => state.ad);
   const {folgenSingle} = useAuthCall()
+  
 
   const handleClick = (path) => {
     if (path == "#") {

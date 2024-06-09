@@ -44,7 +44,8 @@ const AdCard = ({ data }) => {
                 <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
                   <Link to={`/detail/${items._id}`}>
                     <img
-                      src={items?.images[0]}
+                      //src={items?.images[0]}
+                      src={`https://kellerstore.onrender.com/images/${items?.images[0]}`}
                       loading="lazy"
                       className="w-full h-48 rounded-t-md"
                     />

@@ -14,10 +14,10 @@ const Home = () => {
   const { getAd, neue, belibt, most } = useAdCall();
   const { getCategory, favori, favoriAll } = useCategoryCall();
   const { access } = useSelector((state) => state.auth);
-  const { folgenAll, folgenGetSin } = useAutthCall();
+  const { folgenAll, folgenGetSin,followerget } = useAutthCall();
   
   useEffect(()=>{
-folgenAll(), folgenGetSin();
+folgenAll(), folgenGetSin();followerget()
   },[access])
 
   const { neuesAd, belibtAd, mostAd } = useSelector((state) => state.ad);

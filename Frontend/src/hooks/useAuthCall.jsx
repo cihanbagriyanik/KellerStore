@@ -7,7 +7,8 @@ import {
   addressSucces,
   updateUser,
   followAllSucces,
-  followSingleSucces
+  followSingleSucces,
+  followerSucces,
 } from "../features/authSlice";
 
 import axios from "axios";
@@ -21,7 +22,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, access ,followAll} = useSelector((store) => store.auth);
+  const { user, access, followAll } = useSelector((store) => store.auth);
   //********************                   *********************** */
   //********************    AUTHOCEIZIN               ************ */
   //********************                   *********************** */
@@ -46,13 +47,12 @@ const useAuthCall = () => {
       console.log(data.error == "true", "kontrol et");
       dispatch(loginSuccess(data));
       toastSuccessNotify("Login performed");
-     
-      //  console.log(data);
-      folgenAll()
-      folgenGetSin()
-      console.log(followAll,"takip login")
- navigate("/");
 
+      //  console.log(data);
+      folgenAll();
+      folgenGetSin();
+      console.log(followAll, "takip login");
+      navigate("/");
     } catch (error) {
       dispatch(fetchFail());
       // console.log(error);
@@ -145,9 +145,8 @@ const useAuthCall = () => {
   };
   const folgenSingle = async (id) => {
     try {
-  
       if (user?._id) {
-      const data =   await axios.post(
+        const data = await axios.post(
           `${BASE_URL}follow/`,
           { followUserId: id },
           {
@@ -156,7 +155,7 @@ const useAuthCall = () => {
             },
           }
         );
-         console.log(data.data);
+        console.log(data.data);
         toastSuccessNotify("Follow okey");
       }
     } catch (error) {
@@ -166,23 +165,38 @@ const useAuthCall = () => {
   const folgenGetSin = async () => {
     try {
       if (user?._id) {
-        const followSing =   await axios.get(
-          `${BASE_URL}follow/${user._id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${access}`,
-            },
-          }
-        );
-      console.log(followSing,"tek olan follow");
+        const followSing = await axios.get(`${BASE_URL}follow/${user._id}`, {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        });
+        console.log(followSing, "tek olan follow");
         toastSuccessNotify("Follow okey");
-        dispatch(followSingleSucces(followSing?.data.allFollows))
+        dispatch(followSingleSucces(followSing?.data.allFollows));
       }
     } catch (error) {
       toastErrorNotify(error);
     }
   };
+  const followerget = async () => {
+    try {
+      if (user?._id) {
+        const follower = await axios.get(`https://kellerstore.onrender.com/follow/follower`, {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        });
+        console.log(follower, "follower");
+        toastSuccessNotify("Follower");
+        dispatch(followerSucces(follower?.data.data));
+      }
+    } catch (error) {
+      toastErrorNotify(error);
+    }
 
+
+
+  };
   return {
     register,
     login,
@@ -192,6 +206,7 @@ const useAuthCall = () => {
     folgenSingle,
     folgenAll,
     folgenGetSin,
+    followerget,
   };
 };
 

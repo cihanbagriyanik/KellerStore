@@ -5,8 +5,8 @@ import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import useAuthCall from "../../hooks/useAuthCall"
 import { Link } from "react-router-dom"
-import { FaClock, FaLocationPin } from "react-icons/fa6"
-
+import { FaClock} from "react-icons/fa6"
+import { MdOutlineMail } from "react-icons/md";
 
 const FollowingContainer = () => {
   const {folgenGetSin} = useAuthCall()
@@ -49,19 +49,20 @@ const FollowingContainer = () => {
                       </div>
                       <div className="mt-3">
                         <div className="flex mb-3 gap-3">
-                          <FaLocationPin size={20} />
-                          <h1>Location</h1>
+                        <MdOutlineMail size={20} />
+                          <h1>email</h1>
+                          <h2>{items?.followUserId.email}</h2>
                         </div>
                         <div className="flex gap-3">
                           <FaClock size={20} />
                           <h1>
-                            {/* {new Date(items?.followUserId?.createdAt).toLocaleString("tr-TR", {
+                            {new Date(items?.followUserId?.createdAt).toLocaleString("tr-TR", {
                               year: "numeric",
                               month: "long",
                               day: "numeric",
                               hour: "2-digit",
                               minute: "2-digit",
-                            })} */}
+                            })} 
                           </h1>
                         </div>
                       </div>

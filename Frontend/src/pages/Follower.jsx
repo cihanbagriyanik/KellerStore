@@ -4,9 +4,12 @@ import ProfileSidebar from "../components/ProfileSidebar";
 
 import Banner from "../components/Banner";
 import FollowerContanier from "../components/container/FollowerContanier";
+import { useSelector } from "react-redux";
 
 const Follower = () => {
   const title = `FOLGEN`;
+  const {followers} =useSelector(state=>state.auth)
+  console.log(followers,"takipci")
 
   return (
     <>

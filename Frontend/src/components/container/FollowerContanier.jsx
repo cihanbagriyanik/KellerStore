@@ -2,13 +2,14 @@ import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import useAuthCall from "../../hooks/useAuthCall"
 
-import { FaClock, FaLocationPin } from "react-icons/fa6"
+import { FaClock} from "react-icons/fa6"
+import { MdOutlineMail } from "react-icons/md";
 
 const FollowerContanier = () => {
-    const {folgenGetSin} = useAuthCall()
-    const {followSingle}= useSelector(state=>state.auth)
-    console.log(followSingle,"following")
-    useEffect(()=>{folgenGetSin()},[])
+    const {followerget} = useAuthCall()
+    const {followers}= useSelector(state=>state.auth)
+    console.log(followers,"following")
+    useEffect(()=>{followerget()},[])
   return (
     <div className="border w-1/1 m-10 bg-light-grey pb-7 rounded-lg">
     <div className="flex justify-between items-center pt-3 pb-3">
@@ -16,7 +17,7 @@ const FollowerContanier = () => {
     </div>
   
     <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4 xxl:grid-cols-6">
-          {followSingle?.map((items, index) => (
+          {followers?.map((items, index) => (
             <div key={index}>
               
                 <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
@@ -37,19 +38,20 @@ const FollowerContanier = () => {
                       </div>
                       <div className="mt-3">
                         <div className="flex mb-3 gap-3">
-                          <FaLocationPin size={20} />
-                          <h1>Location</h1>
+                          <MdOutlineMail size={20} />
+                          <h1>email</h1>
+                          <h2>{items?.userId.email}</h2>
                         </div>
                         <div className="flex gap-3">
                           <FaClock size={20} />
                           <h1>
-                            {/* {new Date(items?.followUserId?.createdAt).toLocaleString("tr-TR", {
+                             {new Date(items?.userId?.createdAt).toLocaleString("tr-TR", {
                               year: "numeric",
                               month: "long",
                               day: "numeric",
                               hour: "2-digit",
                               minute: "2-digit",
-                            })} */}
+                            })} 
                           </h1>
                         </div>
                       </div>
@@ -57,7 +59,8 @@ const FollowerContanier = () => {
                     <div className="px-5 pb-3 flex justify-between">
                       <div>
                         <h1 className="text-2xl font-semibold">
-                          {items?.followUserId.userName}
+                        {items?.userId.userName?.length > 0 ? items?.userId.userName : (<p>*************</p>) }
+                         
                         </h1>
                       </div>
                     
