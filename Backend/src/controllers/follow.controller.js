@@ -126,7 +126,7 @@ module.exports = {
     try {
       const dat = await Follow.find({}).populate({
         path: 'userId',
-        select: 'username email isBusiness createdAt _id'
+        select: 'userName email isBusiness createdAt _id'
       });
 
       const data = dat
