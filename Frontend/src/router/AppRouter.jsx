@@ -19,6 +19,7 @@ import Following from "../pages/Following";
 import About from "../pages/About";
 import Detail from "../pages/Detail";
 import Follower from "../pages/Follower";
+import DetailMessaj from "../pages/DetailMessaj";
 
 const AppRouter = () => {
   return (
@@ -43,6 +44,7 @@ const AppRouter = () => {
               <Route path="follower" element={<Follower />} />
               <Route path="about" element={<About />} />
               <Route path="detail/:id" element={<Detail />} />
+              <Route path="detailmessage" element={<DetailMessaj/>}/>
                <Route path="*" element={<NotFound/>} /> 
             </Route>
           </Routes>

@@ -1,12 +1,20 @@
-
-
+import { useLocation } from "react-router-dom";
 import ProfileSidebar from "../components/ProfileSidebar";
 import MessageContainer from "../components/container/MessageContainer";
 import Banner from "../components/Banner";
-import MesajHome from "./MesajHome";
 
-const Message = () => {
+const DetailMessaj = () => {
+  const location = useLocation();
+  const { message } = location.state || {};
+
+  if (!message) {
+    return <div>No message data</div>;
+  }
+
+  console.log(message);
+
   const title = `NACHRICHT`;
+
   return (
     <>
       <div>
@@ -18,11 +26,11 @@ const Message = () => {
         </div>
 
         <div className="flex-grow">
-          <MesajHome />
+          <MessageContainer message={message}/>
         </div>
       </div>
     </>
   );
 };
 
-export default Message;
+export default DetailMessaj;

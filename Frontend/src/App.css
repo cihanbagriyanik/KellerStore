@@ -41,3 +41,62 @@
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
+
+.message-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.message-item.no-image {
+  background-color: #3b82f6; /* Blue background for no image */
+}
+
+.message-item img {
+  border-radius: 50%;
+  border: 1px solid #3b82f6; /* Blue border */
+}
+
+.message-item h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: black; /* Black text */
+}
+
+.message-item p {
+  margin: 5px 0 0;
+  font-size: 1rem;
+  color: black; /* Black text */
+}
+
+.message-item .ml-4 {
+  margin-left: 16px; /* Spacing between image and text */
+}
+
+/* Grid styling for two columns */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.h-48 {
+  height: 12rem; /* height 48 */
+}
+
+.w-48 {
+  width: 12rem; /* width 48 */
+}
+
+.bg-blue-500 {
+  background-color: #3b82f6; /* Tailwind blue-500 */
+}
+
+.text-white {
+  color: white; /* White text */
+}
