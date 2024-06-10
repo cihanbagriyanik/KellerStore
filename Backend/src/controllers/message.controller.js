@@ -33,7 +33,11 @@ module.exports = {
       }).populate({
         path: 'messages.senderId',
         select: '_id email userName tel'
-      });
+      }).populate({
+        path: 'adId',
+        select: 'price images title',
+
+      })
 
       res.status(200).send({
         error: false,
