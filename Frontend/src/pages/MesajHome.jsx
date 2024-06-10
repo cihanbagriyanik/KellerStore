@@ -4,23 +4,19 @@ import { useEffect } from "react";
 import useMesaj from "../hooks/useMesaj";
 import { useNavigate } from "react-router-dom";
 
-
-
-
 const MesajHome = () => {
   const { messages } = useSelector((state) => state.mesaj);
   const { mesajGet } = useMesaj();
   console.log(messages, "dddddddddddd");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     mesajGet();
   }, []);
- const detailMesaj = (item)=>{
- console.log(item,"onclickten gelen")
- navigate("/detailmessage", { state: { message: item } });
-
- }
+  const detailMesaj = (item) => {
+    console.log(item, "onclickten gelen");
+    navigate("/detailmessage", { state: { messag: item } });
+  };
 
   return (
     <>
@@ -30,32 +26,30 @@ const MesajHome = () => {
         </div>
         <div className="grid grid-cols-2 gap-4 p-4">
           {messages?.map((item, index) => (
-            <button  key={index} onClick={()=> detailMesaj(item)}> 
-            <div
-             
-              className={`message-item flex items-center ${
-                item?.adId?.images?.[0] ? '' : 'no-image'
-              }`}
-             
-            >
-              {item?.adId?.images?.[0] ? (
-                <img
-                  src={`https://kellerstore.onrender.com/images/${item?.adId.images[0]}`}
-                  alt=""
-                  width="80"
-                  className="h-48 w-48 rounded-full"
-                />
-              ) : (
-                <div className="h-48 w-48 rounded-full bg-blue-500 flex items-center justify-center">
-                  <span className="text-white">No Image</span>
+            <button key={index} onClick={() => detailMesaj(item)}>
+              <div
+                className={`message-item flex items-center ${
+                  item?.adId?.images?.[0] ? "" : "no-image"
+                }`}
+              >
+                {item?.adId?.images?.[0] ? (
+                  <img
+                    src={`https://kellerstore.onrender.com/images/${item?.adId.images[0]}`}
+                    alt=""
+                    width="80"
+                    className="h-48 w-48 rounded-full"
+                  />
+                ) : (
+                  <div className="h-48 w-48 rounded-full bg-blue-500 flex items-center justify-center">
+                    <span className="text-white">No Image</span>
+                  </div>
+                )}
+                <div className="ml-4 text-black">
+                  <h3>{item?.adId.price}</h3>
+                  <p>{item?.adId.title}</p>
                 </div>
-              )}
-              <div className="ml-4 text-black">
-                <h3>{item?.adId.price}</h3>
-                <p>{item?.adId.title}</p>
               </div>
-            </div></button>
-        
+            </button>
           ))}
         </div>
         <div className="flex-grow">{/* <MessageContainer /> */}</div>

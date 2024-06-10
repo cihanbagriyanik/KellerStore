@@ -1,13 +1,26 @@
-
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import useMesaj from "../../hooks/useMesaj";
 
+const MessageContainer = ({ messag }) => {
+  const { user } = useSelector((state) => state.auth);
+  console.log(user)
+  const { mesajPost ,mesajGet} = useMesaj();
+  const [text, setText] = useState("");
+  console.log(messag, "CONTAINER");
 
-const MessageContainer = ({message}) => {
- 
-  const {user} = useSelector(state=>state.auth)
-  
-console.log(message,"CONTAINER")
+  const sendMessage = () => {
+    console.log(text);
+    mesajPost({ adId: messag?.adId?._id, message: text });
+    setText("");
+    
+  };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  };
 
   return (
     <div className="border w-1/1 m-10 bg-light-grey pb-7 rounded-lg">
@@ -27,41 +40,58 @@ console.log(message,"CONTAINER")
               <p className="">Jetz Aktiv</p>
             </div>
           </div>
-
-          {/****** SENDER ******/}
-          <div className="mt-3 mb-7 flex items-center justify-start gap-5 ">
-            <img
-              src="https://cdn.pixabay.com/photo/2013/07/12/19/14/avatar-154379_1280.png"
-              className="w-14 h-1/4 rounded-full ms-24"
-              alt="Profile"
-            />
-            <div className="w-3/6">
-              <p className="border border-button-blue p-3 text-white rounded-lg bg-button-blue">
-                Hallo, Ich interessiere mich für Ihre Anzeige.
-              </p>
-            </div>
-          </div>
-
-          {/****** RECIVER ******/}
+        
+          {messag?.messages?.map((item, index) => {
+            console.log(item)
+            if (item.senderId._id == user?._id) {
+              return (
+                <div
+                  className="mt-3 mb-7 flex items-center justify-end gap-5 "
+                  key={index}
+                >
+                  <div className="w-3/6">
+                    <p className="border border-light-grey p-3 text-black rounded-lg bg-light-grey">
+                      {item.messageText}
+                    </p>
+                  </div>
+                  <img
+                    src="https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg"
+                    className="w-14 h-1/4 rounded-full me-24"
+                    alt="Profile"
+                  />
+                </div>
+              );
+            } else {
+              return (
+                <div
+                  className="mt-3 mb-7 flex items-center justify-start gap-5 "
+                  key={index}
+                >
+                  <img
+                    src="https://cdn.pixabay.com/photo/2013/07/12/19/14/avatar-154379_1280.png"
+                    className="w-14 h-1/4 rounded-full ms-24"
+                    alt="Profile"
+                  />
+                  <div className="w-3/6">
+                    <p className="border border-button-blue p-3 text-white rounded-lg bg-button-blue">
+                      {item.messageText}
+                    </p>
+                  </div>
+                </div>
+              );
+            }
+          })}
           <div className="mt-3 mb-7 flex items-center justify-end gap-5 ">
             <div className="w-3/6">
-              <p className=" border border-light-grey p-3 text-black rounded-lg bg-light-grey">
-                Vielen Dank für Ihr Interesse, wir werden uns so schnell wie
-                möglich mit Ihnen in Verbindung setzen.
-              </p>
+              <input
+                className="w-full border border-light-grey p-3 text-black rounded-lg bg-light-grey"
+                placeholder="message"
+                type="text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                onKeyDown={handleKeyPress}
+              />
             </div>
-            <img
-              src="https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg"
-              className="w-14 h-1/4 rounded-full me-24"
-              alt="Profile"
-            />
-          </div>
-          <div className="mt-3 mb-7 flex items-center justify-end gap-5 ">
-          
-              <input className=" border border-light-grey p-3 text-black rounded-lg bg-light-grey" placeholder="message">
-              
-              </input>
-           
             <img
               src="https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg"
               className="w-14 h-1/4 rounded-full me-24"
@@ -69,10 +99,7 @@ console.log(message,"CONTAINER")
             />
           </div>
         </div>
-       
       </div>
-      
-     
     </div>
   );
 };

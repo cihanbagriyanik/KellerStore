@@ -5,13 +5,13 @@ import Banner from "../components/Banner";
 
 const DetailMessaj = () => {
   const location = useLocation();
-  const { message } = location.state || {};
+  const { messag } = location.state || {};
 
-  if (!message) {
+  if (!messag) {
     return <div>No message data</div>;
   }
 
-  console.log(message);
+  console.log(messag);
 
   const title = `NACHRICHT`;
 
@@ -26,7 +26,7 @@ const DetailMessaj = () => {
         </div>
 
         <div className="flex-grow">
-          <MessageContainer message={message}/>
+          <MessageContainer messag={messag}/>
         </div>
       </div>
     </>
