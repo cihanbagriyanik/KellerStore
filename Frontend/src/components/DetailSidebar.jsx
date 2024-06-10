@@ -24,15 +24,12 @@ const DetailSidebar = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { singleAd } = useSelector((state) => state.ad);
- console.log(singleAd, "tek ");
+  console.log(singleAd, "tek ");
   const { followers, user } = useSelector((state) => state.auth);
- //console.log(followers, user, "deateilssidebsarBAR");
+  //console.log(followers, user, "deateilssidebsarBAR");
   const { folgenSingle } = useAuthCall();
-  const {mesajPost} = useMesaj()
-  const [text,setText] = useState()
-
-
-
+  const { mesajPost } = useMesaj();
+  const [text, setText] = useState();
 
   const handleClick = (path) => {
     if (path == "#") {
@@ -50,20 +47,14 @@ const DetailSidebar = () => {
   const isFollowing = followers?.some(
     (follower) => follower?.userId._id == singleAd?.userId?._id
   );
- // console.log(isFollowing, "pppppppppp");
+  // console.log(isFollowing, "pppppppppp");
 
-  
- const mesajSend=(e)=>{
- 
-  
-  e.preventDefault(); 
+  const mesajSend = (e) => {
+    e.preventDefault();
     mesajPost({ adId: singleAd._id, message: text });
     console.log("Mesaj gönderildi:", text);
-  
- }
-
-
-
+    setIsModalOpen(!isModalOpen);
+  };
 
   return (
     <>
@@ -138,7 +129,7 @@ const DetailSidebar = () => {
               </button>
             </div>
             {/* <!-- Modal body --> */}
-            <form className="p-4 md:p-5" >
+            <form className="p-4 md:p-5">
               <div className="grid gap-4 mb-4 grid-cols-2">
                 <div className="col-span-2">
                   <label
@@ -170,13 +161,13 @@ const DetailSidebar = () => {
                     rows="12"
                     className="block p-2.5 w-full text-sm text-button-blue bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Schreibe eine freudliche Nachricht..."
-                    onChange={(e)=>setText(e.target.value)}
+                    onChange={(e) => setText(e.target.value)}
                   ></textarea>
                 </div>
               </div>
               <div className="flex justify-end">
                 <button
-                onClick={mesajSend}
+                  onClick={mesajSend}
                   type="submit"
                   className="text-white inline-flex items-center bg-button-orange hover:text-button-blue focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center gap-3"
                 >

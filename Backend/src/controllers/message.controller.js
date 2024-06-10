@@ -27,9 +27,13 @@ module.exports = {
     try {
       const filters = req.user?.isAdmin ? {} : { participants: req.user._id };
 
-      const threads = await Message.find(filters).populate(
-        "participants messages.senderId"
-      );
+      const threads = await Message.find(filters).populate({
+        path: 'participants',
+        select: '_id email userName tel'
+      }).populate({
+        path: 'messages.senderId',
+        select: '_id email userName tel'
+      });
 
       res.status(200).send({
         error: false,

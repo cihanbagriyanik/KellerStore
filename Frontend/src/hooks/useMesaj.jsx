@@ -7,15 +7,16 @@ import { messageSuccess } from "../features/adSlice";
 
 const useMesaj = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const { user, access } = useSelector((state) => state.auth);
+  const {  access } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const mesajPost = async (adId, message) => {
+  const mesajPost = async (data) => {
+    const { adId, message } = data; 
     console.log(adId, message, "messagePOST");
 
     try {
-      if (user?._id) {
+   
         const mesaj = await axios.post(
           `${BASE_URL}messages`,
           { adId, message },
@@ -26,9 +27,9 @@ const useMesaj = () => {
             },
           }
         );
-        console.log(mesaj);
+        console.log(mesaj?.data);
         dispatch(messageSuccess(mesaj));
-      }
+      
       toastSuccessNotify("Follow okey");
     } catch (error) {
       toastErrorNotify(error);
