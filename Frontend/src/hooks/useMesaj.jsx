@@ -29,6 +29,7 @@ const useMesaj = () => {
       console.log(mesaj?.data);
 
       toastSuccessNotify("Mesaj Sended");
+      mesajGet()
     } catch (error) {
       toastErrorNotify(error);
       // console.log(error.message);

@@ -1,19 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useMesaj from "../../hooks/useMesaj";
 
 const MessageContainer = ({ messag }) => {
   const { user } = useSelector((state) => state.auth);
-  console.log(user)
-  const { mesajPost ,mesajGet} = useMesaj();
+  const { mesajPost } = useMesaj();
   const [text, setText] = useState("");
+  const [messages, setMessages] = useState(messag?.messages || []);
+
+  console.log(user);
   console.log(messag, "CONTAINER");
 
   const sendMessage = () => {
     console.log(text);
+    const newMessage = { senderId: user, messageText: text };
+
     mesajPost({ adId: messag?.adId?._id, message: text });
-    setText("");
     
+   
+    setMessages([...messages, newMessage]);
+    setText("");
   };
 
   const handleKeyPress = (e) => {
@@ -40,10 +46,10 @@ const MessageContainer = ({ messag }) => {
               <p className="">Jetz Aktiv</p>
             </div>
           </div>
-        
-          {messag?.messages?.map((item, index) => {
-            console.log(item)
-            if (item.senderId._id == user?._id) {
+
+          {messages.map((item, index) => {
+            console.log(item);
+            if (item.senderId._id === user?._id) {
               return (
                 <div
                   className="mt-3 mb-7 flex items-center justify-end gap-5 "
@@ -105,3 +111,4 @@ const MessageContainer = ({ messag }) => {
 };
 
 export default MessageContainer;
+
