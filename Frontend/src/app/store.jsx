@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/authSlice.jsx";
 import adReducer from "../features/adSlice";
 import categoryReducer from "../features/categorySlice";
+import mesajReducer from "../features/mesajSlice";
 
 import {
   persistStore,
@@ -27,6 +28,7 @@ const store = configureStore({
     auth: persistedReducer,
     ad: adReducer,
     category: categoryReducer,
+    mesaj:mesajReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

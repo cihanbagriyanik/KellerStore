@@ -70,7 +70,7 @@ const FollowingContainer = () => {
                     <div className="px-5 pb-3 flex justify-between">
                       <div>
                         <h1 className="text-2xl font-semibold">
-                          {items?.followUserId.userName}
+                        {items?.followUserId.userName?.length > 0 ? items?.followUserId.userName : (<p>*************</p>) }
                         </h1>
                       </div>
                     

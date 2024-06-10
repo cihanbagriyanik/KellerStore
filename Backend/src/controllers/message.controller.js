@@ -59,6 +59,7 @@ module.exports = {
       }
   }
 */
+//burdaki mantik bir tane iki kisini olacagi bir grup kurduk ordan haberlerstiktik
     try {
       const { adId, message } = req.body;
       const ad = await Ad.findById(adId);
@@ -69,26 +70,29 @@ module.exports = {
           message: "Ad not found.",
         });
       }
-
-      const senderId = req.user._id; // Logged-in user is the sender
+      if (!mongoose.Types.ObjectId.isValid(adId)) {
+        return res.status(400).json({ message: 'Invalid adId' });
+      }
+      const senderId = req.user._id; // kullanici
       console.log(senderId, "sender");
 
       let thread = await Message.findOne({
         adId: adId,
+        // MongoDB sorgusunda { $all: [senderId, ad.userId] } ifadesi, participants dizisinin senderId ve ad.userId değerlerinin her ikisini de içermesi gerektiğini belirtir. Bu sorgu, participants alanında belirtilen iki değeri de içeren belgeleri bulmak için kullanılır.
         participants: { $all: [senderId, ad.userId] },
       });
 
       console.log(ad.userId, "ad ownert");
-      // Check if the thread already exists and if the sender is the ad owner
+      
       if (!thread && senderId.toString() === ad.userId.toString()) {
-        // Prevent ad owner from starting a message thread on their own ad
+        
         return res.status(400).send({
           error: true,
           message: "You cannot send a message to your own ad.",
         });
       }
       console.log(thread, "thraaaa conrrol");
-      // Create a new thread if it does not exist
+      
       if (!thread) {
         thread = await Message.create({
           participants: [senderId, ad.userId],
@@ -101,7 +105,7 @@ module.exports = {
           ],
         });
       } else {
-        // Ensure both sender and receiver are in participants
+      
         if (!thread.participants.includes(senderId)) {
           await Message.updateOne(
             { _id: thread._id },
@@ -109,7 +113,7 @@ module.exports = {
           );
         }
 
-        // Add message to existing thread
+     
         await Message.updateOne(
           { _id: thread._id },
           { $push: { messages: { senderId: senderId, messageText: message } } }

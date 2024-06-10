@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useAuthCall from "../hooks/useAuthCall";
+import useMesaj from "../hooks/useMesaj";
 
 // Buttons Infos
 const DetailButtons = [
@@ -23,25 +24,46 @@ const DetailSidebar = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { singleAd } = useSelector((state) => state.ad);
-  const {folgenSingle} = useAuthCall()
-  
+ console.log(singleAd, "tek ");
+  const { followers, user } = useSelector((state) => state.auth);
+ //console.log(followers, user, "deateilssidebsarBAR");
+  const { folgenSingle } = useAuthCall();
+  const {mesajPost} = useMesaj()
+  const [text,setText] = useState()
+
+
+
 
   const handleClick = (path) => {
     if (path == "#") {
-    //navigate(path);
+      setIsModalOpen(!isModalOpen);
     } else if (path == "folgen") {
       console.log("folgendesin adamim");
-      folgenSingle(singleAd?.userId?._id)
-
-    } 
-    else if (path == "Merkliste") {
+      folgenSingle(singleAd?.userId?._id);
+    } else if (path === "/wishlist") {
       navigate(path);
-    }
-    else {
+    } else {
       console.log(path, "sidebar drail");
       setIsModalOpen(!isModalOpen);
     }
   };
+  const isFollowing = followers?.some(
+    (follower) => follower?.userId._id == singleAd?.userId?._id
+  );
+ // console.log(isFollowing, "pppppppppp");
+
+  
+ const mesajSend=(e)=>{
+ 
+  
+  e.preventDefault(); 
+    mesajPost({ adId: singleAd._id, message: text });
+    console.log("Mesaj gönderildi:", text);
+  
+ }
+
+
+
 
   return (
     <>
@@ -56,7 +78,11 @@ const DetailSidebar = () => {
             <div className="text-center" key={x.name}>
               <button
                 onClick={() => handleClick(x.path, x.dataModalTarget)}
-                className="btnProfile mt-3 w-56"
+                className={`btnProfile mt-3 w-56 ${
+                  x.name === "Folgen" && isFollowing
+                    ? "text-red-700"
+                    : " text-blue-500"
+                }`}
                 /* -------------------------------------------------------------------------- */
                 type="button"
                 data-modal-target={x.dataModalTarget}
@@ -112,7 +138,7 @@ const DetailSidebar = () => {
               </button>
             </div>
             {/* <!-- Modal body --> */}
-            <form className="p-4 md:p-5">
+            <form className="p-4 md:p-5" >
               <div className="grid gap-4 mb-4 grid-cols-2">
                 <div className="col-span-2">
                   <label
@@ -127,7 +153,7 @@ const DetailSidebar = () => {
                     id="name"
                     className="bg-white border border-gray-300 text-button-blue text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     // placeholder="Lukas Müller"
-                    defaultValue="Lukas Müller"
+                    defaultValue={user?.userName}
                     required=""
                   />
                 </div>
@@ -144,11 +170,13 @@ const DetailSidebar = () => {
                     rows="12"
                     className="block p-2.5 w-full text-sm text-button-blue bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Schreibe eine freudliche Nachricht..."
+                    onChange={(e)=>setText(e.target.value)}
                   ></textarea>
                 </div>
               </div>
               <div className="flex justify-end">
                 <button
+                onClick={mesajSend}
                   type="submit"
                   className="text-white inline-flex items-center bg-button-orange hover:text-button-blue focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center gap-3"
                 >
