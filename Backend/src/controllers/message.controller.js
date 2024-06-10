@@ -70,9 +70,7 @@ module.exports = {
           message: "Ad not found.",
         });
       }
-      if (!mongoose.Types.ObjectId.isValid(adId)) {
-        return res.status(400).json({ message: 'Invalid adId' });
-      }
+     
       const senderId = req.user._id; // kullanici
       console.log(senderId, "sender");
 
