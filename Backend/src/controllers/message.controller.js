@@ -27,17 +27,19 @@ module.exports = {
     try {
       const filters = req.user?.isAdmin ? {} : { participants: req.user._id };
 
-      const threads = await Message.find(filters).populate({
-        path: 'participants',
-        select: '_id email userName tel'
-      }).populate({
-        path: 'messages.senderId',
-        select: '_id email userName tel'
-      }).populate({
-        path: 'adId',
-        select: 'price images title',
-
-      })
+      const threads = await Message.find(filters)
+        .populate({
+          path: "participants",
+          select: "_id email userName tel",
+        })
+        .populate({
+          path: "messages.senderId",
+          select: "_id email userName tel",
+        })
+        .populate({
+          path: "adId",
+          select: "price images title",
+        });
 
       res.status(200).send({
         error: false,
@@ -67,7 +69,7 @@ module.exports = {
       }
   }
 */
-//burdaki mantik bir tane iki kisini olacagi bir grup kurduk ordan haberlerstiktik
+    //burdaki mantik bir tane iki kisini olacagi bir grup kurduk ordan haberlerstiktik
     try {
       const { adId, message } = req.body;
       const ad = await Ad.findById(adId);
@@ -78,7 +80,7 @@ module.exports = {
           message: "Ad not found.",
         });
       }
-     
+
       const senderId = req.user._id; // kullanici
       console.log(senderId, "sender");
 
@@ -89,16 +91,15 @@ module.exports = {
       });
 
       console.log(ad.userId, "ad ownert");
-      
+
       if (!thread && senderId.toString() === ad.userId.toString()) {
-        
         return res.status(400).send({
           error: true,
           message: "You cannot send a message to your own ad.",
         });
       }
       console.log(thread, "thraaaa conrrol");
-      
+
       if (!thread) {
         thread = await Message.create({
           participants: [senderId, ad.userId],
@@ -111,7 +112,6 @@ module.exports = {
           ],
         });
       } else {
-      
         if (!thread.participants.includes(senderId)) {
           await Message.updateOne(
             { _id: thread._id },
@@ -119,7 +119,6 @@ module.exports = {
           );
         }
 
-     
         await Message.updateOne(
           { _id: thread._id },
           { $push: { messages: { senderId: senderId, messageText: message } } }
@@ -145,9 +144,7 @@ module.exports = {
 */
     try {
       const messageId = req.params.id;
-      const thread = await Message.findById(messageId).populate(
-        "participants messages.senderId"
-      );
+      const thread = await Message.findById(messageId);
 
       if (!thread) {
         return res.status(404).send({
@@ -156,6 +153,13 @@ module.exports = {
         });
       }
 
+      // Gönderenin okundu olarak işaretleyip, okunmamış mesajları döndür
+      thread.messages.forEach((message) => {
+        message.isRead = true;
+      });
+
+      // Değişiklikleri kaydet ve gonder
+      await thread.save();
       res.status(200).send({
         error: false,
         data: thread,
@@ -196,11 +200,10 @@ module.exports = {
       if (!thread) {
         return res.status(404).send({
           error: true,
-          message: "Thread not found or you do not have permission to update.",
+          message: " you do not have permission to update.",
         });
       }
 
-      // Append the new message to the messages array within the found thread
       thread.messages.push({ senderId: senderId, messageText: message });
       await thread.save();
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import useMesaj from "../../hooks/useMesaj";
 
@@ -14,10 +14,9 @@ const MessageContainer = ({ messag }) => {
   const sendMessage = () => {
     console.log(text);
     const newMessage = { senderId: user, messageText: text };
-
     mesajPost({ adId: messag?.adId?._id, message: text });
-    
-   
+
+
     setMessages([...messages, newMessage]);
     setText("");
   };
@@ -42,13 +41,13 @@ const MessageContainer = ({ messag }) => {
               alt="Profile"
             />
             <div>
-              <h1 className="text-2xl">{user?.userName} Muller</h1>
+              <h1 className="text-2xl">{user?.userName} </h1>
               <p className="">Jetz Aktiv</p>
             </div>
           </div>
 
           {messages.map((item, index) => {
-            console.log(item);
+           
             if (item.senderId._id === user?._id) {
               return (
                 <div

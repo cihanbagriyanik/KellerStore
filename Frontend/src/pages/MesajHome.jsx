@@ -14,7 +14,7 @@ const MesajHome = () => {
     mesajGet();
   }, []);
   const detailMesaj = (item) => {
-    console.log(item, "onclickten gelen");
+    //console.log(item, "onclickten gelen");
     navigate("/detailmessage", { state: { messag: item } });
   };
 
