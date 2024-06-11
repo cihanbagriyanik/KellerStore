@@ -160,10 +160,27 @@ module.exports = {
 
       // Değişiklikleri kaydet ve gonder
       await thread.save();
-      res.status(200).send({
-        error: false,
-        data: thread,
-      });
+      //burda frontend dolayi kisa bir duyelmem yapildi
+      const filters = req.user?.isAdmin ? {} : { participants: req.user._id };
+
+      const threadss = await Message.find(filters)
+        .populate({
+          path: "participants",
+          select: "_id email userName tel",
+        })
+        .populate({
+          path: "messages.senderId",
+          select: "_id email userName tel",
+        })
+        .populate({
+          path: "adId",
+          select: "price images title",
+        });
+        res.status(200).send({
+          error: false,
+          data: threadss,
+        });
+
     } catch (err) {
       res.status(400).send({
         message: "read problem",

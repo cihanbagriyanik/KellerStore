@@ -11,7 +11,7 @@ const DetailMessaj = () => {
     return <div>No message data</div>;
   }
 
-  console.log(messag);
+  //console.log(messag);
 
   const title = `NACHRICHT`;
 

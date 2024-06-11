@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useMesaj from "../../hooks/useMesaj";
 
 const MessageContainer = ({ messag }) => {
   const { user } = useSelector((state) => state.auth);
-  const { mesajPost } = useMesaj();
+  const { mesajPost,mesajRead } = useMesaj();
   const [text, setText] = useState("");
   const [messages, setMessages] = useState(messag?.messages || []);
 
@@ -20,7 +20,7 @@ const MessageContainer = ({ messag }) => {
     setMessages([...messages, newMessage]);
     setText("");
   };
-
+  useEffect(()=>{mesajRead(messag?._id)},[])
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       sendMessage();

@@ -57,10 +57,35 @@ const useMesaj = () => {
       // console.log(error.message);
     }
   };
+  const mesajRead =async(id)=>{
+    console.log(id)
+    try {
+      const mesajRead = await axios.get(
+        `${BASE_URL}messages/${id}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        }
+      );
+      console.log(mesajRead?.data.data);
+      const dat = mesajRead?.data.data
+      dispatch(messageRead(dat));
+
+      toastSuccessNotify("Follow okey");
+    } catch (error) {
+      toastErrorNotify(error);
+      // console.log(error.message);
+    }
+  }
+  
+  
 
   return {
     mesajPost,
     mesajGet,
+    mesajRead
   };
 };
 
