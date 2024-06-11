@@ -126,7 +126,7 @@ module.exports = {
             /* -------------------------------------------------------------------------- */
             //* JWT */
             const accessData = user.toJSON();
-            const accessTime = "30m";
+            const accessTime = "10m";
             const accessToken = jwt.sign(accessData, process.env.ACCESS_KEY, {
               expiresIn: accessTime,
             });

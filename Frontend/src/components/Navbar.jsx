@@ -14,7 +14,7 @@ import Searchnav from "../pages/Searchnav";
 const Navbar = () => {
   const { access, user } = useSelector((state) => state.auth);
   const { favorUser } = useSelector((state) => state.category);
-  console.log(user);
+  //console.log(user);
 
   const { favoriAll, favori } = useCategoryCall();
 
