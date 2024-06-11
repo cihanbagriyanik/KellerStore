@@ -17,25 +17,25 @@ import update from "../../src/assets/update.jpg";
 const MyAds = () => {
   const title = `Meine Anzeigen`;
 
-  const { getAd ,deleteAdData,putadReserve} = useAdCall();
+  const { getAd, deleteAdData, putadReserve } = useAdCall();
   const { ad } = useSelector((state) => state.ad);
- 
+
   const { user } = useSelector((state) => state.auth);
   const id = user?._id;
 
-  const { favoriAd} =useSelector(state=>state.category)
-  console.log(favoriAd,"myads")
+  const { favoriAd } = useSelector((state) => state.category);
+  //console.log(favoriAd,"myads")
 
   const [openIndexes, setOpenIndexes] = useState({});
-  const deleteAd = async (id)=>{
-    console.log(id,"deletedki id")
-   await  deleteAdData(id);
-   getAd()
-  }
-  const reserved = async(id)=>{
-  await  putadReserve(id)
-  getAd()   
-  }
+  const deleteAd = async (id) => {
+    // console.log(id,"deletedki id")
+    await deleteAdData(id);
+    getAd();
+  };
+  const reserved = async (id) => {
+    await putadReserve(id);
+    getAd();
+  };
 
   useEffect(() => {
     getAd();
@@ -74,7 +74,7 @@ const MyAds = () => {
                       <div>
                         <img
                           //src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                            src={item?.images[0]}
+                          src={item?.images[0]}
                           width={600}
                           alt="img"
                           className="ms-1 mt-14"
@@ -105,13 +105,16 @@ const MyAds = () => {
                               <button className="border-2 border-like-yellow p-2 rounded-full bg-like-yellow text-white">
                                 <MdFavorite size={25} />
                               </button>
-                              <p>{favoriAd?.map((it,index)=>{
-                               // console.log(it?.adId)
-                                if(it.adId == item._id ){
-                                  return  <p key={index}>{it?.favorites?.length}</p>
-                                }
-                                
-                              })}</p>
+                              <p>
+                                {favoriAd?.map((it, index) => {
+                                  // console.log(it?.adId)
+                                  if (it.adId == item._id) {
+                                    return (
+                                      <p key={index}>{it?.favorites?.length}</p>
+                                    );
+                                  }
+                                })}
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -150,12 +153,13 @@ const MyAds = () => {
                       {openIndexes[index] && (
                         <div className="absolute top-12 left-1/2 transform -translate-x-1/2 flex space-x-2 mt-2">
                           <div className="w-12 h-12 bg-button-blue rounded-full ring-offset-2 ring-gray-200 focus:ring-2 focus:ring-button-blue">
-                          <button onClick={()=>deleteAd(item._id)}> 
-                            <img
-                              src={deleteImage}
-                              className="w-full h-full rounded-full"
-                              alt="Delete"
-                            /></button>
+                            <button onClick={() => deleteAd(item._id)}>
+                              <img
+                                src={deleteImage}
+                                className="w-full h-full rounded-full"
+                                alt="Delete"
+                              />
+                            </button>
                           </div>
                           <div className="w-12 h-12 bg-button-blue rounded-full ring-offset-2 ring-gray-200 focus:ring-2 focus:ring-button-blue">
                             <img
@@ -165,12 +169,13 @@ const MyAds = () => {
                             />
                           </div>
                           <div className="w-12 h-12 bg-button-blue rounded-full ring-offset-2 ring-gray-200 focus:ring-2 focus:ring-button-blue">
-                          <button onClick={()=>reserved(item._id)}> 
-                            <img
-                              src={reserve}
-                              className="w-full h-full rounded-full"
-                              alt="Reserve"
-                            /></button>
+                            <button onClick={() => reserved(item._id)}>
+                              <img
+                                src={reserve}
+                                className="w-full h-full rounded-full"
+                                alt="Reserve"
+                              />
+                            </button>
                           </div>
                         </div>
                       )}
@@ -179,7 +184,7 @@ const MyAds = () => {
                 </div>
               );
             }
-            return
+            return;
           })}
         </div>
       </div>

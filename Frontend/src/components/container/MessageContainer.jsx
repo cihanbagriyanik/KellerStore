@@ -4,23 +4,24 @@ import useMesaj from "../../hooks/useMesaj";
 
 const MessageContainer = ({ messag }) => {
   const { user } = useSelector((state) => state.auth);
-  const { mesajPost,mesajRead } = useMesaj();
+  const { mesajPost, mesajRead } = useMesaj();
   const [text, setText] = useState("");
   const [messages, setMessages] = useState(messag?.messages || []);
 
-  console.log(user);
-  console.log(messag, "CONTAINER");
+  //console.log(user);
+  //console.log(messag, "CONTAINER");
 
   const sendMessage = () => {
-    console.log(text);
+    // console.log(text);
     const newMessage = { senderId: user, messageText: text };
     mesajPost({ adId: messag?.adId?._id, message: text });
-
 
     setMessages([...messages, newMessage]);
     setText("");
   };
-  useEffect(()=>{mesajRead(messag?._id)},[])
+  useEffect(() => {
+    mesajRead(messag?._id);
+  }, []);
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       sendMessage();
@@ -47,7 +48,6 @@ const MessageContainer = ({ messag }) => {
           </div>
 
           {messages.map((item, index) => {
-           
             if (item.senderId._id === user?._id) {
               return (
                 <div
@@ -110,4 +110,3 @@ const MessageContainer = ({ messag }) => {
 };
 
 export default MessageContainer;
-

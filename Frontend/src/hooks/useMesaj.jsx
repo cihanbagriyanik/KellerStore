@@ -9,14 +9,14 @@ const useMesaj = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const { access } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
 
   const mesajPost = async (data) => {
     const { adId, message } = data;
-    console.log(adId, message, "messagePOST");
+   // console.log(adId, message, "messagePOST");
 
     try {
-      const mesaj = await axios.post(
+      await axios.post(
         `${BASE_URL}messages`,
         { adId, message },
 
@@ -26,10 +26,10 @@ const useMesaj = () => {
           },
         }
       );
-      console.log(mesaj?.data);
+      //console.log(mesaj?.data);
 
       toastSuccessNotify("Mesaj Sended");
-      mesajGet()
+      mesajGet();
     } catch (error) {
       toastErrorNotify(error);
       // console.log(error.message);
@@ -48,17 +48,17 @@ const useMesaj = () => {
         }
       );
       console.log(mesaj?.data.data);
-      const dat = mesaj?.data.data
+      const dat = mesaj?.data.data;
       dispatch(messageSuccess(dat));
 
-      toastSuccessNotify("Follow okey");
+    
     } catch (error) {
       toastErrorNotify(error);
       // console.log(error.message);
     }
   };
-  const mesajRead =async(id)=>{
-    console.log(id)
+  const mesajRead = async (id) => {
+    console.log(id);
     try {
       const mesajRead = await axios.get(
         `${BASE_URL}messages/${id}`,
@@ -70,22 +70,20 @@ const useMesaj = () => {
         }
       );
       console.log(mesajRead?.data.data);
-      const dat = mesajRead?.data.data
-      dispatch(messageRead(dat));
+      const dat = mesajRead?.data.data;
+      dispatch(messageSuccess(dat));
 
-      toastSuccessNotify("Follow okey");
+     
     } catch (error) {
       toastErrorNotify(error);
       // console.log(error.message);
     }
-  }
-  
-  
+  };
 
   return {
     mesajPost,
     mesajGet,
-    mesajRead
+    mesajRead,
   };
 };
 

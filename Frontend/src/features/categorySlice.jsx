@@ -27,7 +27,7 @@ const categorySlice = createSlice({
     singleUser:(state,{payload})=>{
       state.loading = false;
       state.favorUser=payload;
-      console.log(state.favorUser,"SINGLEUSER SLICE")
+      //console.log(state.favorUser,"SINGLEUSER SLICE")
     },
 
     fetchFail: (state) => {

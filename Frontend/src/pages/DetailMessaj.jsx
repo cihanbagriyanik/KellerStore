@@ -26,7 +26,7 @@ const DetailMessaj = () => {
         </div>
 
         <div className="flex-grow">
-          <MessageContainer messag={messag}/>
+          <MessageContainer messag={messag} />
         </div>
       </div>
     </>

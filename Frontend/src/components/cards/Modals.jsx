@@ -33,8 +33,8 @@ function Modals({ open, handleOpen, user, address }) {
   };
 
   const handleSave = () => {
-    console.log(userData, "USERDATA");
-    console.log(adres);
+    //console.log(userData, "USERDATA");
+    // console.log(adres);
     handleOpen();
     profileUpdate(userData, adres);
   };
@@ -42,12 +42,12 @@ function Modals({ open, handleOpen, user, address }) {
   return (
     <>
       <Dialog
-        size="xs"
+        size="lg"
         open={open}
         handler={handleOpen}
-        className="bg-transparent shadow-none"
+        className="bg-transparent shadow-none flex items-center justify-center min-h-screen"
       >
-        <Card className="mx-auto w-full max-w-[24rem]">
+        <Card className="w-full max-w-[24rem]">
           <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
               Upload
@@ -106,3 +106,4 @@ function Modals({ open, handleOpen, user, address }) {
 }
 
 export default Modals;
+

@@ -24,7 +24,7 @@ const useAdCall = () => {
   const getAd = async () => {
     try {
       const { data } = await axiosWithToken(`${BASE_URL}ad`);
-      console.log(data.data);
+      //console.log(data.data);
       const neues = data?.data;
       const reserveControl = neues?.map((item) => {
         if (item.isReserved === true) {
@@ -58,7 +58,7 @@ const useAdCall = () => {
   const belibt = async () => {
     try {
       const { data } = await axiosWithToken(`${BASE_URL}favorite/belibt`);
-      console.log(data?.data.slice(0, 10), "belibt");
+      //console.log(data?.data.slice(0, 10), "belibt");
       const neues = data?.data.slice(0, 4);
       dispatch(belibtSucces(neues));
     } catch (error) {
@@ -68,7 +68,7 @@ const useAdCall = () => {
   const most = async () => {
     try {
       const { data } = await axiosWithToken(`${BASE_URL}ad/view`);
-      console.log(data?.data.slice(0, 4), "most");
+      //console.log(data?.data.slice(0, 4), "most");
       const neues = data?.data.slice(0, 4);
       dispatch(mostSucces(neues));
     } catch (error) {
@@ -98,7 +98,7 @@ const useAdCall = () => {
 
   const postAdData = async (url, body) => {
     dispatch(fetchStart());
-    console.log(body, "postdataaaaaaaaaa");
+    //console.log(body, "postdataaaaaaaaaa");
 
     try {
       await axiosWithToken.post(`${url}/`, body);
@@ -109,12 +109,11 @@ const useAdCall = () => {
       toastErrorNotify(
         error?.response?.data?.message || "Operation not success"
       );
-      console.log(error);
     }
   };
   const putAdData = async (id, body) => {
     dispatch(fetchStart());
-    console.log(id, body, "putdata guncelememden gele");
+    //console.log(id, body, "putdata guncelememden gele");
     try {
       await axiosWithToken.put(`${BASE_URL}ad/${id}`, body);
 
@@ -128,11 +127,11 @@ const useAdCall = () => {
     }
   };
   const putadReserve = async (id) => {
-    console.log(id, "putdata guncelememden gele");
+    //console.log(id, "putdata guncelememden gele");
     try {
       await axiosWithToken.put(`${BASE_URL}ad/reserve/${id}`);
       const { data } = await axiosWithToken(`${BASE_URL}ad`);
-      console.log(data.data);
+      //console.log(data.data);
       const neues = data?.data;
       const reserveControl = neues?.map((item) => {
         if (item.isReserved === true) {
@@ -152,15 +151,13 @@ const useAdCall = () => {
     }
   };
   const single = async (params) => {
-  console.log(params,"getsinle IS")
+    // console.log(params,"getsinle IS")
     try {
       const data = await axios.get(`${BASE_URL}ad/${params}`);
-     console.log(data?.data.son, "tek olan ad");
-     dispatch(singleSucces(data?.data?.son))
+      //console.log(data?.data.son, "tek olan ad");
+      dispatch(singleSucces(data?.data?.son));
     } catch (error) {
-      toastErrorNotify(
-       error
-      );
+      toastErrorNotify(error);
     }
   };
 

@@ -22,8 +22,8 @@ const NewAdForm = () => {
     plz: "",
     straße: "",
   });
-  console.log(formValues);
-  
+  // console.log(formValues);
+
   const [subCategories, setSubCategories] = useState([]);
 
   useEffect(() => {
@@ -67,16 +67,12 @@ const NewAdForm = () => {
     formData.append("userId", user._id);
 
     try {
-       await axios.post(
-        "https://kellerstore.onrender.com/ad",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Token ${token}`,
-          },
-        }
-      );
+      await axios.post("https://kellerstore.onrender.com/ad", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Token ${token}`,
+        },
+      });
       navigate("/");
     } catch (error) {
       console.error("Error:", error.message);

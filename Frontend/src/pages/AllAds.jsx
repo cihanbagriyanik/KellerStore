@@ -14,8 +14,8 @@ const AllAds = () => {
   const { getAd } = useAdCall();
   const title = `Alle Anzeigen`;
   const { ad, homecateories, searchNav } = useSelector((state) => state.ad);
-  console.log(ad, homecateories, "allCARDDDDDD");
-  console.log(searchNav, "ALLADS SEARCNAV");
+  //console.log(ad, homecateories, "allCARDDDDDD");
+  //console.log(searchNav, "ALLADS SEARCNAV");
 
   useEffect(() => {
     getAd();

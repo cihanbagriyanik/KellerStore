@@ -1,4 +1,3 @@
-
 import SubmitButton from "../buttons/SubmitButton";
 import useAuthCall from "../../hooks/useAuthCall";
 import { useState } from "react";
@@ -21,7 +20,7 @@ const RegisterForm = () => {
     });
   };
 
-  console.log(formValues);
+  // console.log(formValues);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

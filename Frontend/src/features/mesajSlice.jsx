@@ -7,7 +7,7 @@ const mesajSlice = createSlice({
     loading: false,
     error: false,
     messages: [],
-    messagesRead: [],
+  
   },
   reducers: {
     fetchStart: (state) => {
@@ -17,15 +17,11 @@ const mesajSlice = createSlice({
     messageSuccess: (state, { payload }) => {
       state.loading = false;
       state.messages = payload;
-      console.log(state.messages, "MESASLICE");
+      //console.log(state.messages, "MESASLICE");
     },
-    messageRead: (state, { payload }) => {
-      state.loading = false;
-      state.messagesRead = payload;
-      console.log(state.messages, "MESASLICE");
-    },
+ 
   },
 });
 
-export const { fetchStart, messageSuccess,messageRead } = mesajSlice.actions;
+export const { fetchStart, messageSuccess } = mesajSlice.actions;
 export default mesajSlice.reducer;

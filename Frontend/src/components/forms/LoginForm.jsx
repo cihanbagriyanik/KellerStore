@@ -1,4 +1,3 @@
-
 import LoginButton from "../buttons/LoginButton";
 import useAuthCall from "../../hooks/useAuthCall";
 import { useState } from "react";
@@ -19,7 +18,7 @@ const LoginForm = () => {
     });
   };
 
-  console.log(formValues);
+  //console.log(formValues);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -16,26 +16,24 @@ const Detail = () => {
   const { id } = useParams();
 
   const { single } = useAdCall();
-  const { getCategory, favori ,favoriAdd,favoriAll} = useCategoryCall();
+  const { getCategory, favori, favoriAdd, favoriAll } = useCategoryCall();
   const { singleAd } = useSelector((state) => state.ad);
-  console.log(singleAd,"SINGLEAD")
-  
+  //console.log(singleAd, "SINGLEAD");
 
   const { category, favoriAd } = useSelector((state) => state.category);
-console.log(id,"sinle")
+ // console.log(id, "sinle");
 
   useEffect(() => {
     single(id);
     getCategory();
     favori();
-    favoriAll(id)
+    favoriAll(id);
   }, []);
 
   const fav = (id) => {
-    favoriAdd(id)
-    favoriAll()
-     favori()
-    
+    favoriAdd(id);
+    favoriAll();
+    favori();
   };
   return (
     <div className="flex">
@@ -79,7 +77,7 @@ console.log(id,"sinle")
                 </div>
                 <div className="flex items-center gap-3">
                   <button
-                    onClick={()=>fav(singleAd._id)}
+                    onClick={() => fav(singleAd._id)}
                     className="border-2 border-like-yellow p-2 rounded-full bg-like-yellow text-white"
                   >
                     <MdFavorite size={25} />
@@ -89,7 +87,6 @@ console.log(id,"sinle")
                       if (item.adId == singleAd._id) {
                         return <p key={index}>{item?.favorites?.length}</p>;
                       }
-                     
                     })}
                   </p>
                 </div>

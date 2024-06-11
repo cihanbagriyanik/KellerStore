@@ -6,6 +6,7 @@ import useAdCall from "../hooks/useAdCall";
 import { useSelector } from "react-redux";
 import useCategoryCall from "../hooks/useCategoryCall";
 import useAutthCall from "../hooks/useAuthCall";
+import useMesaj from "../hooks/useMesaj";
 
 const Home = () => {
   const title = `Von hier aus konnen Sie alles #Kaufen, #mieten, #buchen.`;
@@ -14,11 +15,13 @@ const Home = () => {
   const { getAd, neue, belibt, most } = useAdCall();
   const { getCategory, favori, favoriAll } = useCategoryCall();
   const { access } = useSelector((state) => state.auth);
-  const { folgenAll, folgenGetSin,followerget } = useAutthCall();
-  
-  useEffect(()=>{
-folgenAll(), folgenGetSin();followerget()
-  },[access])
+  const { folgenAll, folgenGetSin, followerget } = useAutthCall();
+  const { mesajGet } = useMesaj();
+
+  useEffect(() => {
+    folgenAll(), folgenGetSin();
+    followerget();  mesajGet();
+  }, [access]);
 
   const { neuesAd, belibtAd, mostAd } = useSelector((state) => state.ad);
   // console.log(ad, "adddddddddddddddddddddddddd");

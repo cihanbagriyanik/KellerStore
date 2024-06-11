@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 const AvatarMenu = () => {
   const { logout } = useAuthCall();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [state, setState] = useState(false);
   const profileRef = useRef();
@@ -26,7 +26,7 @@ const AvatarMenu = () => {
 
   const handleClick = (title) => {
     if (title == "Logout") {
-     dispatch(logout())   
+      dispatch(logout());
     }
     setState(false);
   };
@@ -75,4 +75,3 @@ const AvatarMenu = () => {
 };
 
 export default AvatarMenu;
-

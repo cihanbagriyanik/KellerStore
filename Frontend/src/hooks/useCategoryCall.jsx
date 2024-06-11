@@ -17,11 +17,11 @@ const useCategoryCall = () => {
   const getCategory = async () => {
     try {
       const { data } = await axios.get(`${BASE_URL}category`);
-      console.log(data.data);
+      //console.log(data.data);
       const neues = data?.data;
 
       dispatch(adCategory(neues));
-      toastSuccessNotify("Advertisements fetched successfully");
+     
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(error.response.data.message);
@@ -30,11 +30,11 @@ const useCategoryCall = () => {
   const favori = async()=>{
     try {
       const { data } = await axios.get(`${BASE_URL}favorite`);
-      console.log(data?.data);
+      //console.log(data?.data);
       const neues = data?.data;
 
       dispatch(favoriSucces(neues));
-      toastSuccessNotify("Advertisements fetched successfully");
+   
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(error.response.data.message);
@@ -49,7 +49,7 @@ const useCategoryCall = () => {
       })
      toastSuccessNotify("update LIKE")
      } catch (error) {
-      console.log(error)
+      //console.log(error)
       toastErrorNotify(error.response.data.message);
      }
   };
@@ -61,7 +61,7 @@ const useCategoryCall = () => {
           Authorization: `Bearer ${access}`,
         },
       })
-      console.log(data,"FAVORI USER")
+      //console.log(data,"FAVORI USER")
       dispatch(singleUser(data.data));
      } catch (error) {
       console.log(error)

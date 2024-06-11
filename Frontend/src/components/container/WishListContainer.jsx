@@ -7,7 +7,7 @@ import { MdFavorite } from "react-icons/md";
 
 const WishListContainer = () => {
   const { favorUser } = useSelector((state) => state.category);
-  console.log(favorUser.data, "favor user");
+  //console.log(favorUser.data, "favor user");
   return (
     <div className="border w-1/1 m-10 bg-light-grey pb-7 rounded-lg">
       <div className="flex justify-between items-center pt-3 pb-3">

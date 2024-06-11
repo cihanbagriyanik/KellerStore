@@ -48,11 +48,16 @@ const useAuthCall = () => {
       dispatch(loginSuccess(data));
       toastSuccessNotify("Login performed");
 
-      //  console.log(data);
-      folgenAll();
-      folgenGetSin();
-      console.log(followAll, "takip login");
-      navigate("/");
+        console.log(data.user.isAdmin);
+        if (data.user.isAdmin == true) {
+          navigate("/admin");
+        } else {
+          navigate("/profile");
+        }
+     // folgenAll();
+     // folgenGetSin();
+     // console.log(followAll, "takip login");
+    
     } catch (error) {
       dispatch(fetchFail());
       // console.log(error);
@@ -137,7 +142,7 @@ const useAuthCall = () => {
         });
         // console.log(followResponse);
         dispatch(followAllSucces(followResponse?.data?.data));
-        toastSuccessNotify("Follow okey");
+       
       }
     } catch (error) {
       toastErrorNotify(error);
@@ -146,7 +151,7 @@ const useAuthCall = () => {
   const folgenSingle = async (id) => {
     try {
       if (user?._id) {
-        const data = await axios.post(
+         await axios.post(
           `${BASE_URL}follow/`,
           { followUserId: id },
           {
@@ -155,7 +160,7 @@ const useAuthCall = () => {
             },
           }
         );
-        console.log(data.data);
+        //console.log(data.data);
         toastSuccessNotify("Follow okey");
       }
     } catch (error) {
@@ -171,7 +176,7 @@ const useAuthCall = () => {
           },
         });
         console.log(followSing, "tek olan follow");
-        toastSuccessNotify("Follow okey");
+     
         dispatch(followSingleSucces(followSing?.data.allFollows));
       }
     } catch (error) {
@@ -187,7 +192,7 @@ const useAuthCall = () => {
           },
         });
         console.log(follower, "follower");
-        toastSuccessNotify("Follower");
+       
         dispatch(followerSucces(follower?.data.data));
       }
     } catch (error) {

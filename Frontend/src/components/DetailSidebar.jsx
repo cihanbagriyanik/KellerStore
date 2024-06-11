@@ -24,7 +24,7 @@ const DetailSidebar = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { singleAd } = useSelector((state) => state.ad);
-  console.log(singleAd, "tek ");
+  //console.log(singleAd, "tek ");
   const { followers, user } = useSelector((state) => state.auth);
   //console.log(followers, user, "deateilssidebsarBAR");
   const { folgenSingle } = useAuthCall();
@@ -35,12 +35,12 @@ const DetailSidebar = () => {
     if (path == "#") {
       setIsModalOpen(!isModalOpen);
     } else if (path == "folgen") {
-      console.log("folgendesin adamim");
+     // console.log("folgendesin adamim");
       folgenSingle(singleAd?.userId?._id);
     } else if (path === "/wishlist") {
       navigate(path);
     } else {
-      console.log(path, "sidebar drail");
+      //console.log(path, "sidebar drail");
       setIsModalOpen(!isModalOpen);
     }
   };

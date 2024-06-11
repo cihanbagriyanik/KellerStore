@@ -1,14 +1,9 @@
 
-
-import ProfileSidebar from "../components/ProfileSidebar";
-
 import Banner from "../components/Banner";
-import FollowerContanier from "../components/container/FollowerContanier";
+import AdminSiedar from "../components/AdminSiedar";
 
-
-const Follower = () => {
-  const title = `FOLGEN`;
- 
+const Admin = () => {
+  const title = `Admin`;
 
   return (
     <>
@@ -17,15 +12,15 @@ const Follower = () => {
       </div>
       <div className="flex">
         <div>
-          <ProfileSidebar />
+          <AdminSiedar />
         </div>
 
         <div className="flex-grow">
-          <FollowerContanier />
+        
         </div>
       </div>
     </>
   );
 };
 
-export default Follower;
+export default Admin;

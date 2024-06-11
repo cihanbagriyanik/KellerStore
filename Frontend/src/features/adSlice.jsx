@@ -12,9 +12,9 @@ const adSlice = createSlice({
     neuesAd: [],
     belibtAd: [],
     mostAd: [],
-    homecateories:[],
-    singleAd:[],
-    searchNav:""
+    homecateories: [],
+    singleAd: [],
+    searchNav: "",
   },
   reducers: {
     fetchStart: (state) => {
@@ -41,7 +41,7 @@ const adSlice = createSlice({
       state.loading = false;
       state.message = payload;
     },
-    singleSucces:(state, { payload })=>{
+    singleSucces: (state, { payload }) => {
       state.loading = false;
       state.singleAd = payload;
     },
@@ -49,16 +49,15 @@ const adSlice = createSlice({
       state.loading = false;
       state.categories = payload;
     },
-    homecateoriesSucces:(state,{payload})=>{
-      
+    homecateoriesSucces: (state, { payload }) => {
       state.loading = false;
       state.homecateories = payload;
       //console.log(state.homecateories,"homecarories conrol SLICE")
     },
-    searchSuccesnav:(state,{payload})=>{
+    searchSuccesnav: (state, { payload }) => {
       state.loading = false;
       state.searchNav = payload;
-      console.log(state.searchNav,"SLICE NAVBAR SEARCH")
+      // console.log(state.searchNav,"SLICE NAVBAR SEARCH")
     },
 
     fetchFail: (state) => {
@@ -78,6 +77,6 @@ export const {
   mostSucces,
   homecateoriesSucces,
   singleSucces,
-  searchSuccesnav
+  searchSuccesnav,
 } = adSlice.actions;
 export default adSlice.reducer;

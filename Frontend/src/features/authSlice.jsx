@@ -67,6 +67,7 @@ const authSlice = createSlice({
       state.token = null;
       state.user = null;
       state.currentUser = null;
+      state.access = null
     },
 
     fetchFail: (state) => {
