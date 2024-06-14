@@ -11,10 +11,11 @@ const authSlice = createSlice({
     user: null,
     currentUser: null,
     access:null,
+    refreshh:null,
     address:[],
     followAll:[],
     followSingle:[],
-    followers:[]
+    followers:[],
   },
 
   reducers: {
@@ -35,6 +36,7 @@ const authSlice = createSlice({
       state.token = payload?.token;
       state.user = payload?.user;
       state.access=payload?.bearer?.access
+      state.refreshh=payload?.bearer?.refresh
       state.currentUser = payload?.user?.email;
     },
     addressSucces:(state,{payload})=>{
@@ -59,7 +61,7 @@ const authSlice = createSlice({
     },
     refresh: (state, { payload }) => {
       state.loading = false;
-      state.token = payload?.bearer?.refresh;
+      state.refreshh = payload?.bearer?.refresh;
     },
 
     logoutSuccess: (state) => {
@@ -67,6 +69,7 @@ const authSlice = createSlice({
       state.token = null;
       state.user = null;
       state.currentUser = null;
+      state.refreshh = null;
       state.access = null
     },
 

@@ -5,16 +5,20 @@ import LoginButton from "./buttons/LoginButton";
 import MessageIcon from "./icons/MessageIcon";
 import FavoriteIcon from "./icons/FavoriteIcon";
 import AvatarMenu from "./AvatarMenu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import useCategoryCall from "../hooks/useCategoryCall";
 import { useEffect } from "react";
 import Searchnav from "../pages/Searchnav";
+import useAuthCall from "../hooks/useAuthCall";
 
 const Navbar = () => {
-  const { access, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { access, user, refreshh } = useSelector((state) => state.auth);
   const { favorUser } = useSelector((state) => state.category);
+  const { refresh, logout } = useAuthCall();
   //console.log(user);
+  console.log(access);
 
   const { favoriAll, favori } = useCategoryCall();
 
@@ -33,6 +37,47 @@ const Navbar = () => {
   }, []);
 
   //console.log(token, "NAVBAR USR");
+  /**************************************************** */
+  /********************** REFRESH **********************/
+  /**************************************************** */
+  useEffect(() => {
+    const refreshInterval = setInterval(async () => {
+      if (access) {
+        const tokenExpirationTime = new Date(access.expiresAt).getTime();
+        const currentTime = new Date().getTime();
+        const timeUntilExpiration = tokenExpirationTime - currentTime;
+        if (timeUntilExpiration <= 60000) {
+          // 1 dakika kala token yenileme
+          try {
+            await refresh(refreshh);
+          } catch (error) {
+            logout();
+          }
+        }
+      }
+    }, 60000); // Her 10 dakikada bir kontrol et yoka cikar
+
+    return () => clearInterval(refreshInterval);
+  }, [access, refreshh, refresh, logout, dispatch]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (access) {
+        const tokenExpirationTime = new Date(access.expiresAt).getTime();
+        const currentTime = new Date().getTime();
+        const timeUntilExpiration = tokenExpirationTime - currentTime;
+        if (timeUntilExpiration <= 0) {
+          dispatch(logout());
+        }
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [access, logout, dispatch]);
+
+  /********************************************************************************* */
 
   return (
     <nav className="bg-white border-b z-50">

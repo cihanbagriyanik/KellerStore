@@ -1,6 +1,7 @@
 
 import Banner from "../components/Banner";
 import AdminSiedar from "../components/AdminSiedar";
+import SettingsContainer from "../components/container/SettingsContainer";
 
 const Admin = () => {
   const title = `Admin`;
@@ -16,6 +17,8 @@ const Admin = () => {
         </div>
 
         <div className="flex-grow">
+        <SettingsContainer />
+
         
         </div>
       </div>

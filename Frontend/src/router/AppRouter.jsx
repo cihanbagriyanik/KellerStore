@@ -21,6 +21,10 @@ import Detail from "../pages/Detail";
 import Follower from "../pages/Follower";
 import DetailMessaj from "../pages/DetailMessaj";
 import Admin from "../pages/Admin";
+import Adminad from "../pages/Adminad";
+import Adminuser from "../pages/Adminuser";
+import Adminverbot from "../pages/Adminverbot";
+import PrivatAdmin from "./PrivatAdmin";
 
 const AppRouter = () => {
   return (
@@ -45,9 +49,15 @@ const AppRouter = () => {
               <Route path="follower" element={<Follower />} />
               <Route path="about" element={<About />} />
               <Route path="detail/:id" element={<Detail />} />
-              <Route path="detailmessage" element={<DetailMessaj/>}/>
-              <Route path="*" element={<NotFound/>} />
-               <Route path="admin" element={<Admin/>} /> 
+              <Route path="detailmessage" element={<DetailMessaj />} />
+              <Route path="*" element={<NotFound />} />
+               <Route path="" element={<PrivatAdmin/>}>
+                   <Route path="admin" element={<Admin />} />
+                   <Route path="adminad" element={<Adminad />} />
+                   <Route path="adminuser" element={<Adminuser />} />
+                   <Route path="adminverbot" element={<Adminverbot />} />
+                  </Route>
+
             </Route>
           </Routes>
         </div>

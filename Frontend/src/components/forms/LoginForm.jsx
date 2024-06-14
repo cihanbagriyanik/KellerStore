@@ -1,9 +1,13 @@
 import LoginButton from "../buttons/LoginButton";
 import useAuthCall from "../../hooks/useAuthCall";
 import { useState } from "react";
+import ResetModal from "../cards/ResetModal";
+
 
 const LoginForm = () => {
   const { login } = useAuthCall();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen((cur) => !cur);
 
   const [error, setError] = useState(null);
   const [formValues, setFormValues] = useState({
@@ -75,15 +79,22 @@ const LoginForm = () => {
                 />
               </div>
             </div>
+            <button onClick={handleOpen}>
+            <p className="m-1">Passwort vergessen?</p></button>
             {error && (
               <div className="text-red-500 text-center mt-3">{error}</div>
             )}
-            <div className="m-5">
+            <div className="m-5 mx-40">
               <LoginButton />
             </div>
           </div>
         </form>
       </div>
+      <ResetModal
+        open={open}
+        handleOpen={handleOpen}
+      
+      />
     </div>
   );
 };

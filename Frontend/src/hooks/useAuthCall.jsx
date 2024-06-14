@@ -22,7 +22,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, access, followAll } = useSelector((store) => store.auth);
+  const { user, access, refreshh } = useSelector((store) => store.auth);
   //********************                   *********************** */
   //********************    AUTHOCEIZIN               ************ */
   //********************                   *********************** */
@@ -44,24 +44,36 @@ const useAuthCall = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(`${BASE_URL}auth/login/`, userInfo);
-      console.log(data.error == "true", "kontrol et");
+
+      //console.log(data);
       dispatch(loginSuccess(data));
       toastSuccessNotify("Login performed");
-
-        console.log(data.user.isAdmin);
-        if (data.user.isAdmin == true) {
-          navigate("/admin");
-        } else {
-          navigate("/profile");
-        }
-     // folgenAll();
-     // folgenGetSin();
-     // console.log(followAll, "takip login");
-    
+      // console.log(data.user.isAdmin);
+      if (data.user.isAdmin == true) {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+      // folgenAll();
+      // folgenGetSin();
+      // console.log(followAll, "takip login");
     } catch (error) {
       dispatch(fetchFail());
       // console.log(error);
       toastErrorNotify("Login can not be performed");
+    }
+  };
+  const refresh = async () => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axios.post(`${BASE_URL}refresh`, refreshh);
+      console.log(data.error == "true", "kontrol et");
+      dispatch(loginSuccess(data));
+      toastSuccessNotify("refresh");
+    } catch (error) {
+      dispatch(fetchFail());
+      // console.log(error);
+      toastErrorNotify("Refrsh");
     }
   };
   const logout = async () => {
@@ -142,7 +154,6 @@ const useAuthCall = () => {
         });
         // console.log(followResponse);
         dispatch(followAllSucces(followResponse?.data?.data));
-       
       }
     } catch (error) {
       toastErrorNotify(error);
@@ -151,7 +162,7 @@ const useAuthCall = () => {
   const folgenSingle = async (id) => {
     try {
       if (user?._id) {
-         await axios.post(
+        await axios.post(
           `${BASE_URL}follow/`,
           { followUserId: id },
           {
@@ -176,7 +187,7 @@ const useAuthCall = () => {
           },
         });
         console.log(followSing, "tek olan follow");
-     
+
         dispatch(followSingleSucces(followSing?.data.allFollows));
       }
     } catch (error) {
@@ -186,21 +197,21 @@ const useAuthCall = () => {
   const followerget = async () => {
     try {
       if (user?._id) {
-        const follower = await axios.get(`https://kellerstore.onrender.com/follow/follower`, {
-          headers: {
-            Authorization: `Bearer ${access}`,
-          },
-        });
+        const follower = await axios.get(
+          `https://kellerstore.onrender.com/follow/follower`,
+          {
+            headers: {
+              Authorization: `Bearer ${access}`,
+            },
+          }
+        );
         console.log(follower, "follower");
-       
+
         dispatch(followerSucces(follower?.data.data));
       }
     } catch (error) {
       toastErrorNotify(error);
     }
-
-
-
   };
   return {
     register,
@@ -212,6 +223,7 @@ const useAuthCall = () => {
     folgenAll,
     folgenGetSin,
     followerget,
+    refresh,
   };
 };
 
