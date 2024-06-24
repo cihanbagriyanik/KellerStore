@@ -6,10 +6,6 @@ const PrivatAdmin = () => {
   const { user } = useSelector((state) => state.auth);
  // console.log(currentUser,"eeeeeeeeeeeeeeeee")
 
-
-
-
- 
   return user.isAdmin ? <Outlet /> : <Navigate to="/" />;
 };
 
