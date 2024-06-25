@@ -36,7 +36,6 @@ const AppRouter = () => {
             <Route path="/" element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
-
             <Route path="" element={<PrivateRouter />}>
               <Route path="allad" element={<AllAds />} />
               <Route path="newad" element={<NewAd />} />
