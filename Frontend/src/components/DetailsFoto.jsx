@@ -7,7 +7,7 @@ const DetailsFoto = () => {
 
   const images = [
     {
-      original: "https://picsum.photos/id/1018/1000/600/",
+      original: `https://kellerstore.onrender.com/images/${singleAd?.images}`,
       thumbnail: "https://picsum.photos/id/1018/250/150/",
       sizes:15,
       description: "15",

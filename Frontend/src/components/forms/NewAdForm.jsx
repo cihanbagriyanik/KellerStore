@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const NewAdForm = () => {
-  const [error, setError] = useState(null);
+
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -62,17 +62,22 @@ const NewAdForm = () => {
     formData.append("plz", formValues.plz);
     formData.append("straße", formValues.straße);
     images.forEach((image) => {
-      formData.append("images", image);
+      formData.append("images[]", image);
     });
     formData.append("userId", user._id);
-
+    console.log(formData, "formData");
     try {
-      await axios.post("https://kellerstore.onrender.com/ad", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Token ${token}`,
-        },
-      });
+      const data = await axios.post(
+        "https://kellerstore.onrender.com/ad",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      console.log(data, "eklemede");
       navigate("/");
     } catch (error) {
       console.error("Error:", error.message);
