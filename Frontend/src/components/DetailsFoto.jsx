@@ -5,38 +5,45 @@ const DetailsFoto = () => {
   const { singleAd } = useSelector((state) => state.ad);
  console.log(singleAd, "SINGLEAD");
 
-  const images = [
-    {
-      original: `https://kellerstore.onrender.com/images/${singleAd?.images}`,
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
-      sizes:15,
-      description: "15",
+ const denem = singleAd?.images?.map((item) => ({
+  original: `https://kellerstore.onrender.com/images/${item}`,
+  thumbnail: `https://kellerstore.onrender.com/images/${item}`, // Eğer küçük resimler farklıysa,
+})) || [];
+//console.log(denem)
 
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-  ];
+
+  // const images = [
+  //   {
+  //     original: `https://kellerstore.onrender.com/images/${singleAd?.images}`,
+  //     thumbnail: "https://picsum.photos/id/1018/250/150/",
+  //     sizes:15,
+  //     description: "15",
+
+  //   },
+  //   {
+  //     original: "https://picsum.photos/id/1015/1000/600/",
+  //     thumbnail: "https://picsum.photos/id/1015/250/150/",
+  //   },
+  //   {
+  //     original: "https://picsum.photos/id/1019/1000/600/",
+  //     thumbnail: "https://picsum.photos/id/1019/250/150/",
+  //   },
+  //   {
+  //     original: "https://picsum.photos/id/1019/1000/600/",
+  //     thumbnail: "https://picsum.photos/id/1019/250/150/",
+  //   },
+  //   {
+  //     original: "https://picsum.photos/id/1019/1000/600/",
+  //     thumbnail: "https://picsum.photos/id/1019/250/150/",
+  //   },
+  // ];
 
 
 
   return (
     <div>
 
-<ImageGallery items={images}   showNav={false}   showPlayButton={false}/>
+<ImageGallery items={denem}   showNav={false}   showPlayButton={false}/>
       {/* <div className="flex justify-center ">
         <img
           src={`https://kellerstore.onrender.com/images/${singleAd?.images}`}

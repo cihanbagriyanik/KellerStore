@@ -67,7 +67,7 @@ app.all("/", (req, res) => {
   });
 });
 
-app.use("/images",express.static("./uploads"))
+
 
 
 // Bu kod, http://example.com/images URL'sine yapılan istekleri, sunucunun ./uploads dizinindeki dosyalara yönlendirir. Yani, istemci tarafından /images yoluna yapılan bir HTTP GET isteği, sunucu tarafından ./uploads dizinindeki dosyalara çözümlenir.
@@ -83,7 +83,7 @@ app.use(require("./src/routers"));
 /* -------------------------------------------------------------------------- */
 
 
-
+app.use("/images",express.static("./uploads"))
 //? errorHandler:
 app.use(require("./src/middlewares/errorHandler"));
 

@@ -62,7 +62,7 @@ const NewAdForm = () => {
     formData.append("plz", formValues.plz);
     formData.append("straße", formValues.straße);
     images.forEach((image) => {
-      formData.append("images[]", image);
+      formData.append("images", image);
     });
     formData.append("userId", user._id);
     console.log(formData, "formData");

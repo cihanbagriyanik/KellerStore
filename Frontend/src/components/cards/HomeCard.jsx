@@ -7,6 +7,7 @@ import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 
 const Items = ({ currentItems }) => {
+  console.log(currentItems,"curentItems")
   return (
     <div className="items grid gap-7 sm:grid-cols-2 lg:grid-cols-4 xxl:grid-cols-6">
       {currentItems &&
@@ -16,7 +17,7 @@ const Items = ({ currentItems }) => {
               <Link to={`/detail/${items._id}`}>
                 <div>
                   <img
-                    src={items?.images[0]}
+                     src={`https://kellerstore.onrender.com/images/${items?.images[0]}`}
                     loading="lazy"
                     className="w-full h-48 rounded-t-md"
                     alt="Ad Image"
@@ -51,7 +52,7 @@ const Items = ({ currentItems }) => {
                   </div>
                   <div className="px-5 pb-3 flex justify-between">
                     <div>
-                      <h1 className="text-2xl font-semibold">{items.price}</h1>
+                      <h1 className="text-2xl font-semibold">{items.price}€</h1>
                     </div>
                     <div className="flex">
                       {items.countOfVisitors ? (
