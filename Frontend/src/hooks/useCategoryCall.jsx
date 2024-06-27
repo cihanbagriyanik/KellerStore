@@ -24,7 +24,7 @@ const useCategoryCall = () => {
      
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify(error.response.data.message);
+      toastErrorNotify(error.response.data?.message);
     }
   };
   const favori = async()=>{
@@ -37,7 +37,7 @@ const useCategoryCall = () => {
    
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify(error.response.data.message);
+      toastErrorNotify(error.response.data?.message);
     }
   }
   const favoriAdd= async(id)=>{
