@@ -1,5 +1,6 @@
-// Search Box component
-const SearchBox = ({ ...props }) => (
+import React, { useState } from "react";
+
+const SearchBox = ({ value, onChange, ...props }) => (
   <div className="relative w-full bg-white rounded-lg">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,11 +14,36 @@ const SearchBox = ({ ...props }) => (
         clipRule="evenodd"
       />
     </svg>
-
     <input
       {...props}
-      type="email"
-      className="w-full pl-12 pr-3 py-2  text-sm text-gray-500 bg-transparent outline-none border ring-blue-600 focus:ring-2 shadow-sm rounded-lg duration-200"
+      value={value}
+      onChange={onChange}
+      type="text"
+      className="w-full pl-12 pr-3 py-2 text-sm text-gray-500 bg-transparent outline-none border ring-blue-600 focus:ring-2 shadow-sm rounded-lg duration-200"
+    />
+  </div>
+);
+
+const PostZip = ({ value, onChange, ...props }) => (
+  <div className="relative w-full bg-white rounded-lg">
+    <input
+      {...props}
+      value={value}
+      onChange={onChange}
+      type="text"
+      className="w-full pl-5 pr-3 py-2 text-sm text-gray-500 bg-transparent outline-none border ring-blue-600 focus:ring-2 shadow-sm rounded-lg duration-200"
+    />
+  </div>
+);
+
+const PreisFiltern = ({ value, onChange, ...props }) => (
+  <div className="relative w-full bg-white rounded-lg">
+    <input
+      {...props}
+      value={value}
+      onChange={onChange}
+      type="text"
+      className="w-full pl-3 pr-3 py-2 text-sm text-gray-500 bg-transparent outline-none border ring-blue-600 focus:ring-2 shadow-sm rounded-lg duration-200"
     />
   </div>
 );
@@ -31,137 +57,157 @@ const categoryInputFilter = [
   "Haus & Garten",
 ];
 
-// PostZip Box component
-const PostZip = ({ ...props }) => (
-  <div className="relative w-full bg-white rounded-lg">
-    <input
-      {...props}
-      type="postzip"
-      className="w-full pl-5 pr-3 py-2  text-sm text-gray-500 bg-transparent outline-none border ring-blue-600 focus:ring-2 shadow-sm rounded-lg duration-200"
-    />
-  </div>
-);
-
-// PreisFiltern Box component
-const PreisFiltern = ({ ...props }) => (
-  <div className="relative w-full bg-white rounded-lg">
-    <input
-      {...props}
-      type="email"
-      className="w-full pl-3 pr-3 py-2  text-sm text-gray-500 bg-transparent outline-none border ring-blue-600 focus:ring-2 shadow-sm rounded-lg duration-200"
-    />
-  </div>
-);
-
 const favCategory = ["Laptop", "Kamera", "Fernsehen", "Rad", "Auto", "Wohnung"];
 
 const SideBar = () => {
+  const [searchValue, setSearchValue] = useState("");
+  const [postZip, setPostZip] = useState("");
+  const [priceFrom, setPriceFrom] = useState("");
+  const [priceTo, setPriceTo] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedFavCategories, setSelectedFavCategories] = useState([]);
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+
+  const handleFavCategoryChange = (category) => {
+    setSelectedFavCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+
+  const handleSubmit = () => {
+    console.log("Search Value:", searchValue);
+    console.log("Post Zip:", postZip);
+    console.log("Price From:", priceFrom);
+    console.log("Price To:", priceTo);
+    console.log("Selected Categories:", selectedCategories);
+    console.log("Selected Favorite Categories:", selectedFavCategories);
+  };
+
   return (
     <>
       <nav className="bg-background-filter-light-blue space-y-3 sm:w-80 ps-6 py-5 ms-3 my-3 me-2 rounded-lg">
-        <div className=" space-y-5 w-4/5 bg-background-filter-light-blue">
-          <div className="h-14 bg-background-filter-light-blue text-white flex items-center border-b ">
+        <div className="space-y-5 w-4/5 bg-background-filter-light-blue">
+          <div className="h-14 bg-background-filter-light-blue text-white flex items-center border-b">
             <p>Filtern</p>
           </div>
-          <div className=" ">
-            <SearchBox placeholder="Suchen..." />
+          <div>
+            <SearchBox
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="Suchen..."
+            />
           </div>
         </div>
 
-        <>
-          <div className=" ">
-            <fieldset>
-              {categoryInputFilter.map((category, index) => (
-                <div className="mt-2 space-y-6 " key={index}>
-                  <div className="relative flex gap-x-3">
-                    <div className="flex h-6 items-center">
-                      <input
-                        id="comments"
-                        name="comments"
-                        type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                      />
-                    </div>
-                    <div className="text-sm leading-6 text-white">
-                      <label key={index} htmlFor={category}>
-                        {category}
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </fieldset>
-          </div>
-        </>
-
-        <>
-          <div>
-            <div className="w-4/5 bg-background-filter-light-blue">
-              <div className=" mt-5">
-                <PostZip placeholder="Postleitzahl" />
-              </div>
-              <div className="relative mt-3">
-                <select
-                  className="w-full pl-5 pr-3 py-2 text-sm bg-white text-button-blue shadow-sm rounded-lg duration-200"
-                  id="grid-state"
-                >
-                  <option>+10 Km</option>
-                  <option>+20 Km</option>
-                  <option>+30 Km</option>
-                  <option>+40 Km</option>
-                  <option>50+ Km</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </>
-
-        <>
-          <div className="  w-4/5 bg-background-filter-light-blue">
-            <div className="h-14 mt-5 bg-background-filter-light-blue text-white flex items-center ">
-              <p>Nach Preis filtern</p>
-            </div>
-            <div className="flex w-6/7">
-              <div className="mr-5 ">
-                <PreisFiltern placeholder="Von" />
-              </div>
-              <div className=" ">
-                <PreisFiltern placeholder="Bis" />
-              </div>
-            </div>
-          </div>
-        </>
-
-        <>
-          <div className=" w-4/5 bg-background-filter-light-blue">
-            <div className="h-14 mt-5 bg-background-filter-light-blue text-white flex items-center ">
-              <p>Nach Beliebtheit filtern</p>
-            </div>
-            <fieldset>
-              {favCategory.map((category, index) => (
-                <div className="mt-2 space-y-6 " key={index}>
-                  <div className="relative flex gap-x-3">
-                    <div className="flex h-6 items-center">
-                      <input
-                        id="comments"
-                        name="comments"
-                        type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                      />
-                    </div>
-                    <div className="text-sm leading-6 text-white">
-                      <label key={index} htmlFor={category}>
-                        {category}
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </fieldset>
-          </div>
-        </>
         <div>
-          <button className="btn mt-5  w-4/5 bg-button-orange border border-0.5 border-button-orange hover:border-button-blue">
+          <fieldset>
+            {categoryInputFilter.map((category, index) => (
+              <div className="mt-2 space-y-6" key={index}>
+                <div className="relative flex gap-x-3">
+                  <div className="flex h-6 items-center">
+                    <input
+                      id={category}
+                      name={category}
+                      type="checkbox"
+                      checked={selectedCategories.includes(category)}
+                      onChange={() => handleCategoryChange(category)}
+                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    />
+                  </div>
+                  <div className="text-sm leading-6 text-white">
+                    <label htmlFor={category}>{category}</label>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </fieldset>
+        </div>
+
+        <div className="w-4/5 bg-background-filter-light-blue">
+          <div className="mt-5">
+            <PostZip
+              value={postZip}
+              onChange={(e) => setPostZip(e.target.value)}
+              placeholder="Postleitzahl"
+            />
+          </div>
+          <div className="relative mt-3">
+            <select
+              className="w-full pl-5 pr-3 py-2 text-sm bg-white text-button-blue shadow-sm rounded-lg duration-200"
+              id="grid-state"
+            >
+              <option>+10 Km</option>
+              <option>+20 Km</option>
+              <option>+30 Km</option>
+              <option>+40 Km</option>
+              <option>50+ Km</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="w-4/5 bg-background-filter-light-blue">
+          <div className="h-14 mt-5 bg-background-filter-light-blue text-white flex items-center">
+            <p>Nach Preis filtern</p>
+          </div>
+          <div className="flex w-6/7">
+            <div className="mr-5">
+              <PreisFiltern
+                value={priceFrom}
+                onChange={(e) => setPriceFrom(e.target.value)}
+                placeholder="Von"
+              />
+            </div>
+            <div>
+              <PreisFiltern
+                value={priceTo}
+                onChange={(e) => setPriceTo(e.target.value)}
+                placeholder="Bis"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-4/5 bg-background-filter-light-blue">
+          <div className="h-14 mt-5 bg-background-filter-light-blue text-white flex items-center">
+            <p>Nach Beliebtheit filtern</p>
+          </div>
+          <fieldset>
+            {favCategory.map((category, index) => (
+              <div className="mt-2 space-y-6" key={index}>
+                <div className="relative flex gap-x-3">
+                  <div className="flex h-6 items-center">
+                    <input
+                      id={category}
+                      name={category}
+                      type="checkbox"
+                      checked={selectedFavCategories.includes(category)}
+                      onChange={() => handleFavCategoryChange(category)}
+                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    />
+                  </div>
+                  <div className="text-sm leading-6 text-white">
+                    <label htmlFor={category}>{category}</label>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </fieldset>
+        </div>
+
+        <div>
+          <button
+            className="btn mt-5 w-4/5 bg-button-orange border border-0.5 border-button-orange hover:border-button-blue"
+            onClick={handleSubmit}
+          >
             Suchen
           </button>
         </div>
