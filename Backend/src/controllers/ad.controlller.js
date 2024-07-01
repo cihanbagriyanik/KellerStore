@@ -16,13 +16,7 @@ module.exports = {
         #swagger.tags = ["Ads"]
         #swagger.summary = "List Ads"
         #swagger.description = `
-            You can send query with endpoint for search[], sort[], page and limit.
-            <ul> Examples:
-                <li>URL/?<b>filter[field1]=value1&filter[field2]=value2</b></li>
-                <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
-                <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
-                <li>URL/?<b>page=2&limit=1</b></li>
-            </ul>
+         Alle Ad
         `
     */
 
@@ -34,6 +28,23 @@ module.exports = {
       details: await res.getModelListDetails(Ad),
       data:redu
     });
+  },
+
+  search: async (req,res)=>{
+ /*
+        #swagger.tags = ["Ads"]
+        #swagger.summary = "Search Ads"
+        #swagger.description = `
+            You can send query with endpoint for search[], sort[], page and limit.
+            <ul> Examples:
+                <li>URL/?<b>filter[field1]=value1&filter[field2]=value2</b></li>
+                <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
+                <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
+                <li>URL/?<b>page=2&limit=1</b></li>
+            </ul>
+        `
+    */
+
   },
 
   //* CRUD Processes:

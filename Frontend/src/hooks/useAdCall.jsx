@@ -75,7 +75,6 @@ const useAdCall = () => {
       dispatch(fetchFail());
     }
   };
-
   const deleteAdData = async (id) => {
     console.log(id, "ad deleten gelen id");
     dispatch(fetchStart());
@@ -95,7 +94,6 @@ const useAdCall = () => {
       );
     }
   };
-
   const postAdData = async (url, body) => {
     dispatch(fetchStart());
     //console.log(body, "postdataaaaaaaaaa");
@@ -161,6 +159,19 @@ const useAdCall = () => {
     }
   };
 
+const search = async({...props})=>{
+  console.log(props,"ppppppppppppppp")
+try {
+  const { data } = await axiosWithToken.get(`${BASE_URL}ad/search`,{...props});
+  console.log(data,"searcden GELEME")
+} catch (error) {
+  dispatch(fetchFail());
+      toastErrorNotify(
+        error?.response?.data?.message || "Search not success"
+      );
+}
+}
+
   return {
     getAd,
     deleteAdData,
@@ -171,6 +182,7 @@ const useAdCall = () => {
     belibt,
     most,
     single,
+    search
   };
 };
 

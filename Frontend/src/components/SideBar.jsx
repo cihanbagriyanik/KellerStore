@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useAdCall from "../hooks/useAdCall";
 
 const SearchBox = ({ value, onChange, ...props }) => (
   <div className="relative w-full bg-white rounded-lg">
@@ -60,6 +61,7 @@ const categoryInputFilter = [
 const favCategory = ["Laptop", "Kamera", "Fernsehen", "Rad", "Auto", "Wohnung"];
 
 const SideBar = () => {
+  const {search} = useAdCall()
   const [searchValue, setSearchValue] = useState("");
   const [postZip, setPostZip] = useState("");
   const [priceFrom, setPriceFrom] = useState("");
@@ -83,13 +85,15 @@ const SideBar = () => {
     );
   };
 
-  const handleSubmit = () => {
-    console.log("Search Value:", searchValue);
-    console.log("Post Zip:", postZip);
-    console.log("Price From:", priceFrom);
-    console.log("Price To:", priceTo);
-    console.log("Selected Categories:", selectedCategories);
-    console.log("Selected Favorite Categories:", selectedFavCategories);
+  const handleSubmit = async() => {
+    // console.log("Search Value:", searchValue);
+    // console.log("Post Zip:", postZip);
+    // console.log("Price From:", priceFrom);
+    // console.log("Price To:", priceTo);
+    // console.log("Selected Categories:", selectedCategories);
+    // console.log("Selected Favorite Categories:", selectedFavCategories);
+    await search({searchValue, postZip, priceFrom, priceTo, selectedCategories, selectedFavCategories})
+
   };
 
   return (
