@@ -159,18 +159,16 @@ const useAdCall = () => {
     }
   };
 
-const search = async({...props})=>{
-  console.log(props,"ppppppppppppppp")
-try {
-  const { data } = await axiosWithToken.get(`${BASE_URL}/ad/search`,{...props});
-  console.log(data,"searcden GELEME")
-} catch (error) {
-  dispatch(fetchFail());
-      toastErrorNotify(
-        error?.response?.data?.message || "Search not success"
-      );
-}
-}
+  const search = async (query) => {
+    console.log(query, "Query Params");
+    try {
+        const { data } = await axiosWithToken.get(`${BASE_URL}ad/search?${query}`);
+        console.log(data, "Search Result");
+    } catch (error) {
+        dispatch(fetchFail());
+        toastErrorNotify(error?.response?.data?.message || "Search not success");
+    }
+};
 
   return {
     getAd,

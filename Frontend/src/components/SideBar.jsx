@@ -92,7 +92,17 @@ const SideBar = () => {
     // console.log("Price To:", priceTo);
     // console.log("Selected Categories:", selectedCategories);
     // console.log("Selected Favorite Categories:", selectedFavCategories);
-    await search({searchValue, postZip, priceFrom, priceTo, selectedCategories, selectedFavCategories})
+    // URLSearchParams, URL'nin query string (sorgu dizesi) kısmını oluşturmak veya işlemek için kullanılan bir Web API'sidir. Bu API, URL'ye eklenmek üzere parametreleri kolayca yapılandırmanıza olanak tanır.
+    const query = new URLSearchParams({
+      searchValue,
+      postZip,
+      priceFrom,
+      priceTo,
+      selectedCategories: selectedCategories.join(','),
+      selectedFavCategories: selectedFavCategories.join(',')
+  }).toString();
+  
+  await search(query);
 
   };
 

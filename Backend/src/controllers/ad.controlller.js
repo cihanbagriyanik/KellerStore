@@ -44,10 +44,7 @@ module.exports = {
             </ul>
         `
     */
-   console.log("geldik mi")
-
-        const { searchValue, postZip, priceFrom, priceTo, selectedCategories, selectedFavCategories} = req.body;
-        console.log(searchValue)
+        console.log(req.query);
 
   },
 
