@@ -21,7 +21,6 @@ router.route("/reserve/:id").put(ad.reserve);
 router
   .route("/:id")
   .get(ad.read)
-
   .put(isLogin, upload.array("images", 5), ad.update)
   .patch(isLogin, upload.array("images", 5), ad.update)
   .delete(ad.delete);

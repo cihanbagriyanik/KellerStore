@@ -162,7 +162,7 @@ const useAdCall = () => {
 const search = async({...props})=>{
   console.log(props,"ppppppppppppppp")
 try {
-  const { data } = await axiosWithToken.get(`${BASE_URL}ad/search`,{...props});
+  const { data } = await axiosWithToken.get(`${BASE_URL}/ad/search`,{...props});
   console.log(data,"searcden GELEME")
 } catch (error) {
   dispatch(fetchFail());
