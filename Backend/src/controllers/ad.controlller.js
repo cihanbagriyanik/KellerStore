@@ -69,17 +69,17 @@ module.exports = {
         $in: selectedCategoriesArray.map((cat) => new RegExp(cat, "i")),
       },
     });
-    console.log(categories, "dikkat et");
+    //console.log(categories, "dikkat et");
     const categoryIds = categories.map((category) => category._id.toString());
-    console.log(categoryIds, "category id dikkat");
+    // console.log(categoryIds, "category id dikkat");
     const data = await res.getModelList(Ad);
-    const filteredData = data.filter((item) => categoryIds.includes(item.categoryId.toString()));
-
-    
+    const sondru = data.filter((item) =>
+      categoryIds.includes(item.categoryId.toString())
+    );
 
     res.status(200).json({
       error: false,
-      data:filteredData,
+      data: req.query.selectedCategories ? sondru : data,
       categories,
     });
   },

@@ -9,7 +9,6 @@ import useAdCall from "../hooks/useAdCall";
 import HomeCard from "../components/cards/HomeCard";
 import AdCard from "../components/cards/AdCard";
 
-
 const AllAds = () => {
   const { getAd } = useAdCall();
   const title = `Alle Anzeigen`;
@@ -34,10 +33,11 @@ const AllAds = () => {
           <SideBar />
         </div>
         <div className="flex-grow">
-          
-          {
-            homecateories?.length > 0 ? <AdCard data={homecateories} /> : <HomeCard data={ad} inp={searchNav}  />
-          }
+          {homecateories?.length > 0 ? (
+            <AdCard data={homecateories} />
+          ) : (
+            <HomeCard data={ad} inp={searchNav} />
+          )}
         </div>
       </div>
     </div>
@@ -45,4 +45,3 @@ const AllAds = () => {
 };
 
 export default AllAds;
-

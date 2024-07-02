@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useAdCall from "../hooks/useAdCall";
 
-const SearchBox = ({ value, onChange, ...props }) => (
+const SearchBox = ({ value, onChange }) => (
   <div className="relative w-full bg-white rounded-lg">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@ const SearchBox = ({ value, onChange, ...props }) => (
       />
     </svg>
     <input
-      {...props}
+    
       value={value}
       onChange={onChange}
       type="text"
@@ -25,10 +25,10 @@ const SearchBox = ({ value, onChange, ...props }) => (
   </div>
 );
 
-const PostZip = ({ value, onChange, ...props }) => (
+const PostZip = ({ value, onChange }) => (
   <div className="relative w-full bg-white rounded-lg">
     <input
-      {...props}
+
       value={value}
       onChange={onChange}
       type="text"
@@ -37,10 +37,10 @@ const PostZip = ({ value, onChange, ...props }) => (
   </div>
 );
 
-const PreisFiltern = ({ value, onChange, ...props }) => (
+const PreisFiltern = ({ value, onChange }) => (
   <div className="relative w-full bg-white rounded-lg">
     <input
-      {...props}
+   
       value={value}
       onChange={onChange}
       type="text"
@@ -61,7 +61,7 @@ const categoryInputFilter = [
 const favCategory = ["Laptop", "Kamera", "Fernsehen", "Rad", "Auto", "Wohnung"];
 
 const SideBar = () => {
-  const {search} = useAdCall()
+  const { search } = useAdCall();
   const [searchValue, setSearchValue] = useState("");
   const [postZip, setPostZip] = useState("");
   const [priceFrom, setPriceFrom] = useState("");
@@ -85,7 +85,7 @@ const SideBar = () => {
     );
   };
 
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     // console.log("Search Value:", searchValue);
     // console.log("Post Zip:", postZip);
     // console.log("Price From:", priceFrom);
@@ -98,12 +98,11 @@ const SideBar = () => {
       postZip,
       priceFrom,
       priceTo,
-      selectedCategories: selectedCategories.join(','),
-      selectedFavCategories: selectedFavCategories.join(',')
-  }).toString();
-  
-  await search(query);
+      selectedCategories: selectedCategories.join(","),
+      selectedFavCategories: selectedFavCategories.join(","),
+    }).toString();
 
+    await search(query);
   };
 
   return (
