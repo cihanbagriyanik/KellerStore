@@ -16,11 +16,21 @@ module.exports = (req, res, next) => {
 
   // URL?search[key1]=value1&search[key2]=value2
   // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
-  const search = req.query?.search || {};
+  const search = req.query?.searchValue
+    ? { title: { $regex: req.query.searchValue, $options: "i" } }
+    : {};
+
   // console.log(search)
   // const example = { title: { $regex: 'test', $options: 'i' } } // const example = { title: /test/ }
-  for (let key in search) search[key] = { $regex: search[key], $options: "i" }; // i: case insensitive
+  // for (let key in search) search[key] = { $regex: search[key], $options: "i" }; // i: case insensitive
   // console.log(search)
+
+  //////***********************  PRICE     *************************** */
+
+  // URL?price[gte]=100&price[lte]=200
+  const priceFrom = req.query?.priceFrom || 0;
+  const priceTo = req.query?.priceTo || Number.MAX_SAFE_INTEGER; //burda tam sayi icin saglikli olan  olmaasa olur
+  const price = { price: { $gte: priceFrom, $lte: priceTo } }; // gte: , lte: mongo db siralmama olarak kullaniriz
 
   // ### SORTING ###
 
@@ -49,7 +59,7 @@ module.exports = (req, res, next) => {
 
   // Run for output:
   res.getModelList = async (Model, customFilter = {}, populate = null) => {
-    return await Model.find({ ...filter, ...search, ...customFilter })
+    return await Model.find({ ...filter, ...search, ...customFilter, ...price })
       .sort(sort)
       .skip(skip)
       .limit(limit)
@@ -58,7 +68,7 @@ module.exports = (req, res, next) => {
 
   // Details:
   res.getModelListDetails = async (Model, customFilter = {}) => {
-    const data = await Model.find({ ...filter, ...search, ...customFilter });
+    const data = await Model.find({ ...filter, ...search, ...customFilter,...price });
 
     let details = {
       filter,

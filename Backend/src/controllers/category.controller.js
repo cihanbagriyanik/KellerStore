@@ -5,8 +5,6 @@
 //? Requaring
 const { Category, Subcategory } = require("../models/category");
 
-
-
 //slugify, bir npm paketi olarak kullanılır ve metinleri URL dostu slug'lara dönüştürmek için kullanılır. "Slug" genellikle web sayfalarının URL'lerinde kullanılan kısa ve okunabilir metin parçasıdır. Sluglar, SEO (Arama Motoru Optimizasyonu) ve kullanıcı dostu URL'ler için önemlidir.
 //Bir slug, genellikle aşağıdaki özelliklere sahiptir:
 //Boşluklar yerine tireler (-) kullanır.
@@ -16,8 +14,6 @@ const { Category, Subcategory } = require("../models/category");
 
 /* -------------------------------------------------------------------------- */
 //? Category Controller:
-
-
 
 module.exports = {
   //! GET
@@ -31,40 +27,41 @@ module.exports = {
         `
     */
 
-          const categories = await Category.find().populate('subcategories');
-          res.status(200).send({
-            error: false,
-            data: categories
-          });
-        
+    const categories = await Category.find().populate("subcategories");
+    res.status(200).send({
+      error: false,
+      data: categories,
+    });
   },
 
   //* CRUD Processes:
   //! POST
   create: async (req, res) => {
-
     const { categoryName, subcategories } = req.body;
     const existingCategory = await Category.findOne({ categoryName });
 
     // Kategori adının boş olup olmadığını kontrol edin
-    if (!categoryName || categoryName.trim() === '') {
+    if (!categoryName || categoryName.trim() === "") {
       return res.status(400).send({
         error: true,
-        message: "Category name is required"
+        message: "Category name is required",
       });
     }
 
-    if (subcategories && subcategories.some(subcategory => !subcategory.name)) {
+    if (
+      subcategories &&
+      subcategories.some((subcategory) => !subcategory.name)
+    ) {
       return res.status(400).send({
         error: true,
-        message: "Each subcategory must have a name"
+        message: "Each subcategory must have a name",
       });
     }
 
     if (existingCategory) {
       return res.status(400).send({
         error: true,
-        message: "Category with this name already exists"
+        message: "Category with this name already exists",
       });
     }
 
@@ -73,7 +70,10 @@ module.exports = {
 
     const subcategoryIds = [];
     for (const subcategory of subcategories) {
-      const newSubcategory = new Subcategory({ name: subcategory.name, parentCategory: newCategory._id });
+      const newSubcategory = new Subcategory({
+        name: subcategory.name,
+        parentCategory: newCategory._id,
+      });
       await newSubcategory.save();
       subcategoryIds.push(newSubcategory._id);
     }
@@ -83,36 +83,36 @@ module.exports = {
 
     res.status(201).send({
       error: false,
-      data: newCategory
+      data: newCategory,
     });
   },
 
   //! /:id -> GET
   read: async (req, res) => {
-    const category = await Category.findById(req.params.id).populate('subcategories');
+    const category = await Category.findById(req.params.id).populate(
+      "subcategories"
+    );
     if (!category) {
       return res.status(404).send({
         error: true,
-        message: "Category not found"
+        message: "Category not found",
       });
     }
     res.status(200).send({
       error: false,
-      data: category
+      data: category,
     });
   },
 
   //! /:id -> PUT / PATCH
   update: async (req, res) => {
-
-
     const { categoryName, subcategories } = req.body;
 
     // Kontrol edelim
     if (!categoryName) {
       return res.status(400).send({
         error: true,
-        message: "Category name is required"
+        message: "Category name is required",
       });
     }
 
@@ -124,7 +124,10 @@ module.exports = {
 
     const subcategoryIds = [];
     for (const subcategory of subcategories) {
-      const newSubcategory = new Subcategory({ name: subcategory.name, parentCategory: updatedCategory._id });
+      const newSubcategory = new Subcategory({
+        name: subcategory.name,
+        parentCategory: updatedCategory._id,
+      });
       await newSubcategory.save();
       subcategoryIds.push(newSubcategory._id);
     }
@@ -134,9 +137,8 @@ module.exports = {
 
     res.status(200).send({
       error: false,
-      data: updatedCategory
+      data: updatedCategory,
     });
-
   },
 
   //! /:id -> DELETE
@@ -145,7 +147,7 @@ module.exports = {
     if (!deletedCategory) {
       return res.status(404).send({
         error: true,
-        message: "Category not found"
+        message: "Category not found",
       });
     }
     res.status(204).send(); // No content to send back
@@ -153,21 +155,20 @@ module.exports = {
 
   enhancedSearch: async (req, res) => {
     const { searchText } = req.query;
-    
+
     const categories = await Category.find({
       $or: [
-        { categoryName: new RegExp(searchText, 'i') },
-        { subcategories: { $elemMatch: { name: new RegExp(searchText, 'i') } } }
-      ]
-    }).populate('subcategories');
+        { categoryName: new RegExp(searchText, "i") },
+        {
+          subcategories: { $elemMatch: { name: new RegExp(searchText, "i") } },
+        },
+      ],
+    }).populate("subcategories");
 
     const subcategories = await Subcategory.find({
-      name: new RegExp(searchText, 'i')
-    }).populate('parentCategory');
+      name: new RegExp(searchText, "i"),
+    }).populate("parentCategory");
 
     res.status(200).send({ categories, subcategories });
-  }
-
-
-  
+  },
 };

@@ -50,12 +50,12 @@ const PreisFiltern = ({ value, onChange, ...props }) => (
 );
 
 const categoryInputFilter = [
-  "Auto & Rad",
-  "Möbel",
-  "Elektornik",
-  "Haustiere",
-  "Mode",
-  "Haus & Garten",
+  "Fahrzeuge",
+  "Dienstleistungen",
+  "Elektronik",
+  "Tiermarkt",
+  "Mode & Accessoires",
+  "Haushalt & Wohnen",
 ];
 
 const favCategory = ["Laptop", "Kamera", "Fernsehen", "Rad", "Auto", "Wohnung"];

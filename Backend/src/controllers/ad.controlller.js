@@ -4,6 +4,8 @@
 ----------------------------------------------------------------------------- */
 //? Requaring
 const Ad = require("../models/ad");
+const { Category, Subcategory } = require("../models/category");
+
 const message = require("../models/message");
 const { populate } = require("../models/user");
 //const sendMail = require("../helpers/sendMail");
@@ -21,17 +23,17 @@ module.exports = {
     */
 
     const data = await Ad.find({});
-    const redu = data.reverse()
+    const redu = data.reverse();
 
     res.status(200).send({
       error: false,
       details: await res.getModelListDetails(Ad),
-      data:redu
+      data: redu,
     });
   },
 
-  search: async (req,res)=>{
- /*
+  search: async (req, res) => {
+    /*
         #swagger.tags = ["Ads"]
         #swagger.summary = "Search Ads"
         #swagger.description = `
@@ -44,8 +46,36 @@ module.exports = {
             </ul>
         `
     */
-        console.log(req.query);
+    /////************************************************************** */
+    /********************************************************************** */
+    /**********  FARKLI BIR SEARCH METODU BURDA body gelenleri filtreme yapilabilir  */
+    // const {keyword,min_price,max_price,page} =req.body
+    // if(page <=0) page =1
+    // let query ={};
+    // keyword ? query.title = new RegExp(keyword,i) :null
+    // min_price ? query.price ={['$gte'] : min_price} : null
+    // max_price ? query.price ={['$gte'] : max_price} :null
+    // min_price && max_price ? query.price ={['$gte'] : min_price ,['$gte'] : max_price} :null
+    /************************************************************************************ */
+    /************************************************************************************* */
+    console.log(req.query);
+    const selectedCategoriesArray = req.query.selectedCategories
+      ? req.query.selectedCategories.split(",")
+      : [];
 
+    const categories = await Category.find({
+      // $in operatörü, MongoDB'de bir alanın belirli bir array'deki herhangi bir değeri içerip içermediğini kontrol etmek için kullanılır.
+      categoryName: {
+        $in: selectedCategoriesArray.map((cat) => new RegExp(cat, "i")),
+      },
+    });
+
+    const data = await res.getModelList(Ad);
+    res.status(200).json({
+      error: false,
+      data,
+      categories,
+    });
   },
 
   //* CRUD Processes:
@@ -79,7 +109,7 @@ module.exports = {
         req.body.images = "resimyok.jpeg";
       }
 
-      const data = await Ad.create({ ...req.body});
+      const data = await Ad.create({ ...req.body });
 
       //sendMail(
       // to:
@@ -113,36 +143,36 @@ module.exports = {
     */
 
     try {
-        const data = await Ad.findOne({ _id: req.params.id });
-        
-        if (!data) {
-            return res.status(404).send({
-                error: true,
-                message: "Ad not found",
-                body: {}
-            });
-        }
+      const data = await Ad.findOne({ _id: req.params.id });
 
-        let veri = data.countOfVisitors + 1; // Ziyaretçi sayısını bir artırıyoruz.
-        //data._doc Mongoose belgesinin ham veri nesnesini temsil eder ve bu nesne ile doğrudan çalışarak güncelleme işlemlerini gerçekleştiririz.
-        const son = await Ad.findByIdAndUpdate(
-            req.params.id,
-            { ...data._doc, countOfVisitors: veri },
-            { new: true }
-        ).populate("userId");
-
-        res.status(200).send({
-            error: false,
-            son
+      if (!data) {
+        return res.status(404).send({
+          error: true,
+          message: "Ad not found",
+          body: {},
         });
+      }
+
+      let veri = data.countOfVisitors + 1; // Ziyaretçi sayısını bir artırıyoruz.
+      //data._doc Mongoose belgesinin ham veri nesnesini temsil eder ve bu nesne ile doğrudan çalışarak güncelleme işlemlerini gerçekleştiririz.
+      const son = await Ad.findByIdAndUpdate(
+        req.params.id,
+        { ...data._doc, countOfVisitors: veri },
+        { new: true }
+      ).populate("userId");
+
+      res.status(200).send({
+        error: false,
+        son,
+      });
     } catch (error) {
-        res.status(500).send({
-            error: true,
-            message: error.message,
-            body: {}
-        });
+      res.status(500).send({
+        error: true,
+        message: error.message,
+        body: {},
+      });
     }
-},
+  },
 
   favorite: async (req, res) => {
     /*
@@ -306,9 +336,7 @@ module.exports = {
       ad.reservedDate = ad.isReserved ? new Date() : null;
       const updatedAd = await ad.save();
 
-      res
-        .status(202)
-        .send({ message: "Reserve okey", data: updatedAd });
+      res.status(202).send({ message: "Reserve okey", data: updatedAd });
     } catch (error) {
       res.status(500).send({ message: error.message });
     }
