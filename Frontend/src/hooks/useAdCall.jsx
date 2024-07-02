@@ -8,6 +8,7 @@ import {
   belibtSucces,
   mostSucces,
   singleSucces,
+  siderSearch,
   //   messageSuccess,
   //   categoriesSuccess,
 } from "../features/adSlice";
@@ -163,7 +164,8 @@ const useAdCall = () => {
     console.log(query, "Query Params");
     try {
         const { data } = await axiosWithToken.get(`${BASE_URL}ad/search?${query}`);
-        console.log(data, "Search Result");
+        console.log(data?.data, "Search Result");
+        dispatch(siderSearch(data?.data))
     } catch (error) {
         dispatch(fetchFail());
         toastErrorNotify(error?.response?.data?.message || "Search not success");

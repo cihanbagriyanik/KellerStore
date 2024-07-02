@@ -1,7 +1,7 @@
 
 import { useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { homecateoriesSucces } from "../../features/adSlice";
+import { homecateoriesSucces,siderSearch } from "../../features/adSlice";
 
 const AdAllButton = ({ target }) => {
   const navigate = useNavigate();
@@ -9,6 +9,7 @@ const AdAllButton = ({ target }) => {
   const dispatch = useDispatch()
   const handleClick = () => {
   dispatch(homecateoriesSucces([]))
+  dispatch(siderSearch([]))
     navigate(target);
   };
 

@@ -14,6 +14,7 @@ const adSlice = createSlice({
     mostAd: [],
     homecateories: [],
     singleAd: [],
+    siderSearch:[],
     searchNav: "",
   },
   reducers: {
@@ -59,6 +60,11 @@ const adSlice = createSlice({
       state.searchNav = payload;
       // console.log(state.searchNav,"SLICE NAVBAR SEARCH")
     },
+    siderSearch: (state, { payload }) => {
+      state.loading = false;
+      state.siderSearch = payload;
+      // console.log(state.searchNav,"SLICE NAVBAR SEARCH")
+    },
 
     fetchFail: (state) => {
       state.loading = false;
@@ -78,5 +84,6 @@ export const {
   homecateoriesSucces,
   singleSucces,
   searchSuccesnav,
+  siderSearch,
 } = adSlice.actions;
 export default adSlice.reducer;

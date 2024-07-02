@@ -8,11 +8,15 @@ import useAdCall from "../hooks/useAdCall";
 
 import HomeCard from "../components/cards/HomeCard";
 import AdCard from "../components/cards/AdCard";
+import SiedSearchCard from "../components/cards/SiedSearchCard";
 
 const AllAds = () => {
   const { getAd } = useAdCall();
   const title = `Alle Anzeigen`;
-  const { ad, homecateories, searchNav } = useSelector((state) => state.ad);
+  const { ad, homecateories, searchNav,siderSearch } = useSelector((state) => state.ad);
+
+
+
   //console.log(ad, homecateories, "allCARDDDDDD");
   //console.log(searchNav, "ALLADS SEARCNAV");
 
@@ -33,11 +37,14 @@ const AllAds = () => {
           <SideBar />
         </div>
         <div className="flex-grow">
-          {homecateories?.length > 0 ? (
+          {siderSearch?.length > 0  ? <SiedSearchCard/> : (
+            homecateories?.length > 0 ? (
             <AdCard data={homecateories} />
           ) : (
             <HomeCard data={ad} inp={searchNav} />
+          )
           )}
+          
         </div>
       </div>
     </div>
