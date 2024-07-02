@@ -46,7 +46,7 @@ module.exports = {
             </ul>
         `
     */
-    /////************************************************************** */
+    /****************************************************************** */
     /********************************************************************** */
     /**********  FARKLI BIR SEARCH METODU BURDA body gelenleri filtreme yapilabilir  */
     // const {keyword,min_price,max_price,page} =req.body
@@ -69,11 +69,17 @@ module.exports = {
         $in: selectedCategoriesArray.map((cat) => new RegExp(cat, "i")),
       },
     });
-
+    console.log(categories, "dikkat et");
+    const categoryIds = categories.map((category) => category._id.toString());
+    console.log(categoryIds, "category id dikkat");
     const data = await res.getModelList(Ad);
+    const filteredData = data.filter((item) => categoryIds.includes(item.categoryId.toString()));
+
+    
+
     res.status(200).json({
       error: false,
-      data,
+      data:filteredData,
       categories,
     });
   },
@@ -108,7 +114,6 @@ module.exports = {
       } else {
         req.body.images = "resimyok.jpeg";
       }
-
       const data = await Ad.create({ ...req.body });
 
       //sendMail(

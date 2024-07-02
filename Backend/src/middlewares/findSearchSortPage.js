@@ -32,6 +32,15 @@ module.exports = (req, res, next) => {
   const priceTo = req.query?.priceTo || Number.MAX_SAFE_INTEGER; //burda tam sayi icin saglikli olan  olmaasa olur
   const price = { price: { $gte: priceFrom, $lte: priceTo } }; // gte: , lte: mongo db siralmama olarak kullaniriz
 
+/**************************               CATEGORY              ****************** */
+
+
+
+
+
+
+
+
   // ### SORTING ###
 
   // URL?sort[key1]=asc&sort[key2]=desc
