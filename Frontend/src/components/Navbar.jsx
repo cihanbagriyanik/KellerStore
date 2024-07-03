@@ -67,7 +67,8 @@ const Navbar = () => {
         const currentTime = new Date().getTime();
         const timeUntilExpiration = tokenExpirationTime - currentTime;
         if (timeUntilExpiration <= 0) {
-          dispatch(logout());
+        logout();
+        
         }
       }
     };

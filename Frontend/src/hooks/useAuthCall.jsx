@@ -79,6 +79,7 @@ const useAuthCall = () => {
   const logout = async () => {
     dispatch(fetchStart());
     dispatch(logoutSuccess());
+    
   };
 
   //********************                   *********************** */

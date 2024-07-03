@@ -51,7 +51,7 @@ const AdCard = ({ data }) => {
                       className="w-full h-48 rounded-t-md"
                     />
                     <div className="border-b-2 border-gray-400 text-center mt-2 pt-3 ml-4 mr-2">
-                      <h2>{items.categoryId}</h2>
+                      <h2>{items.title}</h2>
                     </div>
                     <div className="border-b-2 border-gray-400 pb-3 pt-3 ml-4 mr-2 mb-3 text-gray-900">
                       <div>
@@ -81,7 +81,7 @@ const AdCard = ({ data }) => {
                     <div className="px-5 pb-3 flex justify-between">
                       <div>
                         <h1 className="text-2xl font-semibold">
-                          {items.price}
+                          {items.price}€
                         </h1>
                       </div>
                       <div className="flex">
@@ -107,7 +107,7 @@ const AdCard = ({ data }) => {
                       className="w-full h-48 rounded-t-md"
                     />
                     <div className="border-b-2 border-gray-400 text-center mt-2 pt-3 ml-4 mr-2">
-                      <h2>{items.adId?.categoryId}</h2>
+                      <h2>{items.adId?.title}</h2>
                     </div>
                     <div className="border-b-2 border-gray-400 pb-3 pt-3 ml-4 mr-2 mb-3 text-gray-900">
                       <div>
@@ -140,7 +140,7 @@ const AdCard = ({ data }) => {
                     <div className="px-5 pb-3 flex justify-between">
                       <div>
                         <h1 className="text-2xl font-semibold">
-                          {items.adId?.price}
+                          {items.adId?.price}€
                         </h1>
                       </div>
                       <div className="flex">

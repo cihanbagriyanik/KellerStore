@@ -23,7 +23,7 @@ const Items = ({ currentItems }) => {
                     alt="Ad Image"
                   />
                   <div className="border-b-2 border-gray-400 text-center mt-2 pt-3 ml-4 mr-2">
-                    <h2>{items.categoryId}</h2>
+                    <h2>{items.title}</h2>
                   </div>
                   <div className="border-b-2 border-gray-400 pb-3 pt-3 ml-4 mr-2 mb-3 text-gray-900">
                     <div>
