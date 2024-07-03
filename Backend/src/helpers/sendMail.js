@@ -12,11 +12,11 @@ module.exports = function (to, subject, message) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "dderttasa@gmail.com",
-      pass: "Msolmaz83?",
+    user:"msolmaz83@gmail.com",
+            pass:"xyqc khsk esqg abcm"
     },
   });
-  // console.log(transporter);
+   //console.log(transporter);
 
   transporter.sendMail(
     {

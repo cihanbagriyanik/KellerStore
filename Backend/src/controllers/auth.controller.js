@@ -21,7 +21,6 @@ module.exports = {
         #swagger.parameters["body"] = {
             in: "body",
             required: true,
-
              schema: {
               "firstName": "test10",
               "lastName": "test10",
@@ -56,7 +55,7 @@ module.exports = {
         message: `
           <h1>Welcome to the system</h1>
           <p><b>${req.body.userName}</b>, The registration has been successful. Have a nice shopping!</p>
-        `
+        `,
       });
       // Veriyi MongoDB'ye kaydediyoruz.
       const data = await user.save();
@@ -101,7 +100,7 @@ module.exports = {
 
         if (user) {
           const isPasswordValid = bcrypt.compareSync(password, user.password);
-         // console.log("icerdeyiz");
+          // console.log("icerdeyiz");
 
           //console.log("isactive", user.isActive);
           //console.log(isPasswordValid);
@@ -112,13 +111,13 @@ module.exports = {
             //console.log(tokenData, "tokendata");
             if (!tokenData) {
               const tokenKey = passwordEncrypt(user._id + Date.now());
-             // console.log(tokenKey, "tokenkey");
+              // console.log(tokenKey, "tokenkey");
               tokenData = await Token.create({
                 userId: user._id,
                 token: tokenKey,
               });
             }
-           // console.log(tokenData, "altaki");
+            // console.log(tokenData, "altaki");
             //* TOKEN */
             /* -------------------------------------------------------------------------- */
             //* JWT */
@@ -343,7 +342,7 @@ module.exports = {
               const accessToken = jwt.sign(
                 user.toJSON(),
                 process.env.ACCESS_KEY,
-                {  expiresIn: "9m"  }//dokuy dakia
+                { expiresIn: "9m" } //dokuy dakia
               );
 
               res.status(200).send({
