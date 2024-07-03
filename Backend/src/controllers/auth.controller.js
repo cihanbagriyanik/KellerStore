@@ -346,7 +346,7 @@ module.exports = {
               const accessToken = jwt.sign(
                 user.toJSON(),
                 process.env.ACCESS_KEY,
-                { expiresIn: "30m" }
+                {  expiresIn: "9m"  }//dokuy dakia
               );
 
               res.status(200).send({

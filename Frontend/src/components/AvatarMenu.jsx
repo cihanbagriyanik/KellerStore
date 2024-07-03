@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import useAuthCall from "../hooks/useAuthCall";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const AvatarMenu = () => {
   const { logout } = useAuthCall();
-  
-  const {user} = useSelector(state=>state.auth)
-  console.log(user)
+
+  const { user } = useSelector((state) => state.auth);
+  console.log(user);
 
   const [state, setState] = useState(false);
   const profileRef = useRef();
@@ -15,7 +15,7 @@ const AvatarMenu = () => {
 
   const navigation = [
     { title: "Profile", path: "/profile" },
-    { title: "Admin",path:'/admin' },
+    { title: "Admin", path: "/admin" },
     { title: "Logout" },
   ];
 
@@ -52,31 +52,30 @@ const AvatarMenu = () => {
           state ? "" : "hidden"
         }`}
       >
-       
-{navigation.map((item, idx) => (
-  <li key={idx}>
-    {item.title === "Logout" ? (
-      <button
-        className="block text-gray-600 hover:bg-button-blue hover:text-white px-4 py-2 rounded-md cursor-pointer w-full text-left"
-        onClick={() => handleClick(item.title)}
-      >
-        {item.title}
-      </button>
-    ) : (
-      <>
-        {item.title === "Admin" && !user?.isAdmin ? (
-          null
-        ) : (
-          <Link
-            className="block text-gray-600 hover:bg-button-blue hover:text-white px-4 py-2 rounded-md cursor-pointer"
-            to={item.path}
-            onClick={() => setState(false)}
-          >
-            {user?.isAdmin && item.title === "Admin" ? 'Admin' : item.title}
-          </Link>
-        )}
-      </>
-    )}
+        {navigation.map((item, idx) => (
+          <li key={idx}>
+            {item.title === "Logout" ? (
+              <button
+                className="block text-gray-600 hover:bg-button-blue hover:text-white px-4 py-2 rounded-md cursor-pointer w-full text-left"
+                onClick={() => handleClick(item.title)}
+              >
+                {item.title}
+              </button>
+            ) : (
+              <>
+                {item.title === "Admin" && !user?.isAdmin ? null : (
+                  <Link
+                    className="block text-gray-600 hover:bg-button-blue hover:text-white px-4 py-2 rounded-md cursor-pointer"
+                    to={item.path}
+                    onClick={() => setState(false)}
+                  >
+                    {user?.isAdmin && item.title === "Admin"
+                      ? "Admin"
+                      : item.title}
+                  </Link>
+                )}
+              </>
+            )}
           </li>
         ))}
       </ul>

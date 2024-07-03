@@ -14,7 +14,7 @@ import useAuthCall from "../hooks/useAuthCall";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const { access, user, refreshh } = useSelector((state) => state.auth);
+  const { access, user,  } = useSelector((state) => state.auth);
   const { favorUser } = useSelector((state) => state.category);
   const { refresh, logout } = useAuthCall();
   //console.log(user);
@@ -46,19 +46,18 @@ const Navbar = () => {
         const tokenExpirationTime = new Date(access.expiresAt).getTime();
         const currentTime = new Date().getTime();
         const timeUntilExpiration = tokenExpirationTime - currentTime;
-        if (timeUntilExpiration <= 60000) {
-          // 1 dakika kala token yenileme
+        if (timeUntilExpiration <= 60000) { // 1 dakika kala token yenileme
           try {
-            await refresh(refreshh);
+            await refresh();
           } catch (error) {
             logout();
           }
         }
       }
-    }, 60000); // Her 10 dakikada bir kontrol et yoka cikar
+    }, 480000); // 8 dakikada bir kontrol bak.....
 
     return () => clearInterval(refreshInterval);
-  }, [access, refreshh, refresh, logout, dispatch]);
+  }, [access, refresh, logout, dispatch]);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -67,8 +66,7 @@ const Navbar = () => {
         const currentTime = new Date().getTime();
         const timeUntilExpiration = tokenExpirationTime - currentTime;
         if (timeUntilExpiration <= 0) {
-        logout();
-        
+          logout();
         }
       }
     };
