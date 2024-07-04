@@ -59,6 +59,7 @@ module.exports = {
       });
       // Veriyi MongoDB'ye kaydediyoruz.
       const data = await user.save();
+      
       res.send({
         data,
         success: true,

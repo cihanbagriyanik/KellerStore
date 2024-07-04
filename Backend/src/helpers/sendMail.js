@@ -13,7 +13,7 @@ module.exports = function (to, subject, message) {
     service: "gmail",
     auth: {
       user: "msolmaz83@gmail.com",
-      pass: "huja eijd ugnb kntk",
+      pass: "vywc ucau umsy fjhy",
     },
   });
   //console.log(transporter);
