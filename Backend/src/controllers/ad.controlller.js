@@ -277,19 +277,16 @@ module.exports = {
     const data = await Ad.findByIdAndUpdate({ _id: req.params.id }, req.body, {
       runValidators: true,
     });
-    // if (priceControl.price > price) {
-    //sendMail(
-    // to:
-    //  req.user.email,
-    // subject:
-    //   "Welcome",
-    // Message:
-    // `
-    //       <h1>Welcome to Keller Store</h1>
-    //       <p>Dear <b>${data.priceControl.price}</b>, Mal dustuuuuuuuuuuuu!</p>
-    //    `
-    // );
-    //}
+    if (priceControl.price > price) {
+      sendMail(
+        req.user.email,
+        "Welcome",
+        `
+          <h1>Welcome to Keller Store</h1>
+          <p>Dear <b>${data.priceControl.price}</b>, Mal dustuuuuuuuuuuuu!</p>
+       `
+      );
+    }
 
     res.status(202).send({
       error: false,
