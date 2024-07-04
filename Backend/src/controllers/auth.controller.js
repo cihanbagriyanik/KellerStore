@@ -49,17 +49,17 @@ module.exports = {
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
       });
-      sendMail({
-        to: req.body.email,
-        subject: "Welcome",
-        message: `
+       sendMail(
+         req.body.email,
+         "Welcome",
+         `
           <h1>Welcome to the system</h1>
           <p><b>${req.body.userName}</b>, The registration has been successful. Have a nice shopping!</p>
         `,
-      });
+      );
       // Veriyi MongoDB'ye kaydediyoruz.
       const data = await user.save();
-      
+
       res.send({
         data,
         success: true,
