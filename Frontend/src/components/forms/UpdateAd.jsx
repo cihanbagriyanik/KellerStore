@@ -3,9 +3,14 @@ import NewAdFormButton from "../buttons/NewAdFormButton";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
-const NewAdForm = () => {
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+const UpdateAd = () => {
+    const { id } = useParams();
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
+  //const location = useLocation();
+  console.log(id,"uprafde")
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -14,10 +19,10 @@ const NewAdForm = () => {
 
   const [formValues, setFormValues] = useState({
     offerType: "",
-    title: "",
+    title:"",
     categoryId: "",
     subCategoryId: "",
-    price: "",
+    price:"",
     content: "",
     plz: "",
     straße: "",
@@ -67,8 +72,8 @@ const NewAdForm = () => {
     formData.append("userId", user._id);
     console.log(formData, "formData");
     try {
-      const data = await axios.post(
-        `${BASE_URL}ad`,
+      const data = await axios.put(
+        `${BASE_URL}ad/${id}`,
         formData,
         {
           headers: {
@@ -315,4 +320,4 @@ const NewAdForm = () => {
   );
 };
 
-export default NewAdForm;
+export default UpdateAd;

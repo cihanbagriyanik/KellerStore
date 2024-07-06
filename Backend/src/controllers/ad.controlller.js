@@ -21,7 +21,7 @@ module.exports = {
          Alle Ad
         `
     */
-
+     console.log("gelfdoddddddddddddd")
     const data = await Ad.find({});
     const redu = data.reverse();
 
@@ -105,9 +105,9 @@ module.exports = {
             }
     */
 
-    //console.log(req.files, "ad resim");
-    //console.log(req.user,"userAD")
-
+    console.log(req.files, "ad resim");
+    console.log(req.user,"userAD")
+    console.log(req.body,"create gelene abak")
     try {
       if (req.files) {
         req.body.images = req.files.map((file) => file.originalname);
@@ -116,17 +116,17 @@ module.exports = {
       }
       const data = await Ad.create({ ...req.body });
 
-      //sendMail(
-      // to:
-      //  data.email,
-      // subject:
-      // "Your Ad Has Been Added!",
-      // Message:
-      // `
-      //  <h1>Welcome to Keller Store</h1>
-      //   <p>Dear <b>${data.username}</b>, your ad has been added to Keller Store now!</p>
-      //  `
-      //);
+      sendMail(
+     
+       data.email,
+      
+      "Your Ad Has Been Added!",
+    
+      `
+       <h1>Welcome to Keller Store</h1>
+        <p>Dear <b>${data.username}</b>, your ad has been added to Keller Store now!</p>
+       `
+      );
 
       res.status(201).send({
         error: false,

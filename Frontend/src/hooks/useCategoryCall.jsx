@@ -38,6 +38,8 @@ const useCategoryCall = () => {
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(error.response.data?.message);
+      toastErrorNotify("seni bulabilirm")
+
     }
   }
   const favoriAdd= async(id)=>{
@@ -66,6 +68,7 @@ const useCategoryCall = () => {
      } catch (error) {
       console.log(error)
       toastErrorNotify(error.response.data.message);
+      toastErrorNotify("seni bulacagim")
      }
  
   };

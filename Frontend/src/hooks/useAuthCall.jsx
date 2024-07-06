@@ -49,7 +49,7 @@ const useAuthCall = () => {
       dispatch(loginSuccess(data));
       toastSuccessNotify("Login performed");
       // console.log(data.user.isAdmin);
-      if (data.user.isAdmin == true) {
+      if (data?.user?.isAdmin == true) {
         navigate("/admin");
       } else {
         navigate("/");
@@ -61,6 +61,7 @@ const useAuthCall = () => {
       dispatch(fetchFail());
       // console.log(error);
       toastErrorNotify("Login can not be performed");
+      toastErrorNotify("ilk sira")
     }
   };
   const refresh = async () => {
@@ -74,6 +75,7 @@ const useAuthCall = () => {
       dispatch(fetchFail());
       // console.log(error);
       toastErrorNotify("Refrsh");
+    
     }
   };
   const logout = async () => {
@@ -158,6 +160,7 @@ const useAuthCall = () => {
       }
     } catch (error) {
       toastErrorNotify(error);
+      toastErrorNotify("folgenAll")
     }
   };
   const folgenSingle = async (id) => {
@@ -177,6 +180,7 @@ const useAuthCall = () => {
       }
     } catch (error) {
       toastErrorNotify(error);
+      toastErrorNotify("folgenSingle")
     }
   };
   const folgenGetSin = async () => {
@@ -187,12 +191,13 @@ const useAuthCall = () => {
             Authorization: `Bearer ${access}`,
           },
         });
-        console.log(followSing, "tek olan follow");
+       //console.log(followSing, "tek olan follow");
 
         dispatch(followSingleSucces(followSing?.data.allFollows));
       }
     } catch (error) {
       toastErrorNotify(error);
+      toastErrorNotify("folgenGetSin")
     }
   };
   const followerget = async () => {
@@ -206,12 +211,13 @@ const useAuthCall = () => {
             },
           }
         );
-        console.log(follower, "follower");
+        //console.log(follower, "follower");
 
         dispatch(followerSucces(follower?.data.data));
       }
     } catch (error) {
       toastErrorNotify(error);
+      toastErrorNotify("followerget")
     }
   };
   return {

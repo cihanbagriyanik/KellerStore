@@ -25,6 +25,7 @@ import Adminad from "../pages/Adminad";
 import Adminuser from "../pages/Adminuser";
 import Adminverbot from "../pages/Adminverbot";
 import PrivatAdmin from "./PrivatAdmin";
+import UpdateAd from "../components/forms/UpdateAd";
 
 const AppRouter = () => {
   return (
@@ -48,6 +49,7 @@ const AppRouter = () => {
               <Route path="follower" element={<Follower />} />
               <Route path="about" element={<About />} />
               <Route path="detail/:id" element={<Detail />} />
+              <Route path="update/:id" element={<UpdateAd />} />
               <Route path="detailmessage" element={<DetailMessaj />} />
               <Route path="*" element={<NotFound />} />
                <Route path="" element={<PrivatAdmin/>}>

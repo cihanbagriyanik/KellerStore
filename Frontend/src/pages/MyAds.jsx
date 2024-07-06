@@ -8,14 +8,16 @@ import { FaPhone } from "react-icons/fa";
 import Banner from "../components/Banner";
 import { useSelector } from "react-redux";
 import useAdCall from "../hooks/useAdCall";
-
+import { Link } from 'react-router-dom';
 import buttonImage from "../../src/assets/btn.jpg";
 import deleteImage from "../../src/assets/delete.jpg";
 import reserve from "../../src/assets/reserve.jpg";
 import update from "../../src/assets/update.jpg";
+import { useNavigate } from "react-router-dom";
 
 const MyAds = () => {
   const title = `Meine Anzeigen`;
+  const navi = useNavigate()
 
   const { getAd, deleteAdData, putadReserve } = useAdCall();
   const { ad } = useSelector((state) => state.ad);
@@ -36,6 +38,7 @@ const MyAds = () => {
     await putadReserve(id);
     getAd();
   };
+
 
   useEffect(() => {
     getAd();
@@ -162,11 +165,14 @@ const MyAds = () => {
                             </button>
                           </div>
                           <div className="w-12 h-12 bg-button-blue rounded-full ring-offset-2 ring-gray-200 focus:ring-2 focus:ring-button-blue">
+                          
+                          <Link to={`/update/${item._id}`}>
+                          {/* <Link to={`/update/${item._id}`} state={item}> */}
                             <img
                               src={update}
                               className="w-full h-full rounded-full"
                               alt="Update"
-                            />
+                            />   </Link>
                           </div>
                           <div className="w-12 h-12 bg-button-blue rounded-full ring-offset-2 ring-gray-200 focus:ring-2 focus:ring-button-blue">
                             <button onClick={() => reserved(item._id)}>

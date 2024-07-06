@@ -25,7 +25,8 @@ const responsive = {
 };
 
 const AdCard = ({ data }) => {
-  console.log(data)
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+ // console.log(data)
   return (
     <section className="mx-auto px-4 max-w-screen-xl md:px-8">
       <Carousel
@@ -46,7 +47,7 @@ const AdCard = ({ data }) => {
                   <Link to={`/detail/${items._id}`}>
                     <img
                       //src={items?.images[0]}
-                      src={`https://kellerstore.onrender.com/images/${items?.images[0]}`}
+                      src={`${BASE_URL}${items?.images[0]}`}
                       loading="lazy"
                       className="w-full h-48 rounded-t-md"
                     />
@@ -102,7 +103,7 @@ const AdCard = ({ data }) => {
                 <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
                   <Link to={`/detail/${items._id}`}>
                     <img
-                      src={`https://kellerstore.onrender.com/images/${items?.addId?.images[0]}`}
+                      src={`${BASE_URL}${items?.addId?.images[0]}`}
                       loading="lazy"
                       className="w-full h-48 rounded-t-md"
                     />
