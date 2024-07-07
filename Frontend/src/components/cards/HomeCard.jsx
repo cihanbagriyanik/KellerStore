@@ -18,7 +18,7 @@ const Items = ({ currentItems }) => {
               <Link to={`/detail/${items._id}`}>
                 <div>
                   <img
-                     src={`${BASE_URL}${items?.images[0]}`}
+                     src={`${BASE_URL}images/${items?.images[0]}`}
                     loading="lazy"
                     className="w-full h-48 rounded-t-md"
                     alt="Ad Image"

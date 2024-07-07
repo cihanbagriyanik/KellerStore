@@ -26,7 +26,8 @@ const responsive = {
 
 const AdCard = ({ data }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
- // console.log(data)
+  console.log(BASE_URL);
+ console.log(data)
   return (
     <section className="mx-auto px-4 max-w-screen-xl md:px-8">
       <Carousel
@@ -47,9 +48,10 @@ const AdCard = ({ data }) => {
                   <Link to={`/detail/${items._id}`}>
                     <img
                       //src={items?.images[0]}
-                      src={`${BASE_URL}${items?.images[0]}`}
+                      src={`${BASE_URL}images/${items?.images[0]}`}
                       loading="lazy"
                       className="w-full h-48 rounded-t-md"
+                   
                     />
                     <div className="border-b-2 border-gray-400 text-center mt-2 pt-3 ml-4 mr-2">
                       <h2>{items.title}</h2>
@@ -103,7 +105,7 @@ const AdCard = ({ data }) => {
                 <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
                   <Link to={`/detail/${items._id}`}>
                     <img
-                      src={`${BASE_URL}${items?.addId?.images[0]}`}
+                      src={`${BASE_URL}images/${items?.addId?.images[0]}`}
                       loading="lazy"
                       className="w-full h-48 rounded-t-md"
                     />

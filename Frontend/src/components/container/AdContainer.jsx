@@ -2,6 +2,7 @@ import AdCard from "../cards/AdCard";
 import AdAllButton from "../buttons/AdAllButton";
 
 const AdContainer = ({ title, target, data }) => {
+  console.log(data,"adcontanier")
   return (
     <div className="border w-5/6 m-auto bg-light-grey pb-7 mb-20">
       <div className="flex justify-between items-center pt-3 pb-3">

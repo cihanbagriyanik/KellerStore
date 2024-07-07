@@ -2,12 +2,13 @@ import { useSelector } from "react-redux";
 import ImageGallery from "react-image-gallery";
 import 'react-image-gallery/styles/css/image-gallery.css';
 const DetailsFoto = () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const { singleAd } = useSelector((state) => state.ad);
  console.log(singleAd, "SINGLEAD");
 
  const denem = singleAd?.images?.map((item) => ({
-  original: `https://kellerstore.onrender.com/images/${item}`,
-  thumbnail: `https://kellerstore.onrender.com/images/${item}`, // Eğer küçük resimler farklıysa,
+  original: `${BASE_URL}images/${item}`,
+  thumbnail: `${BASE_URL}images/${item}`, // Eğer küçük resimler farklıysa,
 })) || [];
 //console.log(denem)
 
