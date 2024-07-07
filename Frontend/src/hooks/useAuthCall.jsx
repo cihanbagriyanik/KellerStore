@@ -67,7 +67,7 @@ const useAuthCall = () => {
   const refresh = async () => {
     dispatch(fetchStart());
     try {
-      const { data } = await axios.post(`${BASE_URL}refresh`, refreshh);
+      const { data } = await axios.post(`${BASE_URL}auth/refresh`, refreshh);
       console.log(data.error == "true", "kontrol et");
       dispatch(loginSuccess(data));
       toastSuccessNotify("refresh");
@@ -78,6 +78,23 @@ const useAuthCall = () => {
     
     }
   };
+  const forgot = async (email) => {
+    dispatch(fetchStart());
+    console.log(email)
+    try {
+     await axios.post(`${BASE_URL}auth/forgot`, {email});
+    
+      toastSuccessNotify("reset OKEY");
+    } catch (error) {
+      dispatch(fetchFail());
+      // console.log(error);
+      toastErrorNotify("forgot");
+    
+    }
+  };
+
+
+
   const logout = async () => {
     dispatch(fetchStart());
     dispatch(logoutSuccess());
@@ -231,6 +248,7 @@ const useAuthCall = () => {
     folgenGetSin,
     followerget,
     refresh,
+    forgot
   };
 };
 

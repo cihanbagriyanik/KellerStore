@@ -11,29 +11,13 @@ import {
 import useAuthCall from "../../hooks/useAuthCall";
 
 function ResetModal({ open, handleOpen }) {
-  const [userData, setUserData] = useState({});
-  const [adres, setAdres] = useState("");
-  const { profileUpdate } = useAuthCall();
-
-  
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
-  };
-
-  const handleAddressChange = (e) => {
-    setAdres(e.target.value);
-  };
+  const { forgot } = useAuthCall();
+  const [emaill, setEmaill] = useState("");
 
   const handleSave = () => {
-    //console.log(userData, "USERDATA");
-    // console.log(adres);
+    console.log(emaill);
+    forgot(emaill);
     handleOpen();
-    profileUpdate(userData, adres);
   };
 
   return (
@@ -47,20 +31,19 @@ function ResetModal({ open, handleOpen }) {
         <Card className="w-full max-w-[24rem]">
           <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
-            Password Vergessen
+              Password Vergessen
             </Typography>
 
             <Typography className="-mb-2" variant="h6">
               Email
             </Typography>
             <Input
-          label="Email"
+              label="Email"
               size="lg"
-              name="userName"
-        
-              onChange={handleChange}
+              name="email"
+              value={emaill}
+              onChange={(e) => setEmaill(e.target.value)}
             />
-           
           </CardBody>
           <CardFooter className="pt-0">
             <Button variant="gradient" onClick={handleSave} fullWidth>

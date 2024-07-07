@@ -199,7 +199,7 @@ module.exports = {
         sendMail(
           email,
           "reset password",
-          `<h1> Şifrenizi sıfırlamak için aşağıdaki bağlantıyı kullanın: http://localhost:8001/reset/${token}</h1>`
+          `<h1> Şifrenizi sıfırlamak için aşağıdaki bağlantıyı kullanın: http://localhost:8000/reset/${token}</h1>`
         );
         res.send({
           message: "password reser mailil",
