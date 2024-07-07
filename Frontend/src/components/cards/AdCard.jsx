@@ -103,9 +103,9 @@ const AdCard = ({ data }) => {
                 </article>
               ) : (
                 <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
-                  <Link to={`/detail/${items._id}`}>
+                  <Link to={`/detail/${items.adId?._id}`}>
                     <img
-                      src={`${BASE_URL}images/${items?.addId?.images[0]}`}
+                      src={`${BASE_URL}images/${items?.adId?.images[0]}`}
                       loading="lazy"
                       className="w-full h-48 rounded-t-md"
                     />
