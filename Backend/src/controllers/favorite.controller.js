@@ -184,7 +184,7 @@ module.exports = {
       `
     */
     const data = await Favorite.find({}).populate("adId");
-    console.log(data,"favorite bbleibt")
+    //console.log(data,"favorite bbleibt")
     const Data = data.sort((a, b) => b.favorites.length - a.favorites.length);
     res.status(200).send({
       error: false,

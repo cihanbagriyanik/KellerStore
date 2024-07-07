@@ -5,10 +5,10 @@
 //? Requaring
 const Ad = require("../models/ad");
 const { Category, Subcategory } = require("../models/category");
-
+const Address = require("../models/address");
 const message = require("../models/message");
 const { populate } = require("../models/user");
-//const sendMail = require("../helpers/sendMail");
+const sendMail = require("../helpers/sendMail");
 /* -------------------------------------------------------------------------- */
 //? Ad Controller:
 module.exports = {
@@ -109,12 +109,15 @@ module.exports = {
     console.log(req.user,"userAD")
     console.log(req.body,"create gelene abak")
     try {
+      const { zipCode,street } =req.body
       if (req.files) {
         req.body.images = req.files.map((file) => file.originalname);
       } else {
         req.body.images = "resimyok.jpeg";
       }
       const data = await Ad.create({ ...req.body });
+       const ad=     await Address.create({ userId: req.user._id ,zipCode:zipCode,street:street})    
+       console.log(ad,"adreskayit")        
 
       sendMail(
      

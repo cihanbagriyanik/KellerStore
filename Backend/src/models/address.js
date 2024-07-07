@@ -52,14 +52,14 @@ const AddressSchema = new mongoose.Schema(
     city: {
       type: String,
       trim: true,
-      required: true,
+    
      
     },
 
     country: {
       type: String,
       trim: true,
-      required: true,
+     
       index: true,
     },
 

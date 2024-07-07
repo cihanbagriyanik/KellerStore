@@ -19,8 +19,8 @@ const NewAdForm = () => {
     subCategoryId: "",
     price: "",
     content: "",
-    plz: "",
-    straße: "",
+    zipCode: "",
+    street: "",
   });
   // console.log(formValues);
 
@@ -59,8 +59,8 @@ const NewAdForm = () => {
     formData.append("subCategoryId", formValues.subCategoryId);
     formData.append("price", Number(formValues.price));
     formData.append("content", formValues.content);
-    formData.append("plz", formValues.plz);
-    formData.append("straße", formValues.straße);
+    formData.append("zipCode", formValues.zipCode);
+    formData.append("street", formValues.street);
     images.forEach((image) => {
       formData.append("images", image);
     });
@@ -272,33 +272,33 @@ const NewAdForm = () => {
                   Ort
                 </h4>
                 <label
-                  htmlFor="plz"
+                  htmlFor="zipCode"
                   className="mt-3 block text-sm font-medium leading-6 text-gray-900"
                 >
                   PLZ
                 </label>
                 <div className="mb-3">
                   <input
-                    id="plz"
-                    name="plz"
+                    id="zipCode"
+                    name="zipCode"
                     type="text"
-                    value={formValues.plz}
+                    value={formValues.zipCode}
                     onChange={handleChange}
                     className="p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
                 <label
-                  htmlFor="straße"
+                  htmlFor="street"
                   className="mt-3 block text-sm font-medium leading-6 text-gray-900"
                 >
                   Straße
                 </label>
                 <div className="mb-3">
                   <input
-                    id="straße"
-                    name="straße"
+                    id="street"
+                    name="street"
                     type="text"
-                    value={formValues.straße}
+                    value={formValues.street}
                     onChange={handleChange}
                     className="p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
