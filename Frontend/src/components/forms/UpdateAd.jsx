@@ -2,14 +2,20 @@ import { useState, useEffect } from "react";
 import NewAdFormButton from "../buttons/NewAdFormButton";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
+import useAdCall from "../../hooks/useAdCall";
+
 
 
 const UpdateAd = () => {
     const { id } = useParams();
+    const {updateget} = useAdCall()
+
+   
     const BASE_URL = import.meta.env.VITE_BASE_URL;
-  //const location = useLocation();
+ // const location = useLocation();
+  console.log(location)
   console.log(id,"uprafde")
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
@@ -48,6 +54,8 @@ const UpdateAd = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+useEffect(()=>{updateget(id)},[])
 
   const handlef = (e) => {
     const newFiles = Array.from(e.target.files);

@@ -13,11 +13,11 @@ import buttonImage from "../../src/assets/btn.jpg";
 import deleteImage from "../../src/assets/delete.jpg";
 import reserve from "../../src/assets/reserve.jpg";
 import update from "../../src/assets/update.jpg";
-import { useNavigate } from "react-router-dom";
+
 
 const MyAds = () => {
   const title = `Meine Anzeigen`;
-  const navi = useNavigate();
+
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const { getAd, deleteAdData, putadReserve } = useAdCall();
   const { ad } = useSelector((state) => state.ad);

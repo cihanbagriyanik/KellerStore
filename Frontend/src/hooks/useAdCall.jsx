@@ -95,14 +95,34 @@ const useAdCall = () => {
       );
     }
   };
-  const postAdData = async (url, body) => {
+  // const postAdData = async (url, body) => {
+  //   dispatch(fetchStart());
+  //   //console.log(body, "postdataaaaaaaaaa");
+
+  //   try {
+  //     await axiosWithToken.post(`${url}/`, body);
+  //     getAd(url);
+  //     toastSuccessNotify("Operation succes");
+  //   } catch (error) {
+  //     dispatch(fetchFail());
+  //     toastErrorNotify(
+  //       error?.response?.data?.message || "Operation not success"
+  //     );
+  //   }
+  // };
+
+  const updateget = async (id) => {
     dispatch(fetchStart());
     //console.log(body, "postdataaaaaaaaaa");
 
     try {
-      await axiosWithToken.post(`${url}/`, body);
-      getAd(url);
-      toastSuccessNotify("Operation succes");
+     const data =  await axios.get(`${BASE_URL}ad/updateread/${id}`,{
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    });
+     
+     console.log(data?.data)
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(
@@ -110,6 +130,7 @@ const useAdCall = () => {
       );
     }
   };
+
   const putAdData = async (id, body) => {
     dispatch(fetchStart());
     //console.log(id, body, "putdata guncelememden gele");
@@ -175,14 +196,15 @@ const useAdCall = () => {
   return {
     getAd,
     deleteAdData,
-    postAdData,
+    //postAdData,
     putAdData,
     putadReserve,
     neue,
     belibt,
     most,
     single,
-    search
+    search,
+    updateget
   };
 };
 

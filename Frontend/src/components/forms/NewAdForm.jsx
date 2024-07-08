@@ -48,6 +48,43 @@ const NewAdForm = () => {
     const newFiles = Array.from(e.target.files);
     setImages([...images, ...newFiles]);
   };
+  console.log(images);
+
+  const kontrol = () => {
+    const handleRemoveImage = (indexToRemove) => {
+      setImages(images.filter((_, index) => index !== indexToRemove));
+    };
+
+    if (images.length > 5) {
+      alert("Lütfen en fazla 5 resim yükleyin");
+
+      return images.map((item, index) => (
+        <div key={index} className="flex items-center">
+          <span>{item.name}</span>
+          <button
+            type="button"
+            className="ml-2 text-red-500"
+            onClick={() => handleRemoveImage(index)}
+          >
+            x
+          </button>
+        </div>
+      ));
+    }
+
+    return images.map((item, index) => (
+      <div key={index} className="flex items-center">
+        <span>{item.name}</span>
+        <button
+          type="button"
+          className="ml-2 text-red-500"
+          onClick={() => handleRemoveImage(index)}
+        >
+          x
+        </button>
+      </div>
+    ));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,16 +104,12 @@ const NewAdForm = () => {
     formData.append("userId", user._id);
     console.log(formData, "formData");
     try {
-      const data = await axios.post(
-        `${BASE_URL}ad`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Token ${token}`,
-          },
-        }
-      );
+      const data = await axios.post(`${BASE_URL}ad`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Token ${token}`,
+        },
+      });
       console.log(data, "eklemede");
       navigate("/");
     } catch (error) {
@@ -264,6 +297,7 @@ const NewAdForm = () => {
                   </p>
                 </div>
               </div>
+              {images && kontrol()}
             </div>
 
             <div>

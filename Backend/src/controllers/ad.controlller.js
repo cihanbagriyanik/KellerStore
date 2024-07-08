@@ -21,7 +21,7 @@ module.exports = {
          Alle Ad
         `
     */
-     console.log("gelfdoddddddddddddd")
+    //console.log("gelfdoddddddddddddd")
     const data = await Ad.find({});
     const redu = data.reverse();
 
@@ -58,7 +58,7 @@ module.exports = {
     // min_price && max_price ? query.price ={['$gte'] : min_price ,['$gte'] : max_price} :null
     /************************************************************************************ */
     /************************************************************************************* */
-    console.log(req.query);
+    //console.log(req.query);
     const selectedCategoriesArray = req.query.selectedCategories
       ? req.query.selectedCategories.split(",")
       : [];
@@ -105,27 +105,30 @@ module.exports = {
             }
     */
 
-    console.log(req.files, "ad resim");
-    console.log(req.user,"userAD")
-    console.log(req.body,"create gelene abak")
+    //console.log(req.files, "ad resim");
+    // console.log(req.user,"userAD")
+    //console.log(req.body,"create gelene abak")
     try {
-      const { zipCode,street } =req.body
+      const { zipCode, street } = req.body;
       if (req.files) {
         req.body.images = req.files.map((file) => file.originalname);
       } else {
         req.body.images = "resimyok.jpeg";
       }
       const data = await Ad.create({ ...req.body });
-       const ad=     await Address.create({ userId: req.user._id ,zipCode:zipCode,street:street})    
-       console.log(ad,"adreskayit")        
+      const ad = await Address.create({
+        userId: req.user._id,
+        zipCode: zipCode,
+        street: street,
+      });
+      console.log(ad, "adreskayit");
 
       sendMail(
-     
-       data.email,
-      
-      "Your Ad Has Been Added!",
-    
-      `
+        data.email,
+
+        "Your Ad Has Been Added!",
+
+        `
        <h1>Welcome to Keller Store</h1>
         <p>Dear <b>${data.username}</b>, your ad has been added to Keller Store now!</p>
        `
@@ -196,11 +199,11 @@ module.exports = {
             }
     */
 
-    console.log(req.body, "favorite");
-    console.log(req.params.id);
+    //console.log(req.body, "favorite");
+    //console.log(req.params.id);
     try {
       const ad = await Ad.findOne({ _id: req.params.id });
-      console.log(ad);
+      //console.log(ad);
       if (!ad) {
         return res.status(404).send({ message: "Ad not found" });
       }
@@ -232,6 +235,20 @@ module.exports = {
       console.error("An error occurred during the favorite operation", error);
       return res.status(500).send({ message: "Internal server error" });
     }
+  },
+
+  updateRead: async (req, res) => {
+    console.log(req.params.id, "update read gelen");
+    const data = await Ad.findOne({ _id: req.params.id })
+    const adress = await Address.findOne({userId:req.user._id});
+    console.log(req.user)
+    console.log(adress)
+
+    res.send({
+      adress,
+      data,
+      message: "Read updated successfully",
+    })
   },
 
   //! /:id -> PUT / PATCH

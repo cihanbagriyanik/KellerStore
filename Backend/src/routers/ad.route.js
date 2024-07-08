@@ -11,14 +11,13 @@ const { isAdmin, isLogin } = require("../middlewares/permissions");
 const upload = require("../middlewares/upload");
 /* -------------------------------------------------------------------------- */
 //! URL: /ad
-router.route("/")
-.get(ad.list)
-.post(upload.array("images", 5), ad.create);
+router.route("/").get(ad.list).post(upload.array("images", 5), ad.create);
 router.route("/neue").get(ad.neue);
 router.route("/search").get(ad.search);
 router.route("/view").get(ad.view);
 router.route("/favorite/:id").post(ad.favorite);
 router.route("/reserve/:id").put(ad.reserve);
+router.route("/updateread/:id").get(isLogin,ad.updateRead);
 
 router
   .route("/:id")
