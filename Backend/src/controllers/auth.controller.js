@@ -49,13 +49,13 @@ module.exports = {
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
       });
-       sendMail(
-         req.body.email,
-         "Welcome",
-         `
+      sendMail(
+        req.body.email,
+        "Welcome",
+        `
           <h1>Welcome to the system</h1>
           <p><b>${req.body.userName}</b>, The registration has been successful. Have a nice shopping!</p>
-        `,
+        `
       );
       // Veriyi MongoDB'ye kaydediyoruz.
       const data = await user.save();
@@ -180,11 +180,11 @@ module.exports = {
             }
         }
     */
-    console.log(req.body, "forgot");
+    //console.log(req.body, "forgot");
     try {
       const { email } = req.body;
       const user = await User.findOne({ email });
-      console.log(user, "forgot");
+      //console.log(user, "forgot");
       if (!user) {
         res.status(401).send({
           message: "No such user found, try again",
@@ -193,13 +193,13 @@ module.exports = {
       const token = await jwt.sign({ id: user._id }, process.env.REFRESH_KEY, {
         expiresIn: "1h",
       });
-      console.log(token, "tokenforgot");
+      //console.log(token, "tokenforgot");
 
       if (token) {
         sendMail(
           email,
           "reset password",
-          `<h1> Şifrenizi sıfırlamak için aşağıdaki bağlantıyı kullanın: http://localhost:8000/reset/${token}</h1>`
+          `<h1> Şifrenizi sıfırlamak için aşağıdaki bağlantıyı kullanın: http://localhost:5173/reset/${token}</h1>`
         );
         res.send({
           message: "password reser mailil",
@@ -226,15 +226,16 @@ module.exports = {
         }
     */
     try {
-      const { token, password } = req.body;
+      const {token,password } = req.body;
+ 
       console.log(token, password);
       const decod = await jwt.verify(token, process.env.REFRESH_KEY);
-      console.log(decod);
+      console.log("Decoded Token:", decod);
       const userId = decod.id;
       const user = await User.findById(userId);
 
       if (user) {
-        user.password = password;
+        user.password = bcrypt.hashSync(password, 10);
         await user.save();
         res.status(200).json({ message: "Password reset successful" });
       } else {

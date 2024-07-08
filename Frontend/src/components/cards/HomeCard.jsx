@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const Items = ({ currentItems }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  console.log(currentItems,"curentItems")
+  //console.log(currentItems,"curentItems")
   return (
     <div className="items grid gap-7 sm:grid-cols-2 lg:grid-cols-4 xxl:grid-cols-6">
       {currentItems &&

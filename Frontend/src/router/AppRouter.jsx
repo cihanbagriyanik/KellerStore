@@ -26,6 +26,7 @@ import Adminuser from "../pages/Adminuser";
 import Adminverbot from "../pages/Adminverbot";
 import PrivatAdmin from "./PrivatAdmin";
 import UpdateAd from "../components/forms/UpdateAd";
+import ResetForm from "../components/forms/ResetForm";
 
 const AppRouter = () => {
   return (
@@ -37,6 +38,7 @@ const AppRouter = () => {
             <Route path="/" element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="reset/:token" element={<ResetForm />} />
             <Route path="" element={<PrivateRouter />}>
               <Route path="allad" element={<AllAds />} />
               <Route path="newad" element={<NewAd />} />

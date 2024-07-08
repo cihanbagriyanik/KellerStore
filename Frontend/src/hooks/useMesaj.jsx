@@ -10,10 +10,9 @@ const useMesaj = () => {
   const { access } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-
   const mesajPost = async (data) => {
     const { adId, message } = data;
-   // console.log(adId, message, "messagePOST");
+    // console.log(adId, message, "messagePOST");
 
     try {
       await axios.post(
@@ -47,18 +46,16 @@ const useMesaj = () => {
           },
         }
       );
-      console.log(mesaj?.data.data);
+      // console.log(mesaj?.data.data);
       const dat = mesaj?.data.data;
       dispatch(messageSuccess(dat));
-
-    
     } catch (error) {
       toastErrorNotify(error);
       // console.log(error.message);
     }
   };
   const mesajRead = async (id) => {
-    console.log(id);
+   // console.log(id);
     try {
       const mesajRead = await axios.get(
         `${BASE_URL}messages/${id}`,
@@ -69,11 +66,9 @@ const useMesaj = () => {
           },
         }
       );
-      console.log(mesajRead?.data.data);
+     // console.log(mesajRead?.data.data);
       const dat = mesajRead?.data.data;
       dispatch(messageSuccess(dat));
-
-     
     } catch (error) {
       toastErrorNotify(error);
       // console.log(error.message);

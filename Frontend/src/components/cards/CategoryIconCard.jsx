@@ -50,14 +50,14 @@ const CategoryIconCard = () => {
   const dispatch = useDispatch();
 
   const handleClick = (itemId) => {
-    console.log(itemId);
+    // console.log(itemId);
     const selCategory = category?.find((item) => item._id === itemId);
-    console.log(selCategory, "sellllllllll");
+    //   console.log(selCategory, "sellllllllll");
     if (selCategory) {
       const fildAds = ad?.filter((ob) => ob.categoryId === itemId) || [];
-      console.log(fildAds, "filterden gelen ");
+      //console.log(fildAds, "filterden gelen ");
       dispatch(homecateoriesSucces(fildAds));
-      console.log(selCategory.categoryName, "sonnnnnnnnn");
+      //console.log(selCategory.categoryName, "sonnnnnnnnn");
     }
   };
 

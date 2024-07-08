@@ -67,7 +67,7 @@ const useAuthCall = () => {
   const refresh = async () => {
     dispatch(fetchStart());
     try {
-      const { data } = await axios.post(`${BASE_URL}auth/refresh`, refreshh);
+      const { data } = await axios.post(`${BASE_URL}/refresh`, refreshh);
       console.log(data.error == "true", "kontrol et");
       dispatch(loginSuccess(data));
       toastSuccessNotify("refresh");
@@ -85,6 +85,21 @@ const useAuthCall = () => {
      await axios.post(`${BASE_URL}auth/forgot`, {email});
     
       toastSuccessNotify("reset OKEY");
+    } catch (error) {
+      dispatch(fetchFail());
+      // console.log(error);
+      toastErrorNotify("forgot");
+    
+    }
+  };
+  const resetPassword = async (password,token) => {
+    dispatch(fetchStart());
+    console.log(password)
+    try {
+     const data =  await axios.post(`${BASE_URL}auth/reset`, { token:token,password:password});
+     console.log(data,"resetdeki atalama")
+      toastSuccessNotify(data.data.message);
+      navigate("/login");
     } catch (error) {
       dispatch(fetchFail());
       // console.log(error);
@@ -248,7 +263,8 @@ const useAuthCall = () => {
     folgenGetSin,
     followerget,
     refresh,
-    forgot
+    forgot,
+    resetPassword
   };
 };
 

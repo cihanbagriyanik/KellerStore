@@ -1,11 +1,11 @@
 
 import { useNavigate } from "react-router-dom";
 
-const ResetBuuton = () => {
+const PasswordNeu = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/reset");
+    navigate("/");
   };
 
   return (
@@ -21,4 +21,4 @@ const ResetBuuton = () => {
   );
 };
 
-export default ResetBuuton;
+export default PasswordNeu;

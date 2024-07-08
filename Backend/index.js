@@ -39,7 +39,7 @@ dbConnection();
 app.use(express.json());
 
 //app.use(express.urlencoded({ extended: false}))
-express.urlencoded({ extended: true });
+app.use(express.urlencoded({ extended: true }));
 
 // Check Token:
 app.use(require("./src/middlewares/authentication"));

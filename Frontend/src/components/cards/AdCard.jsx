@@ -26,8 +26,8 @@ const responsive = {
 
 const AdCard = ({ data }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  console.log(BASE_URL);
- console.log(data)
+ // console.log(BASE_URL);
+ //console.log(data)
   return (
     <section className="mx-auto px-4 max-w-screen-xl md:px-8">
       <Carousel
