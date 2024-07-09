@@ -1,27 +1,28 @@
 import { useState, useEffect } from "react";
 import NewAdFormButton from "../buttons/NewAdFormButton";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
-import { useParams } from 'react-router-dom';
+import {  useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useAdCall from "../../hooks/useAdCall";
 import DropCard from "../cards/DropCard";
-
-
+// "Antrag auf Gewahrung einer Förderung aus dem Vermittlungsbudget gem. § 44 Sozialgesetzbuch
+// - Drittes Buch - (SGB ili) für die Anbahnung einer versicherungspflichtigen Beschanigung
 
 const UpdateAd = () => {
-    const { id } = useParams();
-    const {updateget} = useAdCall()
-    
-    const {updateAd,updateAdres} = useSelector((state)=>state.ad)
-    console.log(updateAdres,updateAd,"UPDATE GELEN")
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const { id } = useParams();
+  const { updateget } = useAdCall();
 
-   
-    const BASE_URL = import.meta.env.VITE_BASE_URL;
- // const location = useLocation();
-  console.log(location)
-  console.log(id,"uprafde")
+  const { updateAd, updateAdres } = useSelector((state) => state.ad);
+  console.log(updateAd, "UPDATE GELEN");
+
+  // const location = useLocation();
+  console.log(location);
+  console.log(id, "uprafde");
   const [images, setImages] = useState([]);
+ 
+
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { category } = useSelector((state) => state.category);
@@ -29,17 +30,45 @@ const UpdateAd = () => {
 
   const [formValues, setFormValues] = useState({
     offerType: "",
-    title:updateAd?.title,
+    title: "",
     categoryId: "",
     subCategoryId: "",
-    price:updateAd?.price,
-    content:updateAd?.content,
-    plz: updateAdres?.zipCode,
-    straße:updateAdres?.street,
+    price: "",
+    content: "",
+    plz: "",
+    straße: "",
   });
   // console.log(formValues);
+  useEffect(() => {
+    if (id) {
+      updateget(id);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (updateAd && updateAdres) {
+      setFormValues({
+        offerType: "",
+        title: updateAd.title || "",
+        categoryId: "",
+        subCategoryId: "",
+        price: updateAd.price || "",
+        content: updateAd.content || "",
+        plz: updateAdres.zipCode || "",
+        straße: updateAdres.street || "",
+      });
+
+
+    }
+  }, [updateAd, updateAdres]);
 
   const [subCategories, setSubCategories] = useState([]);
+  useEffect(() => {
+   
+    if (updateAd?.images) {
+      setImages(updateAd.images);
+    }
+  }, [updateAd]);
 
   useEffect(() => {
     const selectedCategory = category.find(
@@ -59,9 +88,7 @@ const UpdateAd = () => {
     });
   };
 
-useEffect(()=>{updateget(id)},[id])
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -80,16 +107,12 @@ useEffect(()=>{updateget(id)},[id])
     formData.append("userId", user._id);
     console.log(formData, "formData");
     try {
-      const data = await axios.put(
-        `${BASE_URL}ad/${id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Token ${token}`,
-          },
-        }
-      );
+      const data = await axios.put(`${BASE_URL}ad/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Token ${token}`,
+        },
+      });
       console.log(data, "eklemede");
       navigate("/");
     } catch (error) {
@@ -245,8 +268,8 @@ useEffect(()=>{updateget(id)},[id])
                 className="p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
-           
-             <DropCard images={images} setImages = {setImages}/>
+
+            <DropCard images={images} setImages={setImages} />
             <div>
               <div>
                 <h4 className="text-xl mb-5 border-b-2 border-button-blue text-button-blue">

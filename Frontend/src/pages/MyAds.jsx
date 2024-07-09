@@ -13,6 +13,7 @@ import buttonImage from "../../src/assets/btn.jpg";
 import deleteImage from "../../src/assets/delete.jpg";
 import reserve from "../../src/assets/reserve.jpg";
 import update from "../../src/assets/update.jpg";
+import UpdateAd from "../components/forms/UpdateAd";
 
 
 const MyAds = () => {
@@ -38,10 +39,12 @@ const MyAds = () => {
     await putadReserve(id);
     getAd();
   };
+ 
 
   useEffect(() => {
     getAd();
   }, []);
+
 
   const toggleOpen = (index) => {
     setOpenIndexes((prevState) => ({
@@ -165,14 +168,15 @@ const MyAds = () => {
                             </button>
                           </div>
                           <div className="w-12 h-12 bg-button-blue rounded-full ring-offset-2 ring-gray-200 focus:ring-2 focus:ring-button-blue">
-                            <Link to={`/update/${item._id}`}>
+                            <Link to={`/update/${item?._id}`}> 
                               {/* <Link to={`/update/${item._id}`} state={item}> */}
+                              
                               <img
                                 src={update}
                                 className="w-full h-full rounded-full"
                                 alt="Update"
                               />{" "}
-                            </Link>
+                            </Link> 
                           </div>
                           <div className="w-12 h-12 bg-button-blue rounded-full ring-offset-2 ring-gray-200 focus:ring-2 focus:ring-button-blue">
                             <button onClick={() => reserved(item._id)}>

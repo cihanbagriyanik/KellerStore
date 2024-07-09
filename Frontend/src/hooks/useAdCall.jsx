@@ -16,11 +16,13 @@ import {
 import useAxios from "./useAxios";
 import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
+import { useEffect } from "react";
 
 const useAdCall = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const { access } = useSelector((state) => state.auth);
   const { axiosWithToken } = useAxios();
+  const { updateAd, updateAdres } = useSelector((state) => state.ad);
   const dispatch = useDispatch();
 
   const getAd = async () => {
@@ -117,14 +119,15 @@ const useAdCall = () => {
     //console.log(body, "postdataaaaaaaaaa");
 
     try {
-     const data =  await axios.get(`${BASE_URL}ad/updateread/${id}`,{
-      headers: {
-        Authorization: `Bearer ${access}`,
-      },
-    });
-     
-     console.log(data?.data)
-     dispatch(updateSuccess(data?.data))
+      const data = await axios.get(`${BASE_URL}ad/updateread/${id}`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      });
+
+      console.log(data?.data);
+
+      dispatch(updateSuccess(data?.data));
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(
@@ -186,14 +189,16 @@ const useAdCall = () => {
   const search = async (query) => {
     console.log(query, "Query Params");
     try {
-        const { data } = await axiosWithToken.get(`${BASE_URL}ad/search?${query}`);
-        console.log(data?.data, "Search Result");
-        dispatch(siderSearch(data?.data))
+      const { data } = await axiosWithToken.get(
+        `${BASE_URL}ad/search?${query}`
+      );
+      console.log(data?.data, "Search Result");
+      dispatch(siderSearch(data?.data));
     } catch (error) {
-        dispatch(fetchFail());
-        toastErrorNotify(error?.response?.data?.message || "Search not success");
+      dispatch(fetchFail());
+      toastErrorNotify(error?.response?.data?.message || "Search not success");
     }
-};
+  };
 
   return {
     getAd,
@@ -206,7 +211,7 @@ const useAdCall = () => {
     most,
     single,
     search,
-    updateget
+    updateget,
   };
 };
 
