@@ -16,6 +16,8 @@ const adSlice = createSlice({
     singleAd: [],
     siderSearch:[],
     searchNav: "",
+    updateAd:[],
+    updateAdres:[]
   },
   reducers: {
     fetchStart: (state) => {
@@ -65,6 +67,13 @@ const adSlice = createSlice({
       state.siderSearch = payload;
       // console.log(state.searchNav,"SLICE NAVBAR SEARCH")
     },
+    updateSuccess:(state,{payload})=>{
+      console.log(payload,"slicedeki dikkat")
+      state.loading = false;
+      state.updateAd = payload.data;
+      state.updateAdres = payload.adress
+
+    },
 
     fetchFail: (state) => {
       state.loading = false;
@@ -85,5 +94,6 @@ export const {
   singleSucces,
   searchSuccesnav,
   siderSearch,
+  updateSuccess
 } = adSlice.actions;
 export default adSlice.reducer;

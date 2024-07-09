@@ -9,6 +9,7 @@ import {
   mostSucces,
   singleSucces,
   siderSearch,
+  updateSuccess,
   //   messageSuccess,
   //   categoriesSuccess,
 } from "../features/adSlice";
@@ -123,6 +124,7 @@ const useAdCall = () => {
     });
      
      console.log(data?.data)
+     dispatch(updateSuccess(data?.data))
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(

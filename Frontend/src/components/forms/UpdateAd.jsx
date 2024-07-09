@@ -5,12 +5,16 @@ import { useSelector } from "react-redux";
 import {  useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import useAdCall from "../../hooks/useAdCall";
+import DropCard from "../cards/DropCard";
 
 
 
 const UpdateAd = () => {
     const { id } = useParams();
     const {updateget} = useAdCall()
+    
+    const {updateAd,updateAdres} = useSelector((state)=>state.ad)
+    console.log(updateAdres,updateAd,"UPDATE GELEN")
 
    
     const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -25,13 +29,13 @@ const UpdateAd = () => {
 
   const [formValues, setFormValues] = useState({
     offerType: "",
-    title:"",
+    title:updateAd?.title,
     categoryId: "",
     subCategoryId: "",
-    price:"",
-    content: "",
-    plz: "",
-    straße: "",
+    price:updateAd?.price,
+    content:updateAd?.content,
+    plz: updateAdres?.zipCode,
+    straße:updateAdres?.street,
   });
   // console.log(formValues);
 
@@ -55,13 +59,9 @@ const UpdateAd = () => {
     });
   };
 
-useEffect(()=>{updateget(id)},[])
+useEffect(()=>{updateget(id)},[id])
 
-  const handlef = (e) => {
-    const newFiles = Array.from(e.target.files);
-    setImages([...images, ...newFiles]);
-  };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -245,40 +245,8 @@ useEffect(()=>{updateget(id)},[])
                 className="p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
-            <div>
-              <label
-                htmlFor="images"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Bilder
-              </label>
-              <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                <div className="text-center">
-                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                    <label
-                      htmlFor="img"
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                    >
-                      <span>Eine Datei hochladen</span>
-                      <input
-                        id="img"
-                        name="images"
-                        type="file"
-                        className="sr-only"
-                        accept="image/*"
-                        multiple
-                        onChange={handlef}
-                      />
-                    </label>
-                    <p className="pl-1">oder per Drag & Drop</p>
-                  </div>
-                  <p className="text-xs leading-5 text-gray-600">
-                    PNG, JPG, GIF up to 10MB
-                  </p>
-                </div>
-              </div>
-            </div>
-
+           
+             <DropCard images={images} setImages = {setImages}/>
             <div>
               <div>
                 <h4 className="text-xl mb-5 border-b-2 border-button-blue text-button-blue">
