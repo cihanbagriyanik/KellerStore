@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import NewAdFormButton from "../buttons/NewAdFormButton";
 import axios from "axios";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import useAdCall from "../../hooks/useAdCall";
@@ -13,7 +13,7 @@ const UpdateAd = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const { id } = useParams();
   const { updateget } = useAdCall();
-
+ 
   const { updateAd, updateAdres } = useSelector((state) => state.ad);
   console.log(updateAd, "UPDATE GELEN");
 
@@ -21,12 +21,11 @@ const UpdateAd = () => {
   console.log(location);
   console.log(id, "uprafde");
   const [images, setImages] = useState([]);
- 
 
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { category } = useSelector((state) => state.category);
-  const { token } = useSelector((state) => state.auth);
+  const { access } = useSelector((state) => state.auth);
 
   const [formValues, setFormValues] = useState({
     offerType: "",
@@ -50,21 +49,18 @@ const UpdateAd = () => {
       setFormValues({
         offerType: "",
         title: updateAd.title || "",
-        categoryId: "",
+        categoryId: updateAd.categoryId || "",
         subCategoryId: "",
         price: updateAd.price || "",
         content: updateAd.content || "",
         plz: updateAdres.zipCode || "",
         straße: updateAdres.street || "",
       });
-
-
     }
   }, [updateAd, updateAdres]);
 
   const [subCategories, setSubCategories] = useState([]);
   useEffect(() => {
-   
     if (updateAd?.images) {
       setImages(updateAd.images);
     }
@@ -88,7 +84,6 @@ const UpdateAd = () => {
     });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -105,12 +100,15 @@ const UpdateAd = () => {
       formData.append("images", image);
     });
     formData.append("userId", user._id);
-    console.log(formData, "formData");
+    console.log(formData, "UPDATE GELEN BIR KONROL");
+    console.log(formValues,"UPDATE FORMVALUES")
+    console.log(images,"images")
+
     try {
       const data = await axios.put(`${BASE_URL}ad/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Token ${token}`,
+          Authorization: `Bearer ${access}`,
         },
       });
       console.log(data, "eklemede");
@@ -118,6 +116,7 @@ const UpdateAd = () => {
     } catch (error) {
       console.error("Error:", error.message);
     }
+  
   };
 
   return (

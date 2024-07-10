@@ -22,7 +22,7 @@ module.exports = {
         `
     */
     //console.log("gelfdoddddddddddddd")
-    const data = await Ad.find({});
+    const data = await Ad.find({}).populate('subcategoryId');
     const redu = data.reverse();
 
     res.status(200).send({
@@ -232,23 +232,23 @@ module.exports = {
         data: updatedAd,
       });
     } catch (error) {
-      console.error("An error occurred during the favorite operation", error);
+      //console.error("An error occurred during the favorite operation", error);
       return res.status(500).send({ message: "Internal server error" });
     }
   },
 
   updateRead: async (req, res) => {
-    console.log(req.params.id, "update read gelen");
-    const data = await Ad.findOne({ _id: req.params.id })
-    const adress = await Address.findOne({userId:req.user._id});
-    console.log(req.user)
-    console.log(adress)
-
+    //console.log(req.params.id, "update read gelen");
+    const data = await Ad.findOne({ _id: req.params.id });
+    const adress = await Address.findOne({ userId: req.user._id });
+    //  console.log(req.user)
+    // console.log(adress)
+    //
     res.send({
       adress,
       data,
       message: "Read updated successfully",
-    })
+    });
   },
 
   //! /:id -> PUT / PATCH
@@ -269,9 +269,10 @@ module.exports = {
                         }
             }
     */
+    console.log("updateeeeeeeeeeeeeeee");
     const { id } = req.params;
     const userControl = await Ad.find({ userId: req.user._id });
-    console.log(userControl, "usercontollllll");
+    //console.log(userControl, "usercontollllll");
     // Eğer dizide en az bir öğe koşulu sağlarsa, some metodu true döner, aksi takdirde false döner.
     const isUserAd = await userControl.some(
       (item) => item._id.toString() == id
@@ -292,7 +293,7 @@ module.exports = {
 
     console.log(priceControl, "pricecontrol");
     const { price } = req.body;
-    console.log(price);
+   // console.log(price);
 
     const data = await Ad.findByIdAndUpdate({ _id: req.params.id }, req.body, {
       runValidators: true,
