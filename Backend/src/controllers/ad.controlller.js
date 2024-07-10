@@ -22,7 +22,7 @@ module.exports = {
         `
     */
     //console.log("gelfdoddddddddddddd")
-    const data = await Ad.find({}).populate('categoryId');
+    const data = await Ad.find({});
     const redu = data.reverse();
 
     res.status(200).send({
@@ -115,7 +115,12 @@ module.exports = {
       } else {
         req.body.images = "resimyok.jpeg";
       }
-      const data = await Ad.create({ ...req.body });
+      console.log(req.body, "create hata var DIKATTTTTTTTTTTTTTTTTTTTT");
+      const data = await Ad.create({
+        ...req.body,
+
+        subCategoryId: req.body.subCategoryId,
+      });
       const ad = await Address.create({
         userId: req.user._id,
         zipCode: zipCode,
@@ -293,7 +298,7 @@ module.exports = {
 
     console.log(priceControl, "pricecontrol");
     const { price } = req.body;
-   // console.log(price);
+    // console.log(price);
 
     const data = await Ad.findByIdAndUpdate({ _id: req.params.id }, req.body, {
       runValidators: true,
