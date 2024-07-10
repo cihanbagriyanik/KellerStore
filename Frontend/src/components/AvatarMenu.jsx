@@ -7,7 +7,7 @@ const AvatarMenu = () => {
   const { logout } = useAuthCall();
 
   const { user } = useSelector((state) => state.auth);
-  console.log(user);
+ // console.log(user);
 
   const [state, setState] = useState(false);
   const profileRef = useRef();

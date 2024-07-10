@@ -22,6 +22,7 @@ const UpdateAd = () => {
   console.log(id, "uprafde");
   const [images, setImages] = useState([]);
 
+
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { category } = useSelector((state) => state.category);
@@ -56,6 +57,8 @@ const UpdateAd = () => {
         plz: updateAdres.zipCode || "",
         straße: updateAdres.street || "",
       });
+
+      setImages(updateAd.images.map((img) => ({ path: img }))); // var olan resimleri ekler
     }
   }, [updateAd, updateAdres]);
 
@@ -96,9 +99,15 @@ const UpdateAd = () => {
     formData.append("content", formValues.content);
     formData.append("plz", formValues.plz);
     formData.append("straße", formValues.straße);
+   
     images.forEach((image) => {
-      formData.append("images", image);
+      if (image.file) {
+        formData.append("images", image.file);
+      } else {
+        formData.append("images", image.path); // var olan resimler
+      }
     });
+
     formData.append("userId", user._id);
     console.log(formData, "UPDATE GELEN BIR KONROL");
     console.log(formValues,"UPDATE FORMVALUES")

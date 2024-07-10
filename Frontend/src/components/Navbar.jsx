@@ -18,13 +18,13 @@ const Navbar = () => {
   const { favorUser } = useSelector((state) => state.category);
   const { refresh, logout } = useAuthCall();
   //console.log(user);
-  console.log(access);
+  //console.log(access);
 
   const { favoriAll, favori } = useCategoryCall();
 
   const { messages } = useSelector((state) => state.mesaj);
 
-  console.log(messages);
+  //console.log(messages);
   const messageRe = messages
     .flatMap((item) => item?.messages) // Tüm mesajları tek bir düzlemde toplar
     .filter((message) => !message.isRead) // isRead değeri false olanları filtreler
