@@ -28,7 +28,9 @@ module.exports = {
             </ul>
         `
     */
+   console.log(req.user,"iiiiiiiiiiiiiii")
     const filters = req.user?.isAdmin ? {} : { _id: req.user._id };
+    
     const data = await res.getModelList(User, filters);
     res.status(200).send({
       error: false,

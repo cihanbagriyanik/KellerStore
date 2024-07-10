@@ -7,7 +7,7 @@ import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import useAdCall from "../../hooks/useAdCall";
 
-const Items = ({ currentItems}) => {
+const Items = ({ currentItems, title }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   //console.log(currentItems,"curentItems")
   const { deleteAdData } = useAdCall();
@@ -73,7 +73,18 @@ const Items = ({ currentItems}) => {
                   </div>
                 </div>
               </Link>{" "}
-              
+              <div className="flex justify-center"> 
+       
+                <button
+                  className="text-red-500"
+                  onClick={() => {
+                    deleteAd(items._id);
+                    // console.log(items._id);
+                  }}
+                >
+                  DELETE
+                </button>
+             </div>
             </article>
           </div>
         ))}
@@ -124,7 +135,7 @@ const PaginatedItems = ({ items, itemsPerPage, title }) => {
   );
 };
 
-const HomeCard = ({ data, inp, }) => {
+const AdminAd = ({ data, inp, }) => {
   const filteredData = data.filter((item) =>
     item.title.toLowerCase().includes(inp?.toLowerCase())
   );
@@ -135,4 +146,4 @@ const HomeCard = ({ data, inp, }) => {
   );
 };
 
-export default HomeCard;
+export default AdminAd;

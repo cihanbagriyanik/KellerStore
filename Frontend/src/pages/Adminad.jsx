@@ -1,10 +1,14 @@
 
-import SettingsContainer from "../components/container/SettingsContainer";
+
 import Banner from "../components/Banner";
 import AdminSiedar from "../components/AdminSiedar";
 
+import { useSelector } from "react-redux";
+import AdminAd from "../components/cards/AdminAd";
+
 const Adminad = () => {
   const title = `ADMIN`;
+  const { ad, searchNav } = useSelector((state) => state.ad);
   return (
     <>
     <div>
@@ -16,7 +20,7 @@ const Adminad = () => {
       </div>
 
       <div className="flex-grow">
-        <SettingsContainer />
+      <AdminAd data={ad} inp={searchNav}  />
       </div>
     </div>
   </>

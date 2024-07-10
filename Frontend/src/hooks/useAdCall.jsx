@@ -88,7 +88,13 @@ const useAdCall = () => {
       //     Authorization: `Token ${token}`,
       //   },
       // });
-      await axiosWithToken.delete(`${BASE_URL}ad/${id}`);
+
+      await axios.delete(`${BASE_URL}ad/${id}`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      });
+
       toastSuccessNotify("Operation succes");
       getAd();
     } catch (error) {

@@ -67,7 +67,7 @@ module.exports = (req, res, next) => {
   /* FILTERING & SEARCHING & SORTING & PAGINATION */
 
   // Run for output:
-  res.getModelList = async (Model, customFilter = {}, populate = null) => {
+  res.getModelList = async (Model, customFilter = {}, populate = null,price) => {
     return await Model.find({ ...filter, ...search, ...customFilter, ...price })
       .sort(sort)
       .skip(skip)

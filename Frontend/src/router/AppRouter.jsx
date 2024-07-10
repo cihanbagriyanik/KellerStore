@@ -22,11 +22,12 @@ import Follower from "../pages/Follower";
 import DetailMessaj from "../pages/DetailMessaj";
 import Admin from "../pages/Admin";
 import Adminad from "../pages/Adminad";
-import Adminuser from "../pages/Adminuser";
+
 import Adminverbot from "../pages/Adminverbot";
 import PrivatAdmin from "./PrivatAdmin";
 import UpdateAd from "../components/forms/UpdateAd";
 import ResetForm from "../components/forms/ResetForm";
+import Alluser from "../pages/Alluser";
 
 const AppRouter = () => {
   return (
@@ -54,13 +55,12 @@ const AppRouter = () => {
               <Route path="update/:id" element={<UpdateAd />} />
               <Route path="detailmessage" element={<DetailMessaj />} />
               <Route path="*" element={<NotFound />} />
-               <Route path="" element={<PrivatAdmin/>}>
-                   <Route path="admin" element={<Admin />} />
-                   <Route path="adminad" element={<Adminad />} />
-                   <Route path="adminuser" element={<Adminuser />} />
-                   <Route path="adminverbot" element={<Adminverbot />} />
-                  </Route>
-
+              <Route path="" element={<PrivatAdmin />}>
+                <Route path="admin" element={<Admin />} />
+                <Route path="adminad" element={<Adminad />} />
+                <Route path="adminuser" element={<Alluser />} />
+                <Route path="adminverbot" element={<Adminverbot />} />
+              </Route>
             </Route>
           </Routes>
         </div>

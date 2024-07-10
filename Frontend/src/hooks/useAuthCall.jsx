@@ -9,6 +9,7 @@ import {
   followAllSucces,
   followSingleSucces,
   followerSucces,
+  usersSucces
 } from "../features/authSlice";
 
 import axios from "axios";
@@ -61,7 +62,7 @@ const useAuthCall = () => {
       dispatch(fetchFail());
       // console.log(error);
       toastErrorNotify("Login can not be performed");
-      toastErrorNotify("ilk sira")
+      toastErrorNotify("ilk sira");
     }
   };
   const refresh = async () => {
@@ -75,50 +76,70 @@ const useAuthCall = () => {
       dispatch(fetchFail());
       // console.log(error);
       toastErrorNotify("Refrsh");
-    
     }
   };
   const forgot = async (email) => {
     dispatch(fetchStart());
-    console.log(email)
+    console.log(email);
     try {
-     await axios.post(`${BASE_URL}auth/forgot`, {email});
-    
+      await axios.post(`${BASE_URL}auth/forgot`, { email });
+
       toastSuccessNotify("reset OKEY");
     } catch (error) {
       dispatch(fetchFail());
       // console.log(error);
       toastErrorNotify("forgot");
-    
     }
   };
-  const resetPassword = async (password,token) => {
+  const resetPassword = async (password, token) => {
     dispatch(fetchStart());
-    console.log(password)
+    console.log(password);
     try {
-     const data =  await axios.post(`${BASE_URL}auth/reset`, { token:token,password:password});
-     console.log(data,"resetdeki atalama")
+      const data = await axios.post(`${BASE_URL}auth/reset`, {
+        token: token,
+        password: password,
+      });
+      console.log(data, "resetdeki atalama");
       toastSuccessNotify(data.data.message);
       navigate("/login");
     } catch (error) {
       dispatch(fetchFail());
       // console.log(error);
       toastErrorNotify("forgot");
-    
     }
   };
-
-
 
   const logout = async () => {
     dispatch(fetchStart());
     dispatch(logoutSuccess());
-    
   };
 
   //********************                   *********************** */
   //********************    PROFILE          ********************* */
   //********************                   *********************** */
+
+const userAll = async()=>{
+  try {
+    
+      const userAl = await axios.get(`${BASE_URL}users`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      });
+      console.log(userAl.data.data,"ggggggggggggg")
+      
+     dispatch((usersSucces(userAl.data.data)));
+    
+  } catch (error) {
+    dispatch(fetchFail());
+    // console.log(error.message);
+  }
+};
+
+
+
+
+
   const profile = async () => {
     dispatch(fetchStart());
     //console.log(access, "ACCESSSSSSSS");
@@ -192,7 +213,7 @@ const useAuthCall = () => {
       }
     } catch (error) {
       toastErrorNotify(error);
-      toastErrorNotify("folgenAll")
+      toastErrorNotify("folgenAll");
     }
   };
   const folgenSingle = async (id) => {
@@ -212,7 +233,7 @@ const useAuthCall = () => {
       }
     } catch (error) {
       toastErrorNotify(error);
-      toastErrorNotify("folgenSingle")
+      toastErrorNotify("folgenSingle");
     }
   };
   const folgenGetSin = async () => {
@@ -223,13 +244,13 @@ const useAuthCall = () => {
             Authorization: `Bearer ${access}`,
           },
         });
-       //console.log(followSing, "tek olan follow");
+        //console.log(followSing, "tek olan follow");
 
         dispatch(followSingleSucces(followSing?.data.allFollows));
       }
     } catch (error) {
       toastErrorNotify(error);
-      toastErrorNotify("folgenGetSin")
+      toastErrorNotify("folgenGetSin");
     }
   };
   const followerget = async () => {
@@ -249,7 +270,7 @@ const useAuthCall = () => {
       }
     } catch (error) {
       toastErrorNotify(error);
-      toastErrorNotify("followerget")
+      toastErrorNotify("followerget");
     }
   };
   return {
@@ -264,7 +285,8 @@ const useAuthCall = () => {
     followerget,
     refresh,
     forgot,
-    resetPassword
+    resetPassword,
+    userAll
   };
 };
 

@@ -1,4 +1,3 @@
-
 import Banner from "../components/Banner";
 import AdminSiedar from "../components/AdminSiedar";
 import SettingsContainer from "../components/container/SettingsContainer";
@@ -15,11 +14,8 @@ const Admin = () => {
         <div>
           <AdminSiedar />
         </div>
-
         <div className="flex-grow">
-        <SettingsContainer />
-
-        
+          <SettingsContainer />
         </div>
       </div>
     </>

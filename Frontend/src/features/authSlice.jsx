@@ -10,12 +10,13 @@ const authSlice = createSlice({
     token: null,
     user: null,
     currentUser: null,
-    access:null,
-    refreshh:null,
-    address:[],
-    followAll:[],
-    followSingle:[],
-    followers:[],
+    access: null,
+    refreshh: null,
+    address: [],
+    followAll: [],
+    followSingle: [],
+    followers: [],
+    userAld: [],
   },
 
   reducers: {
@@ -35,27 +36,31 @@ const authSlice = createSlice({
       state.loading = false;
       state.token = payload?.token;
       state.user = payload?.user;
-      state.access=payload?.bearer?.access
-      state.refreshh=payload?.bearer?.refresh
+      state.access = payload?.bearer?.access;
+      state.refreshh = payload?.bearer?.refresh;
       state.currentUser = payload?.user?.email;
     },
-    addressSucces:(state,{payload})=>{
-        state.address = payload
-
+    addressSucces: (state, { payload }) => {
+      state.address = payload;
     },
-    updateUser :(state,{payload})=>{
-     // console.log(payload,"UPDATE ,,,,,,,,,pazload")
-      state.user = payload
+    usersSucces: (state, { payload }) => {
+      console.log(payload, "pazzzzzzzzzzzzz");
+      state.loading = false;
+      state.userAld = payload;
     },
-    followAllSucces:(state,{payload})=>{
+    updateUser: (state, { payload }) => {
+      // console.log(payload,"UPDATE ,,,,,,,,,pazload")
+      state.user = payload;
+    },
+    followAllSucces: (state, { payload }) => {
       state.loading = false;
       state.followAll = payload;
     },
-    followSingleSucces:(state,{payload})=>{
+    followSingleSucces: (state, { payload }) => {
       state.loading = false;
       state.followSingle = payload;
     },
-    followerSucces:(state,{payload})=>{
+    followerSucces: (state, { payload }) => {
       state.loading = false;
       state.followers = payload;
     },
@@ -91,5 +96,6 @@ export const {
   followAllSucces,
   followSingleSucces,
   followerSucces,
+  usersSucces,
 } = authSlice.actions;
 export default authSlice.reducer;
