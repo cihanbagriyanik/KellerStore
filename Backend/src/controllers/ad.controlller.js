@@ -22,7 +22,7 @@ module.exports = {
         `
     */
     //console.log("gelfdoddddddddddddd")
-    const data = await Ad.find({}).populate('subcategoryId');
+    const data = await Ad.find({}).populate('categoryId');
     const redu = data.reverse();
 
     res.status(200).send({
