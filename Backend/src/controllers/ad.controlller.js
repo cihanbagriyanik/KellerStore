@@ -110,17 +110,22 @@ module.exports = {
     //console.log(req.body,"create gelene abak")
     try {
       const { zipCode, street } = req.body;
-      if (req.files) {
-        req.body.images = req.files.map((file) => file.originalname);
-      } else {
-        req.body.images = "resimyok.jpeg";
-      }
+    
       console.log(req.body, "create hata var DIKATTTTTTTTTTTTTTTTTTTTT");
-      const data = await Ad.create({
-        ...req.body,
-
+      const newAd = new Ad({
+        offerType: req.body.offerType,
+        title: req.body.title,
+        categoryId: req.body.categoryId,
         subCategoryId: req.body.subCategoryId,
+        price: req.body.price,
+        content: req.body.content,
+        zipCode: req.body.zipCode,
+        street: req.body.street,
+        userId: req.body.userId,
+        images: req.files ? req.files.map(file => file.originalname) : "resimyok.jpeg"
       });
+  
+      const savedAd = await newAd.save();
       const ad = await Address.create({
         userId: req.user._id,
         zipCode: zipCode,
@@ -141,7 +146,7 @@ module.exports = {
 
       res.status(201).send({
         error: false,
-        data,
+        data:savedAd,
       });
     } catch (error) {
       res.send({
