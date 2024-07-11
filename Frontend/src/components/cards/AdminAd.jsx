@@ -136,9 +136,10 @@ const PaginatedItems = ({ items, itemsPerPage, title }) => {
 };
 
 const AdminAd = ({ data, inp, }) => {
-  const filteredData = data.filter((item) =>
+  const filteredData = data?.filter((item) =>
     item.title.toLowerCase().includes(inp?.toLowerCase())
   );
+  console.log(data,"admin alllllllllllll")
   return (
     <section className="mx-auto px-4 max-w-screen-xl md:px-8">
       <PaginatedItems items={filteredData} itemsPerPage={8}  />
