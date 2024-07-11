@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import ProfileSidebar from "../components/ProfileSidebar";
 import { FaLocationPin } from "react-icons/fa6";
 import { MdFavorite } from "react-icons/md";
@@ -13,7 +13,7 @@ import buttonImage from "../../src/assets/btn.jpg";
 import deleteImage from "../../src/assets/delete.jpg";
 import reserve from "../../src/assets/reserve.jpg";
 import update from "../../src/assets/update.jpg";
-import UpdateAd from "../components/forms/UpdateAd";
+
 
 
 const MyAds = () => {

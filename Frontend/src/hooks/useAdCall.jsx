@@ -16,13 +16,12 @@ import {
 import useAxios from "./useAxios";
 import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
-import { useEffect } from "react";
 
 const useAdCall = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const { access } = useSelector((state) => state.auth);
   const { axiosWithToken } = useAxios();
-  const { updateAd, updateAdres } = useSelector((state) => state.ad);
+
   const dispatch = useDispatch();
 
   const getAd = async () => {
@@ -32,7 +31,7 @@ const useAdCall = () => {
       const neues = data?.data;
       const reserveControl = neues?.map((item) => {
         if (item.isReserved === true) {
-          return { ...item, images: ["animal.png"] };
+          return { ...item, images: ["dert.png"] };
         }
         return item;
       });
@@ -50,7 +49,7 @@ const useAdCall = () => {
 
       const reserveControl = neues?.map((item) => {
         if (item.isReserved === true) {
-          return { ...item, images: ["animal.png"] };
+          return { ...item, images: ["animals.png"] };
         }
         return item;
       });
@@ -166,7 +165,7 @@ const useAdCall = () => {
       const neues = data?.data;
       const reserveControl = neues?.map((item) => {
         if (item.isReserved === true) {
-          return { ...item, images: ["animal.png"] };
+          return { ...item, images: ["animals.png"] };
         }
         return item;
       });
