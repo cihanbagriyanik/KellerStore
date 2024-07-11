@@ -6,6 +6,8 @@
 const Ad = require("../models/ad");
 const { Category, Subcategory } = require("../models/category");
 const Address = require("../models/address");
+const Favori = require("../models/favorite");
+const User = require("../models/user");
 const message = require("../models/message");
 const { populate } = require("../models/user");
 const sendMail = require("../helpers/sendMail");
@@ -119,7 +121,7 @@ module.exports = {
       const data = await Ad.create({
         ...req.body,
 
-        subCategoryId: req.body.subCategoryId
+        subCategoryId: req.body.subCategoryId,
       });
 
       const ad = await Address.create({
@@ -275,8 +277,22 @@ module.exports = {
                         }
             }
     */
+    let gonder = [];
     console.log("updateeeeeeeeeeeeeeee");
     const { id } = req.params;
+    console.log(id);
+    const fav = await Favori.findOne({ adId: id });
+    console.log(fav, "fav");
+    const users = await Promise.all(
+      fav.favorites.map((item) => User.findOne({ _id: item }))
+    );
+    console.log(users);
+    // for (let item of fav.favorites) {
+    //   const sert = await User.findOne({ _id: item });
+    //   console.log(sert, "sert");
+    //   gonder.push(sert);
+    // }
+    //console.log(gonder);
     const userControl = await Ad.find({ userId: req.user._id });
     //console.log(userControl, "usercontollllll");
     // Eğer dizide en az bir öğe koşulu sağlarsa, some metodu true döner, aksi takdirde false döner.
@@ -300,20 +316,23 @@ module.exports = {
     //console.log(priceControl, "pricecontrol");
     const { price } = req.body;
     // console.log(price);
+    if (priceControl.price > price) {
+      console.log("icerdeyiy")
+      users.forEach((item) => {
+        sendMail(
+          item.email,
+          "Welcome",
+          `
+            <h1>Welcome to Keller Store</h1>
+            <p>Dear <b>${data?.priceControl?.price}</b>, Mal dustuuuuuuuuuuuu!</p>
+          `
+        );
+      });
+    }
 
     const data = await Ad.findByIdAndUpdate({ _id: req.params.id }, req.body, {
       runValidators: true,
     });
-    if (priceControl.price > price) {
-      sendMail(
-        req.user.email,
-        "Welcome",
-        `
-          <h1>Welcome to Keller Store</h1>
-          <p>Dear <b>${data.priceControl.price}</b>, Mal dustuuuuuuuuuuuu!</p>
-       `
-      );
-    }
 
     res.status(202).send({
       error: false,
