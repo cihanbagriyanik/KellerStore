@@ -8,7 +8,7 @@ const MesajHome = () => {
   const { mesajGet } = useMesaj();
   //console.log(messages, "dddddddddddd");
   const navigate = useNavigate();
-
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   useEffect(() => {
     mesajGet();
   }, []);
@@ -20,7 +20,7 @@ const MesajHome = () => {
     <>
       <div className="border w-1/1 m-10 bg-light-grey pb-7 rounded-lg">
         <div className="flex justify-between items-center pt-3 pb-3">
-          <h1 className="text-3xl ps-5 pt-5">Nachricht burda</h1>
+          <h1 className="text-3xl ps-5 pt-5">Nachricht</h1>
         </div>
         <div className="grid grid-cols-2 gap-4 p-4">
           {messages?.map((item, index) => {
@@ -37,7 +37,7 @@ const MesajHome = () => {
                 >
                   {item?.adId?.images?.[0] ? (
                     <img
-                      src={`https://kellerstore.onrender.com/images/${item?.adId.images[0]}`}
+                      src={`${BASE_URL}images/${item?.adId.images[0]}`}
                       alt=""
                       width="80"
                       className="h-48 w-48 rounded-full"

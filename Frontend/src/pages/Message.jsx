@@ -5,6 +5,7 @@ import MesajHome from "./MesajHome";
 
 const Message = () => {
   const title = `NACHRICHT`;
+
   return (
     <>
       <div>

@@ -49,7 +49,7 @@ const useAdCall = () => {
 
       const reserveControl = neues?.map((item) => {
         if (item.isReserved === true) {
-          return { ...item, images: ["animals.png"] };
+          return { ...item, images: ["dert.png"] };
         }
         return item;
       });
@@ -165,7 +165,7 @@ const useAdCall = () => {
       const neues = data?.data;
       const reserveControl = neues?.map((item) => {
         if (item.isReserved === true) {
-          return { ...item, images: ["animals.png"] };
+          return { ...item, images: ["dert.png"] };
         }
         return item;
       });

@@ -1,4 +1,3 @@
-
 import ProfileSidebar from "../components/ProfileSidebar";
 import SettingsContainer from "../components/container/SettingsContainer";
 import Banner from "../components/Banner";
@@ -15,7 +14,6 @@ const Profile = () => {
         <div>
           <ProfileSidebar />
         </div>
-
         <div className="flex-grow">
           <SettingsContainer />
         </div>

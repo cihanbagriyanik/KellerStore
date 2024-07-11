@@ -8,9 +8,10 @@ import { FaClock } from "react-icons/fa6";
 import { MdOutlineMail } from "react-icons/md";
 
 const FollowingContainer = () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const { folgenGetSin } = useAuthCall();
   const { followSingle } = useSelector((state) => state.auth);
-  //console.log(followSingle,"following")
+  console.log(followSingle,"following")
   useEffect(() => {
     folgenGetSin();
   }, []);
@@ -35,6 +36,7 @@ const FollowingContainer = () => {
               <Link to={`/detail/${items._id}`}>
                 <img
                   //  src={items?.images[0]}
+                  //src={`${BASE_URL}images/${items?.images[0]}`}
                   loading="lazy"
                   className="w-full h-48 rounded-t-md"
                 />

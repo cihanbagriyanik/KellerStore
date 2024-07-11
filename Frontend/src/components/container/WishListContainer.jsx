@@ -7,7 +7,8 @@ import { MdFavorite } from "react-icons/md";
 
 const WishListContainer = () => {
   const { favorUser } = useSelector((state) => state.category);
-  //console.log(favorUser.data, "favor user");
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  console.log(favorUser.data, "favor user");
   return (
     <div className="border w-1/1 m-10 bg-light-grey pb-7 rounded-lg">
       <div className="flex justify-between items-center pt-3 pb-3">
@@ -24,12 +25,12 @@ const WishListContainer = () => {
                     <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
                       <Link to={`/detail/${items._id}`}>
                         <img
-                          src={items?.images[0]}
+                          src={`${BASE_URL}images/${items?.adId?.images[0]}`}
                           loading="lazy"
                           className="w-full h-48 rounded-t-md"
                         />
                         <div className="border-b-2 border-gray-400 text-center mt-2 pt-3 ml-4 mr-2">
-                          <h2>{items.categoryId}</h2>
+                          <h2>{items.title}</h2>
                         </div>
                         <div className="border-b-2 border-gray-400 pb-3 pt-3 ml-4 mr-2 mb-3 text-gray-900">
                           <div>
@@ -85,17 +86,17 @@ const WishListContainer = () => {
                       <Link to={`/detail/${items._id}`}>
                         <img
                           //  src={items?.adId?.images[0]}
-
+                          src={`${BASE_URL}images/${items?.adId?.images[0]}`}
                           loading="lazy"
                           className="w-full h-48 rounded-t-md"
                         />
                         <div className="border-b-2 border-gray-400 text-center mt-2 pt-3 ml-4 mr-2">
-                          <h2>{items.adId?.categoryId}</h2>
+                          <h2>{items.adId?.title.substring(0, 10)}</h2>
                         </div>
                         <div className="border-b-2 border-gray-400 pb-3 pt-3 ml-4 mr-2 mb-3 text-gray-900">
                           <div>
                             <h3 className="text-center text-xl text-gray-900">
-                              {items.adId?.content?.substring(0, 20)}
+                              {items.adId?.content?.substring(0, 15)}
                             </h3>
                           </div>
                           <div className="mt-3">

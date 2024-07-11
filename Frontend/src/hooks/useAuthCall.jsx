@@ -9,7 +9,7 @@ import {
   followAllSucces,
   followSingleSucces,
   followerSucces,
-  usersSucces
+  usersSucces,
 } from "../features/authSlice";
 
 import axios from "axios";
@@ -62,7 +62,7 @@ const useAuthCall = () => {
       dispatch(fetchFail());
       // console.log(error);
       toastErrorNotify("Login can not be performed");
-      toastErrorNotify("ilk sira");
+      // toastErrorNotify("ilk sira");
     }
   };
   const refresh = async () => {
@@ -88,7 +88,7 @@ const useAuthCall = () => {
     } catch (error) {
       dispatch(fetchFail());
       // console.log(error);
-      toastErrorNotify("forgot");
+      // toastErrorNotify("forgot");
     }
   };
   const resetPassword = async (password, token) => {
@@ -105,7 +105,7 @@ const useAuthCall = () => {
     } catch (error) {
       dispatch(fetchFail());
       // console.log(error);
-      toastErrorNotify("forgot");
+      // toastErrorNotify("forgot");
     }
   };
 
@@ -118,27 +118,21 @@ const useAuthCall = () => {
   //********************    PROFILE          ********************* */
   //********************                   *********************** */
 
-const userAll = async()=>{
-  try {
-    
+  const userAll = async () => {
+    try {
       const userAl = await axios.get(`${BASE_URL}users/`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
       });
-      console.log(userAl.data.data,"ggggggggggggg")
-      
-     dispatch((usersSucces(userAl?.data?.data)));
-    
-  } catch (error) {
-    dispatch(fetchFail());
-    // console.log(error.message);
-  }
-};
+      // console.log(userAl.data.data,"ggggggggggggg")
 
-
-
-
+      dispatch(usersSucces(userAl?.data?.data));
+    } catch (error) {
+      dispatch(fetchFail());
+      // console.log(error.message);
+    }
+  };
 
   const profile = async () => {
     dispatch(fetchStart());
@@ -286,7 +280,7 @@ const userAll = async()=>{
     refresh,
     forgot,
     resetPassword,
-    userAll
+    userAll,
   };
 };
 
