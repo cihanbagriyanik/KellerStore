@@ -58,7 +58,7 @@ const UpdateAd = () => {
         straße: updateAdres.street || "",
       });
 
-      setImages(updateAd.images.map((img) => ({ path: img }))); // var olan resimleri ekler
+      setImages(updateAd?.images?.map((img) => ({ path: img }))); // var olan resimleri ekler
     }
   }, [updateAd, updateAdres]);
 

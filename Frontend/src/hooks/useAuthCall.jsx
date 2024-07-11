@@ -121,14 +121,14 @@ const useAuthCall = () => {
 const userAll = async()=>{
   try {
     
-      const userAl = await axios.get(`${BASE_URL}users`, {
+      const userAl = await axios.get(`${BASE_URL}users/`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
       });
       console.log(userAl.data.data,"ggggggggggggg")
       
-     dispatch((usersSucces(userAl.data.data)));
+     dispatch((usersSucces(userAl?.data?.data)));
     
   } catch (error) {
     dispatch(fetchFail());

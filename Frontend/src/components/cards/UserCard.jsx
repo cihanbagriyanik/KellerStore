@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import useAdCall from "../../hooks/useAdCall";
 
 const Items = ({ currentItems }) => {
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  
   //console.log(currentItems,"curentItems")
   const { deleteAdData } = useAdCall();
 
@@ -21,7 +21,7 @@ const Items = ({ currentItems }) => {
         currentItems?.map((items, index) => (
           <div key={index}>
             <article className="max-w-md mx-auto mt-4 shadow-2xl border rounded-lg duration-300 hover:shadow-sm bg-background-grey">
-              <Link to={`/detail/${items._id}`}>
+              <Link to={`/detail/${items?._id}`}>
                 <div>
                 
                   <div className="border-b-2 border-gray-400 text-center mt-2 pt-3 ml-4 mr-2">
@@ -54,7 +54,7 @@ const Items = ({ currentItems }) => {
                   </div>
                   <div className="px-5 pb-3 flex justify-between">
                     <div>
-                      <h1 className="text-2xl font-semibold"> Tel:{items.tel}</h1>
+                      <h1 className="text-2xl font-semibold"> Tel:{items?.tel}</h1>
                     </div>
                     <div className="flex">
                       {items.countOfVisitors ? (
@@ -73,7 +73,7 @@ const Items = ({ currentItems }) => {
                 <button
                   className="text-red-500"
                   onClick={() => {
-                    deleteAd(items._id);
+                    deleteAd(items?._id);
                     // console.log(items._id);
                   }}
                 >
@@ -137,6 +137,7 @@ const UserCard = ({ data, inp }) => {
   return (
     <section className="mx-auto px-4 max-w-screen-xl md:px-8">
       <PaginatedItems items={filteredData} itemsPerPage={8}  />
+      user
     </section>
   );
 };
