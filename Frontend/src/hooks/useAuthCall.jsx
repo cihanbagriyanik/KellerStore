@@ -251,7 +251,7 @@ const useAuthCall = () => {
     try {
       if (user?._id) {
         const follower = await axios.get(
-          `https://kellerstore.onrender.com/follow/follower`,
+          `${BASE_URL}follow/follower`,
           {
             headers: {
               Authorization: `Bearer ${access}`,
@@ -263,8 +263,8 @@ const useAuthCall = () => {
         dispatch(followerSucces(follower?.data.data));
       }
     } catch (error) {
-      toastErrorNotify(error);
-      toastErrorNotify("followerget");
+    //  toastErrorNotify(error);
+
     }
   };
   return {

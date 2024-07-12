@@ -14,7 +14,7 @@ import useAuthCall from "../hooks/useAuthCall";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const { access, user,  } = useSelector((state) => state.auth);
+  const { access, user } = useSelector((state) => state.auth);
   const { favorUser } = useSelector((state) => state.category);
   const { refresh, logout } = useAuthCall();
   //console.log(user);
@@ -41,23 +41,30 @@ const Navbar = () => {
   /********************** REFRESH **********************/
   /**************************************************** */
   useEffect(() => {
-    const refreshInterval = setInterval(async () => {
-      if (access) {
-        const tokenExpirationTime = new Date(access.expiresAt).getTime();
+    console.log("sen nerdesin");
+    console.log(access);
+    let refreshInterval;
+    if (access) {
+      refreshInterval = setInterval(async () => {
+        const tokenExpirationTime = access.expiresAt;
+        console.log(tokenExpirationTime,"eeeeeeeeeee")
         const currentTime = new Date().getTime();
         const timeUntilExpiration = tokenExpirationTime - currentTime;
-        if (timeUntilExpiration <= 60000) { // 1 dakika kala token yenileme
+        console.log(timeUntilExpiration, "tommmmmmmmmmmmm");
+        if (timeUntilExpiration <= 60000) {
+          // 1 dakika kala token yenileme
           try {
+            console.log("gledik ");
             await refresh();
           } catch (error) {
             logout();
           }
         }
-      }
-    }, 480000); // 8 dakikada bir kontrol bak.....
+      }, 70000);
+    } // 8 dakikada bir kontrol bak.....
 
     return () => clearInterval(refreshInterval);
-  }, [access, refresh, logout, dispatch]);
+  }, [access, refresh, logout]);
 
   useEffect(() => {
     const handleBeforeUnload = () => {

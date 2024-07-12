@@ -283,9 +283,13 @@ module.exports = {
     console.log(id);
     const fav = await Favori.findOne({ adId: id });
     console.log(fav, "fav");
-    const users = await Promise.all(
-      fav.favorites.map((item) => User.findOne({ _id: item }))
-    );
+    let users = [];
+    if (fav) {
+      users = await Promise.all(
+        fav.favorites.map((item) => User.findOne({ _id: item }))
+      );
+    }
+
     console.log(users);
     // for (let item of fav.favorites) {
     //   const sert = await User.findOne({ _id: item });
@@ -311,14 +315,19 @@ module.exports = {
     } else {
       req.body.images = "resimyok.jpeg";
     }
-    const priceControl = await Ad.findById({ _id: req.params.id });
 
-    //console.log(priceControl, "pricecontrol");
-    const { price } = req.body;
+    const priceControl = await Ad.findById({ _id: req.params.id });
+        //console.log(priceControl, "pricecontrol");
+     const { price } = req.body;
+    const data = await Ad.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+      runValidators: true,
+    });
+
+   
     // console.log(price);
     if (priceControl.price > price) {
-      console.log("icerdeyiy")
-      users.forEach((item) => {
+      console.log("icerdeyiy");
+      users?.forEach((item) => {
         sendMail(
           item.email,
           "Welcome",
@@ -329,10 +338,6 @@ module.exports = {
         );
       });
     }
-
-    const data = await Ad.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-      runValidators: true,
-    });
 
     res.status(202).send({
       error: false,
